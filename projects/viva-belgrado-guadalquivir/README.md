@@ -37,7 +37,7 @@ Requiere Node 22, ffmpeg y Playwright con Chromium. El vídeo no lleva audio: la
 
 ## Reel de reseña · Colores Ruidosos (`reel.html`)
 
-Reel 9:16 de 80 s, sin narración, con las 34 tarjetas del guion (T1–T34) en 7 escenas. Las escenas 1–4 usan la estética del disco (la 4 es «En voz de la banda»: entrevista de Mondo Sonoro y cartel de gira); a los 42 s un barrido circular cambia al tema de Colores Ruidosos para la opinión, el 9/10 y el cierre.
+Reel 9:16 de 80 s, sin narración, con las 34 tarjetas del guion (T1–T34) en 7 escenas. Las escenas 1–4 usan la estética del disco (la 4 es «Lo que la banda dice» + cartel de gira); a los 42 s un barrido circular cambia al tema de Colores Ruidosos para la opinión, el 9/10 y el cierre.
 
 ```bash
 npm run preview:reel   # http://localhost:5173/reel.html

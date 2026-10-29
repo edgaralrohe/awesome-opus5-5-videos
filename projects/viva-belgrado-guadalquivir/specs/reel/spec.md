@@ -50,7 +50,7 @@ El paso de un mundo a otro es el giro narrativo: «esto es el disco» → «esto
 | E1 Gancho | 0–4 | T1 4 · T2 4 | Portada, zoom lento |
 | E2 Ficha | 4–14 | T3–T7 4 cada una | Portada arriba + tracklist |
 | E3 De qué va | 14–24 | T8–T11 5 cada una | Río/Córdoba → foto banda (T10–T11) |
-| E4 En voz de la banda + lo que viene | 24–42 | T12 4 · T13 5 · T14 5 · T15 6 · T16 3 · T17 5 · T18 4 · T19 4 | Hoja «Entrevista» con párrafos resaltados → cartel «En directo» (Barakaldo, nota Vernissage, gira 2027) |
+| E4 En voz de la banda + lo que viene | 24–42 | T12 4 · T13 5 · T14 5 · T15 6 · T16 3 · T17 5 · T18 4 · T19 4 | Hoja «Lo que la banda dice» con párrafos resaltados → cartel «En directo» (Barakaldo, nota Vernissage, gira 2027) |
 | E5 Crítica | 42–66 | T20 4 · T21 6 · T22 6 · T23 6 · T24 7 · T25 6 · T26 6 · T27 7 | Tema CR |
 | E6 Veredicto | 66–76 | T28 3 · T29 5 · T30 4 · T31 4 · T32 4 | Número grande |
 | E7 Cierre | 76–80 | T33 4 · T34 4 | Logo CR + @coloresruidosos |

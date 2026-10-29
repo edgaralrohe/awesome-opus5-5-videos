@@ -7,7 +7,7 @@ import { PRESENTACION, GIRA_2027 } from '../script.js';
 
 const X = 110, Y = 280, W = 860, H = 880;
 const SHEET = [[X, Y], [X + W, Y], [X + W, Y + H], [X, Y + H]];
-// Entrevista: tres párrafos; cada tarjeta (T13–T15) resalta el suyo.
+// «Lo que la banda dice»: tres párrafos; cada tarjeta (T13–T15) resalta el suyo.
 const PARAS = [[3, 6], [7, 10], [11, 14]];
 const highlight = (ctx, t, start, x, y, w, h, delay = 0) => {
   const m = ease.outCubic(clamp((t - start - delay) / 0.3));
@@ -37,7 +37,7 @@ export function createSheets(seed) {
   }));
 
   function interview(ctx, t, focus, focusStart) {
-    paper(ctx, t, 'ENTREVISTA', 500);
+    paper(ctx, t, 'LO QUE LA BANDA DICE', 500);
     const [a, b] = PARAS[focus] || [-1, -1];
     lines.forEach((l, i) => {
       if (!l.w) return;
