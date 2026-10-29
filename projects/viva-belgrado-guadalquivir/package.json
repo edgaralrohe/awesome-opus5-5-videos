@@ -1,0 +1,17 @@
+{
+  "name": "viva-belgrado-fluye",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pieza animada 9:16 con la identidad visual de «Mientras el Guadalquivir fluye y fluye y fluye»",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\"",
+    "preview": "node scripts/serve.mjs",
+    "render": "node scripts/render.mjs",
+    "frames": "node scripts/render.mjs --frames 0,2,5,7,9,13,16,18,21,23,25,28"
+  },
+  "devDependencies": {
+    "@fontsource/instrument-serif": "5.2.8",
+    "@fontsource/inter": "5.2.8"
+  }
+}
