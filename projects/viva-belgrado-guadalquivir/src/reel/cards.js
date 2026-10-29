@@ -11,11 +11,11 @@ export function drawCard(ctx, card, t, o) {
   const local = t - card.start;
   if (local < 0 || t > card.end) return null;
   const {
-    x, cy, maxW, size, family, weight = 400, color, lineH = 1.12, align = 'left',
+    x, cy, maxW, size, family, weight = 400, fontStyle = 'normal', color, lineH = 1.12, align = 'left',
     accentMode = 'pencil', accentColor = PALETTE.papel, markerInk = PALETTE.carbon,
   } = o;
   ctx.save();
-  ctx.font = `${weight} ${size}px ${family}`;
+  ctx.font = `${fontStyle} ${weight} ${size}px ${family}`;
   const measure = (s) => ctx.measureText(s).width;
   const lines = wrapLines(card.text, maxW, measure);
   const blockH = size * lineH * (lines.length - 1) + size;

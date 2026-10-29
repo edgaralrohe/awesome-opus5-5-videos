@@ -61,24 +61,30 @@ describe('wrap (R-T2)', () => {
 describe('script (R-T3)', () => {
   const sched = buildSchedule(CARDS, 120, 0);
 
-  test('30 tarjetas T1…T30 en orden', () => {
-    assert.equal(CARDS.length, 30);
+  test('34 tarjetas T1…T34 en orden', () => {
+    assert.equal(CARDS.length, 34);
     CARDS.forEach((c, i) => assert.equal(c.id, `T${i + 1}`));
     for (const c of CARDS) assert.ok(SCENES.some((s) => s.id === c.scene), c.id);
   });
 
   test('las escenas empiezan donde dice el guion (a 120 bpm)', () => {
-    const expected = { gancho: 0, ficha: 4, tema: 14, newsletter: 24, critica: 38, veredicto: 62, cierre: 72 };
+    const expected = { gancho: 0, ficha: 4, tema: 14, voz: 24, critica: 42, veredicto: 66, cierre: 76 };
     for (const [scene, start] of Object.entries(expected)) {
       const first = sched.find((c) => c.scene === scene);
       assert.ok(Math.abs(first.start - start) < 0.01, `${scene}: ${first.start}`);
     }
-    assert.ok(Math.abs(sched.at(-1).end - 76) < 0.01);
+    assert.ok(Math.abs(sched.at(-1).end - 80) < 0.01);
   });
 
-  test('T13–T15 pendientes; ≥ 4 pulsos salvo T24', () => {
-    for (const id of ['T13', 'T14', 'T15']) assert.equal(CARDS.find((c) => c.id === id).pending, true);
-    for (const c of CARDS) if (c.id !== 'T24') assert.ok(c.beats >= 4, c.id);
+  test('sin pendientes; ≥ 4 pulsos salvo frases muy cortas (T16 firma, T28)', () => {
+    assert.deepEqual(CARDS.filter((c) => c.pending).map((c) => c.id), []);
+    for (const c of CARDS) if (!['T16', 'T28'].includes(c.id)) assert.ok(c.beats >= 4, c.id);
+  });
+
+  test('la cita de T15 es literal y lleva fuente (titular de Mondo Sonoro, 23/10/2026)', () => {
+    const q = CARDS.find((c) => c.id === 'T15');
+    assert.equal(q.text, '«Una de las responsabilidades de hacerse mayor es ser feliz.»');
+    assert.match(q.source, /mondosonoro\.com/);
   });
 
   test('el BPM y el offset por defecto son válidos', () => {

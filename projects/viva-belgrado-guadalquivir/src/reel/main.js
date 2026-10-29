@@ -12,7 +12,7 @@ import { buildSchedule, cardAt, beatPhase } from './schedule.js';
 import { drawCard, drawPendingStamp } from './cards.js';
 import { loadImage, drawCover } from './images.js';
 import { createCover, drawTracklist } from './scenes/cover.js';
-import { createNewsletter } from './scenes/newsletter.js';
+import { createSheets } from './scenes/sheet.js';
 import { createCRBackground, drawScore, drawLogo } from './scenes/cr.js';
 import { CR } from './theme.js';
 
@@ -27,9 +27,12 @@ const first = (scene) => SCHEDULE.find((c) => c.scene === scene);
 const card = (id) => SCHEDULE.find((c) => c.id === id);
 const T = Object.fromEntries(SCENES.map((s) => [s.id, first(s.id).start]));
 const CR_START = T.critica;
+const SCORE = SCHEDULE.find((c) => c.style === 'score');
+const SWAP = SCHEDULE.find((c) => c.sheet === 'gira').start;
+const NOTE = SCHEDULE.find((c) => c.accent?.includes('«Vernissage».')).start;
 const MAX_W = WIDTH - SAFE.x * 2;
 
-let bg, grain, river, drawRiver, cover, newsletter, crBg, images, band;
+let bg, grain, river, drawRiver, cover, sheets, crBg, images, band;
 
 async function init() {
   await Promise.all([
@@ -43,7 +46,7 @@ async function init() {
   river = createRiver();
   drawRiver = createRiverRenderer(river, SEED);
   cover = createCover(portada, SEED);
-  newsletter = createNewsletter(SEED);
+  sheets = createSheets(SEED);
   crBg = createCRBackground(SEED);
   band = [130, 215, 300, 385].map((x) => [x, bankY(x) + 12]);
   renderFrame(0);
@@ -54,17 +57,19 @@ function cardStyle(c) {
   const cr = SCENES.find((s) => s.id === c.scene).world === 'cr';
   const base = cr
     ? { family: `${SANS}, "Noto Color Emoji"`, weight: 700, size: 82, color: CR.ink, accentMode: 'marker', accentColor: CR.highlight, markerInk: CR.markerInk }
-    : { family: SERIF, weight: 400, size: 86, color: PALETTE.papel, accentMode: 'pencil', accentColor: PALETTE.papel };
+    : { family: `${SERIF}, "Noto Color Emoji"`, weight: 400, size: 86, color: PALETTE.papel, accentMode: 'pencil', accentColor: PALETTE.papel };
   const o = { ...base, x: SAFE.x, maxW: MAX_W, cy: 1000 };
   if (c.style === 'title') Object.assign(o, { size: 106, lineH: 1.0 });
   if (c.style === 'big') Object.assign(o, { size: 132 });
+  if (c.style === 'quote') Object.assign(o, { size: 88, fontStyle: 'italic' });
+  if (c.style === 'attribution') Object.assign(o, { size: 46, family: SANS, weight: 500 });
   if (c.style === 'handle') Object.assign(o, { size: 104, align: 'center', x: WIDTH / 2 });
   switch (c.scene) {
     case 'gancho': o.cy = 1400; break;
     case 'ficha': o.cy = 1030; break;
     case 'tema': o.cy = c.photo ? 1110 : 1330; break;
-    case 'newsletter': o.cy = 1400; break;
-    case 'veredicto': o.cy = ['T27', 'T28'].includes(c.id) ? 1220 : 980; break;
+    case 'voz': o.cy = c.style === 'quote' ? 1340 : c.style === 'attribution' ? 1560 : 1400; break;
+    case 'veredicto': o.cy = c.index > SCORE.index ? 1220 : 980; break;
     case 'cierre': o.cy = 1220; break;
   }
   return o;
@@ -95,9 +100,9 @@ function renderDisco(t, current) {
   }
 
   // E3 río + Córdoba + banda; luego la foto.
-  if (t >= T.tema - 0.3 && t < T.newsletter + 0.5) {
+  if (t >= T.tema - 0.3 && t < T.voz + 0.5) {
     const photoT = card('T10').start;
-    const away = progress(t, T.newsletter - 0.2, T.newsletter + 0.4);
+    const away = progress(t, T.voz - 0.2, T.voz + 0.4);
     const dim = lerp(1, 0.18, progress(t, photoT - 0.2, photoT + 0.3)) * (1 - away);
     drawRiver(ctx, t, { alpha: progress(t, T.tema - 0.3, T.tema + 0.8) * dim });
     drawCordoba(ctx, t, { draw: ease.outCubic(progress(t, T.tema, T.tema + 2.4)), fill: progress(t, T.tema + 1.2, T.tema + 2.6), alpha: dim, ground: dim });
@@ -114,7 +119,7 @@ function renderDisco(t, current) {
       ctx.fillStyle = PALETTE.papel;
       ctx.fillRect(-w / 2 - 16, -h / 2 - 16, w + 32, h + 32);
       ctx.filter = 'grayscale(1) contrast(1.08) brightness(0.95)';
-      const kb = 1 + 0.04 * progress(t, photoT, T.newsletter);
+      const kb = 1 + 0.04 * progress(t, photoT, T.voz);
       ctx.save();
       ctx.beginPath();
       ctx.rect(-w / 2, -h / 2, w, h);
@@ -143,20 +148,20 @@ function renderDisco(t, current) {
     }
   }
 
-  // E4 newsletter.
-  if (t >= T.newsletter - 0.1) {
-    const focus = ['T13', 'T14', 'T15'].indexOf(current.id);
-    newsletter(ctx, t, { enter: T.newsletter - 0.1, focus, focusStart: current.start });
+  // E4 en voz de la banda: entrevista → cartel de gira.
+  if (t >= T.voz - 0.1) {
+    const focusCard = current.keepPrev ? SCHEDULE[current.index - 1] : current;
+    sheets(ctx, t, { enter: T.voz - 0.1, swapAt: SWAP, focus: current.focus ?? -1, focusStart: focusCard.start, noteStart: t >= NOTE ? NOTE : null });
   }
 }
 
 // ── Mundo Colores Ruidosos (E5–E7) ──────────────────────────
 function renderCR(t, current, beat) {
   crBg(ctx, t, beat);
-  const sc = card('T26');
-  if (t >= sc.start && current.scene === 'veredicto') {
-    const small = ease.inOutSine(progress(t, card('T27').start - 0.1, card('T27').start + 0.4));
-    drawScore(ctx, t, { start: sc.start, cx: WIDTH / 2, cy: lerp(820, 380, small), scale: lerp(1, 0.42, small), beat });
+  if (t >= SCORE.start && current.scene === 'veredicto') {
+    const next = SCHEDULE[SCORE.index + 1].start;
+    const small = ease.inOutSine(progress(t, next - 0.1, next + 0.4));
+    drawScore(ctx, t, { start: SCORE.start, cx: WIDTH / 2, cy: lerp(820, 380, small), scale: lerp(1, 0.42, small), beat });
   }
   if (current.scene === 'cierre') drawLogo(ctx, t, { img: images.logo, cx: WIDTH / 2, cy: 680, start: T.cierre });
 }
@@ -182,7 +187,11 @@ export function renderFrame(t) {
     ctx.restore();
   }
 
-  if (current.id !== 'T26') {
+  if (current.keepPrev) {
+    const prev = SCHEDULE[current.index - 1];
+    drawCard(ctx, { ...prev, end: current.end }, t, cardStyle(prev));
+  }
+  if (current.style !== 'score') {
     const o = cardStyle(current);
     const box = drawCard(ctx, current, t, o);
     if (current.pending && box) drawPendingStamp(ctx, WIDTH / 2, box.bottom + 120, t, t - current.start);

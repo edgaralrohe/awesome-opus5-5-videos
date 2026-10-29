@@ -37,7 +37,7 @@ Requiere Node 22, ffmpeg y Playwright con Chromium. El vídeo no lleva audio: la
 
 ## Reel de reseña · Colores Ruidosos (`reel.html`)
 
-Reel 9:16 de 76 s, sin narración, con las 30 tarjetas del guion (T1–T30) en 7 escenas. Las escenas 1–4 usan la estética del disco; a los 38 s un barrido circular cambia al tema de Colores Ruidosos para la opinión, el 9/10 y el cierre.
+Reel 9:16 de 80 s, sin narración, con las 34 tarjetas del guion (T1–T34) en 7 escenas. Las escenas 1–4 usan la estética del disco (la 4 es «En voz de la banda»: entrevista de Mondo Sonoro y cartel de gira); a los 42 s un barrido circular cambia al tema de Colores Ruidosos para la opinión, el 9/10 y el cierre.
 
 ```bash
 npm run preview:reel   # http://localhost:5173/reel.html
@@ -54,6 +54,6 @@ npm run render:reel -- --audio "super-futuro.mp3" --audio-start 42   # con la ca
 | Logo, portada en alta resolución | `assets/logo-cr.png`, `assets/portada.jpg` (si no están, se usan versiones procedurales) |
 | Foto de la banda | `assets/banda.jpg` (recortada del cartel) |
 
-**Pendiente:** T13–T15 (datos de la newsletter) salen con el sello **PENDIENTE** y el render avisa por consola. Verificación de datos en [`specs/reel/spec.md`](specs/reel/spec.md) §6.
+Si alguna tarjeta se marca `pending: true`, sale con el sello **PENDIENTE** y el render avisa por consola. Verificación de datos en [`specs/reel/spec.md`](specs/reel/spec.md) §6.
 
 Las imágenes de `assets/referencias/` son carteles del disco usados solo como guía de estilo. Esta es una pieza no oficial.
