@@ -153,6 +153,7 @@ async function init() {
 }
 
 window.__ready = init();
+window.__duration = DURATION;
 window.__renderFrame = (t) => {
   renderFrame(t);
   return canvas.toDataURL('image/png');

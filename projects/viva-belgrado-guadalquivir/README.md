@@ -33,4 +33,27 @@ Requiere Node 22, ffmpeg y Playwright con Chromium. El vídeo no lleva audio: la
 - **Lenguaje cartoon:** *line boil* a 12 fps (animar a doses), squash & stretch, rebotes con *overshoot* y movimiento secundario (cabeceo a ~120 bpm, una cabeza que se apoya en el hombro de al lado, otra que mira al cielo).
 - **Identidad:** cinco tokens monocromos (`src/config.js`), nube analógica fBm, grano de película, motas bokeh, Instrument Serif más Inter Bold.
 
+---
+
+## Reel de reseña · Colores Ruidosos (`reel.html`)
+
+Reel 9:16 de 76 s, sin narración, con las 30 tarjetas del guion (T1–T30) en 7 escenas. Las escenas 1–4 usan la estética del disco; a los 38 s un barrido circular cambia al tema de Colores Ruidosos para la opinión, el 9/10 y el cierre.
+
+```bash
+npm run preview:reel   # http://localhost:5173/reel.html
+npm run frames:reel    # hoja de contactos
+npm run render:reel    # out/reel-9x16.mp4
+npm run render:reel -- --audio "super-futuro.mp3" --audio-start 42   # con la canción, fundido de entrada y salida
+```
+
+| Qué cambiar | Dónde |
+|---|---|
+| Textos, duración de cada tarjeta (en pulsos), palabras resaltadas | `src/reel/script.js` |
+| Tempo de la canción y punto del primer pulso | `BPM` y `OFFSET` en `src/reel/script.js` |
+| Colores de la marca | `src/reel/theme.js` (**provisional**) |
+| Logo, portada en alta resolución | `assets/logo-cr.png`, `assets/portada.jpg` (si no están, se usan versiones procedurales) |
+| Foto de la banda | `assets/banda.jpg` (recortada del cartel) |
+
+**Pendiente:** T13–T15 (datos de la newsletter) salen con el sello **PENDIENTE** y el render avisa por consola. Verificación de datos en [`specs/reel/spec.md`](specs/reel/spec.md) §6.
+
 Las imágenes de `assets/referencias/` son carteles del disco usados solo como guía de estilo. Esta es una pieza no oficial.
