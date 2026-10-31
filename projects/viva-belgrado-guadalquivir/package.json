@@ -11,7 +11,9 @@
     "frames": "node scripts/render.mjs --frames 0,2,5,7,9,13,16,18,21,23,25,28",
     "preview:reel": "node scripts/serve.mjs",
     "frames:reel": "node scripts/render.mjs --page reel.html --frames 1,3,6,12.5,16,21,26,33,40,47,64,67,70,73,75.5",
-    "render:reel": "node scripts/render.mjs --page reel.html"
+    "render:reel": "node scripts/render.mjs --page reel.html",
+    "frames:noche": "node scripts/render.mjs --page noche.html --frames 2,5,7,11,13,17,20,23.15,25.5,29,30.5,34.5",
+    "render:noche": "node scripts/render.mjs --page noche.html"
   },
   "devDependencies": {
     "@fontsource/instrument-serif": "5.2.8",
