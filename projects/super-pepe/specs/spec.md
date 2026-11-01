@@ -91,6 +91,21 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 | 8 | **Querido…** | 2026 | verde | 7.º disco, 13 canciones, **epistolar** y con aire **medieval**, cuerdas, sin sencillos. Portada: dos pierrots con perlas | Castillo medieval de cartas; los sobres son checkpoints; dos rutas (las «dos caras») |
 | ★ | **Érase una Bestia** (epílogo) | 2026 | todos | Su primer estadio: Estadio GNP Seguros, 24 ene 2026 | Escenario de estadio con público; jefe final del juego |
 
+### 3.0 Arte v3: hoja oficial de Pepe y enemigos en el mismo estilo
+- **Pepe** sale de la hoja de sprites de Colores Ruidosos (`art/source/pepe-sheet.jpg`, 29 poses: reposo 4, carrera 8, agacharse 2, salto 2, aterrizaje 1, lanzar micro 2, grito 3, KO 2, daño 1, victoria 4).
+- **Pipeline** `scripts/slice_sheet.py`: quita el fondo liso, separa fotogramas por componentes conectados, une los efectos a su fotograma, reduce a **48 px** de alto con una paleta común de 48 colores (aspecto 16 bits), calcula el ancla (centro de los pies) y genera `src/data/<nombre>-atlas.js`. **Cualquier hoja nueva con el mismo formato entra al juego sin trabajo manual.**
+- En «lanzar micro» se borra el micrófono dibujado más allá de la mano; el juego dibuja el cable con su alcance real.
+- **Enemigos:** ilustraciones *chibi* (contorno grueso oscuro, ojos grandes, sombreado plano) generadas por código en SVG y pasadas por el **mismo pipeline**, para que todo el reparto sea coherente. El arte final se puede sustituir por hojas hechas por CR siguiendo `art/BRIEF-enemigos.md`.
+- **Hitbox de Pepe:** 14×40 px (sprite de 48 px; algo de margen a favor del jugador).
+
+| Enemigo (prensa genérica) | Carácter | Comportamiento | Fotogramas |
+|---|---|---|---|
+| **Titular** | `T` | Periódico con patas que grita su titular; patrulla sin caerse de los bordes | andar 4 · derrotado 1 |
+| **Paparazzi** | `F` | Fotógrafo genérico (gorra, gafas, gabardina, cámara). Si te tiene delante, se para, apunta y **dispara el flash: te congela 0,6 s** (sin daño; flash suave, < 3 Hz) | andar 2 · apuntar 1 · flash 1 · derrotado 1 |
+| **Reportero** | `R` | Reportero genérico (traje y micrófono sin logo). Si te ve, **embiste** hacia ti, se para y vuelve a intentarlo | andar 2 · embestida 1 · derrotado 1 |
+
+Todos se vencen pisándolos o con el micrófono, y al caer muestran una frase verificada de Madero.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

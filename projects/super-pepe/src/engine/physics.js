@@ -2,7 +2,7 @@ import { P, DT } from '../game/constants.js';
 import { moveBody } from './tilemap.js';
 
 export function createPlayer(spawn) {
-  return { x: spawn.x - P.w / 2, y: spawn.y - P.h, w: P.w, h: P.h, vx: 0, vy: 0, onGround: false, coyote: 0, buffer: 0, facing: 1, jumping: false, hooked: null };
+  return { x: spawn.x - P.w / 2, y: spawn.y - P.h, w: P.w, h: P.h, vx: 0, vy: 0, onGround: false, coyote: 0, buffer: 0, facing: 1, jumping: false, hooked: null, frozen: 0, landT: 1 };
 }
 
 const approach = (v, target, step) => (v < target ? Math.min(target, v + step) : Math.max(target, v - step));
@@ -12,7 +12,7 @@ export function stepPlayerMotion(p, btn, L, dt = DT) {
   const events = [];
   if (p.hooked) {
     // El micrófono tira de Pepe hacia el gancho.
-    const dx = p.hooked.x - (p.x + p.w / 2), dy = p.hooked.y - (p.y + 10);
+    const dx = p.hooked.x - (p.x + p.w / 2), dy = p.hooked.y - (p.y + (p.hooked.oy ?? 10));
     const d = Math.hypot(dx, dy) || 1;
     p.vx = (dx / d) * p.hooked.pull;
     p.vy = (dy / d) * p.hooked.pull;

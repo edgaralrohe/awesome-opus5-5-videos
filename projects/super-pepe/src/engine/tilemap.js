@@ -1,7 +1,7 @@
 import { TILE } from '../game/constants.js';
 
 // Niveles como texto: '#' sólido, '=' semisólido, '^' pinchos, 'H' gancho, '*' pieza,
-// 'P' Pepe, 'T' Titular, 'C' checkpoint, 'G' puerta (meta). Un carácter = 16×16 px.
+// 'P' Pepe, 'T' Titular, 'F' Paparazzi, 'R' Reportero, 'C' checkpoint, 'G' puerta (meta). Un carácter = 16×16 px.
 export function parseLevel(text) {
   const rows = text.split('\n');
   const h = rows.length, w = Math.max(...rows.map((r) => r.length));
@@ -13,7 +13,9 @@ export function parseLevel(text) {
       const feet = { x: tx * TILE + TILE / 2, y: (ty + 1) * TILE };
       const center = { x: tx * TILE + TILE / 2, y: ty * TILE + TILE / 2 };
       if (c === 'P') L.player = feet;
-      else if (c === 'T') L.enemies.push(feet);
+      else if (c === 'T') L.enemies.push({ ...feet, kind: 'titular' });
+      else if (c === 'F') L.enemies.push({ ...feet, kind: 'paparazzi' });
+      else if (c === 'R') L.enemies.push({ ...feet, kind: 'reportero' });
       else if (c === '*') L.pieces.push(center);
       else if (c === 'H') L.hooks.push(center);
       else if (c === 'C') L.checkpoints.push(feet);

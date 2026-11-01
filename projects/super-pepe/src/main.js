@@ -73,18 +73,18 @@ function frame(now) {
   }
   const p = game.player;
   camX = followCamera(camX, p.x + p.w / 2, game.level.w * 16, p.facing * 24);
-  if (screen === 'title') drawTitle(ctx, t);
+  if (screen === 'title') drawTitle(ctx, t, art);
   else {
     drawWorld(ctx, game, art, camX, t);
     drawHud(ctx, game);
-    if (screen === 'end') drawEnd(ctx, game, store.get());
+    if (screen === 'end') drawEnd(ctx, game, store.get(), art, t);
     if (paused) { ctx.fillStyle = 'rgba(27,18,38,0.7)'; ctx.fillRect(0, 0, W, H); }
   }
   requestAnimationFrame(frame);
 }
 // Acceso para pruebas automáticas (no afecta al juego).
 window.__jmv = { get game() { return game; }, start() { startPressed = true; } };
-requestAnimationFrame(frame);
+art.ready.then(() => requestAnimationFrame(frame));
 
 // Escalado: entero cuando cabe (píxeles nítidos); fraccionario en pantallas pequeñas.
 function fit() {

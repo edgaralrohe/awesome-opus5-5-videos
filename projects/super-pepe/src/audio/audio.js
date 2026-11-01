@@ -57,6 +57,8 @@ export function createAudio() {
     defeat: () => { tone('square', 660, 660, 0.06, 0.1); setTimeout(() => tone('square', 990, 990, 0.1, 0.1), 60); },
     piece: () => { tone('square', 988, 988, 0.05, 0.1); setTimeout(() => tone('square', 1319, 1319, 0.12, 0.1), 50); },
     hurt: () => tone('sawtooth', 300, 80, 0.3, 0.16),
+    flash: () => tone('square', 2400, 1800, 0.06, 0.06),
+    dash: () => tone('sawtooth', 200, 500, 0.15, 0.08),
     checkpoint: () => tone('triangle', 523, 1046, 0.25, 0.2),
     won: () => [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.15, 0.12), i * 110)),
     gameover: () => [392, 330, 262].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.25, 0.2), i * 180)),

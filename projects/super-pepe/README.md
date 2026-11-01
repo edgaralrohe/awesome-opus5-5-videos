@@ -12,12 +12,14 @@ Homenaje **no oficial** hecho por fans (Colores Ruidosos). Spec en [`specs/`](sp
 | Pausa · Música | P · M | — | — |
 
 ```bash
-npm test      # 20 tests: física, colisiones, micrófono, Titular, bot que completa el nivel, navegador
+npm test      # 27 tests: física, colisiones, micrófono, Titular, bot que completa el nivel, navegador
 npm run dev   # http://localhost:5174
 npm run build # dist/mexico-vs-jose-madero.html
 ```
 
-Qué incluye el prototipo v0.1:
+Qué incluye el prototipo v0.2:
+- **Sprites oficiales de Pepe** (hoja de Colores Ruidosos, 29 poses) recortados automáticamente con `scripts/slice_sheet.py`.
+- **Enemigos en el mismo estilo:** Titular, **Paparazzi** (el flash te congela) y **Reportero** (embiste). Arte provisional en SVG; brief para el arte final en `art/BRIEF-enemigos.md`.
 - Física con salto variable, *coyote time* y *jump buffer*.
 - Micrófono con cable y asistencia de puntería hacia los ganchos.
 - Enemigo Titular que muestra frases verificadas, con fuente, al derrotarlo.

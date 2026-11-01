@@ -41,3 +41,22 @@ test('START arranca la partida y Pepe se mueve a la derecha', async () => {
   await page.screenshot({ path: 'out/03-juego.png' });
   assert.deepEqual(errors, []);
 });
+
+test('no quedan restos de fotogramas anteriores en los fosos', async () => {
+  // Dos posiciones de cámara que acaban en el mismo sitio deben pintar exactamente lo mismo.
+  const shot = async (from) => {
+    await page.evaluate((x) => { const g = window.__jmv.game; g.player.x = x; g.player.y = 120; g.player.vy = 0; }, from);
+    await page.waitForTimeout(120);
+    await page.evaluate(() => { const g = window.__jmv.game; g.player.x = 600; g.player.y = 152; g.player.vy = 0; });
+    await page.waitForTimeout(400);
+    return page.evaluate(() => {
+      const c = document.getElementById('game');
+      const d = c.getContext('2d').getImageData(140, 190, 100, 34).data; // franja baja del foso
+      let dark = 0;
+      for (let i = 0; i < d.length; i += 4) if (d[i] === 0x1b && d[i + 1] === 0x12 && d[i + 2] === 0x26) dark++;
+      return dark;
+    });
+  };
+  const a = await shot(200), b = await shot(1500);
+  assert.equal(a, b);
+});

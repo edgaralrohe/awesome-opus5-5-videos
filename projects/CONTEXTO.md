@@ -1,6 +1,6 @@
 # Contexto para retomar el trabajo (Colores Ruidosos)
 
-> Última actualización: 1 nov 2026. Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: 1 nov 2026 (sprites oficiales y enemigos nuevos). Pega este archivo, o su ruta, al empezar una sesión nueva.
 
 ## Quién y cómo trabajamos
 - **Cliente:** Colores Ruidosos (@coloresruidosos), medio musical que hace reels de Instagram y una web. Escribe en español.
@@ -34,7 +34,13 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. Más de 50 
 
 ### 2. `projects/super-pepe/` — juego «MÉXICO VS. JOSÉ MADERO» (en curso)
 - **Spec v2:** `specs/spec.md`, `plan.md`, `tasks.md`. Referencias en `specs/referencias/` (dibujo de Pepe hecho por CR, captura de *Spin Master* y la playera).
-- **Prototipo v0.1 jugable:** `dist/mexico-vs-jose-madero.html`, un solo archivo de unos 32 KB que funciona sin servidor. `npm test` pasa 20 tests (incluido un bot que completa el nivel). `npm run dev` lo sirve en :5174 y `npm run build` genera el archivo único.
+- **Prototipo v0.2 jugable:** `dist/mexico-vs-jose-madero.html`, un solo archivo de unos 157 KB que funciona sin servidor y en el móvil. `npm test` pasa 27 tests (física, micrófono, enemigos, atlas, un bot que completa el nivel y pruebas en navegador). `npm run dev` lo sirve en :5174 y `npm run build` genera el archivo único.
+- **Arte v3:**
+  - Pepe usa la **hoja oficial de CR** (`art/source/pepe-sheet.jpg`, 29 poses).
+  - `scripts/slice_sheet.py` recorta cualquier hoja sobre fondo liso: genera un atlas de 48 px con paleta de 48 colores, ancla en los pies y el resultado en `src/data/<nombre>-atlas.js`.
+  - Enemigos *chibi* provisionales en SVG (`scripts/enemies-svg.mjs` → `art/source/enemies-sheet.png` → `enemies-atlas.js`): **Titular** (`T`), **Paparazzi** (`F`, el flash congela 0,6 s) y **Reportero** (`R`, embiste).
+  - El brief para el arte final de enemigos está en `art/BRIEF-enemigos.md`.
+  - Caja de colisión de Pepe: 14×40; mano a 29 px del suelo; el micro apunta y sigue al gancho elegido (asistencia de puntería).
 - **Motor propio:**
   - `src/engine/`: tilemap de texto, física, cámara y botones.
   - `src/game/`: lógica del juego y constantes de ajuste en `constants.js`.
@@ -62,6 +68,8 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. Más de 50 
 5. Aprobar o cambiar la lista de enemigos y jefes.
 6. Marca real de Colores Ruidosos (logo y colores) para sustituir el tema provisional del reel y del cierre.
 7. ¿Publicar el juego como enlace privado? (Usa el nombre de un artista real: que decida el usuario.)
+
+8. Arte final de los enemigos según `art/BRIEF-enemigos.md` (opcional: los provisionales funcionan).
 
 **Siguiente tarea natural:** con el feedback, construir el **Mundo 1 «Carmesí»**: nivel rojo; enemigos Lunes 28, Libro ruso y Espina; jefe **La Rosa Carmesí**, que suelta el **Disco de Oro**; tarjeta «¿Sabías que…?». Seguir `specs/tasks.md`, fase 2 (J1–J8), con TDD.
 

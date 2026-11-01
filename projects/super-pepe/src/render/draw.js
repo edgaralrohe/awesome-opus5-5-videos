@@ -1,8 +1,8 @@
 import { W, H, TILE, MIC } from '../game/constants.js';
-import { PAL } from './palette.js';
 import { GLYPHS, ADVANCE, textWidth } from './font.js';
-import { buildPepe, PEPE_FRAMES, TITULAR_ROWS } from './sprites.js';
 import { micHand, micTip } from '../game/game.js';
+import { PEPE_META, PEPE_PNG } from '../data/pepe-atlas.js';
+import { ENEMIES_META, ENEMIES_PNG } from '../data/enemies-atlas.js';
 
 const hash = (a, b) => {
   let h = (Math.imul(a | 0, 0x27d4eb2d) ^ Math.imul(b | 0, 0x165667b1)) >>> 0;
@@ -37,26 +37,27 @@ export function wrap(str, maxChars) {
   return out;
 }
 
-// ── Sprites precalculados ──────────────────────────────────
-function rowsToCanvas(rows, flip = false) {
-  const c = canvas(rows[0].length, rows.length), g = c.getContext('2d');
-  rows.forEach((r, y) => [...r].forEach((ch, x) => {
-    if (ch === '.' || !PAL[ch]) return;
-    g.fillStyle = PAL[ch];
-    g.fillRect(flip ? r.length - 1 - x : x, y, 1, 1);
-  }));
-  return c;
-}
+// ── Sprites (atlas generados por scripts/slice_sheet.py) ──
+const loadImage = (src) => { const img = new Image(); img.src = src; return img; };
 
 export function createArt(level) {
-  const pepe = {};
-  for (const f of PEPE_FRAMES) {
-    const rows = buildPepe(f);
-    pepe[f.name] = [rowsToCanvas(rows), rowsToCanvas(rows, true)];
-  }
-  const titular = [rowsToCanvas(TITULAR_ROWS), rowsToCanvas(TITULAR_ROWS, true)];
-  return { pepe, titular, tiles: renderTiles(level), far: renderFar(), mid: renderMid() };
+  const pepe = { img: loadImage(PEPE_PNG), meta: PEPE_META };
+  const foes = { img: loadImage(ENEMIES_PNG), meta: ENEMIES_META };
+  const ready = Promise.all([pepe.img.decode(), foes.img.decode()]);
+  return { pepe, foes, ready, tiles: renderTiles(level), far: renderFar(), mid: renderMid() };
 }
+
+// Dibuja el fotograma `key` con su ancla (centro de los pies) en (x, y); flip = mirando a la izquierda.
+export function sprite(ctx, sheet, key, x, y, flip = false) {
+  const f = sheet.meta.frames[key];
+  if (!f) return;
+  ctx.save();
+  ctx.translate(Math.round(x), Math.round(y));
+  if (flip) ctx.scale(-1, 1);
+  ctx.drawImage(sheet.img, f.x, f.y, f.w, f.h, -f.ax, -f.ay, f.w, f.h);
+  ctx.restore();
+}
+const loop = (sheet, anim, t, fps) => { const a = sheet.meta.anims[anim]; return a[Math.floor(t * fps) % a.length]; };
 
 // ── Escenario ─────────────────────────────────────────────
 const SKY = ['#2a1748', '#3d1d5c', '#5a2468', '#82306d', '#b2466a', '#e0715e', '#f2a55a'];
@@ -139,6 +140,8 @@ function renderTiles(L) {
 
 // ── Fotograma ─────────────────────────────────────────────
 export function drawWorld(ctx, g, art, camX, t) {
+  // Fondo completo en cada fotograma (si no, en los fosos quedan restos de fotogramas anteriores).
+  ctx.fillStyle = '#1b1226'; ctx.fillRect(0, 0, W, H);
   for (let i = 0; i < SKY.length; i++) { ctx.fillStyle = SKY[i]; ctx.fillRect(0, Math.floor((i * 168) / SKY.length), W, 30); }
   ctx.fillStyle = '#ffe9a8'; ctx.beginPath(); ctx.arc(250, 150, 18, 0, Math.PI * 2); ctx.fill();
   const fx = -Math.floor(camX * 0.2) % 960;
@@ -189,49 +192,67 @@ export function drawWorld(ctx, g, art, camX, t) {
     ctx.fillStyle = '#fff2b0'; ctx.fillRect(pc.x - sx, yy - 6, Math.max(1, sx - 1), 3);
     ctx.fillStyle = '#1b1226'; ctx.fillRect(pc.x - 1, yy - 1, 2, 2);
   }
-  // Titulares.
+  // Enemigos de prensa.
   for (const e of g.enemies) {
     if (!e.alive && e.deadT > 0.8) continue;
-    const img = art.titular[e.vx > 0 ? 1 : 0];
+    const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
+    const A = { titular: ['titularWalk', 'titularKo'], paparazzi: ['papWalk', 'papKo'], reportero: ['repWalk', 'repKo'] }[e.kind];
     if (!e.alive) {
-      ctx.save(); ctx.translate(e.x + e.w / 2, e.y + e.deadT * 120); ctx.rotate(Math.PI); ctx.globalAlpha = 1 - e.deadT / 0.8;
-      ctx.drawImage(img, -10, -11); ctx.restore();
+      ctx.save(); ctx.globalAlpha = 1 - e.deadT / 0.8;
+      sprite(ctx, art.foes, art.foes.meta.anims[A[1]][0], fx, fy + e.deadT * 30, flip);
+      ctx.restore();
       continue;
     }
-    const bob = Math.floor(t * 8) % 2;
-    ctx.drawImage(img, Math.round(e.x), Math.round(e.y) - bob);
-    const bw = textWidth(e.word) + 6;
-    ctx.fillStyle = '#1b1226'; ctx.fillRect(Math.round(e.x + e.w / 2 - bw / 2) - 1, Math.round(e.y) - 15, bw + 2, 12);
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(e.x + e.w / 2 - bw / 2), Math.round(e.y) - 14, bw, 10);
-    text(ctx, e.word, Math.round(e.x + e.w / 2), Math.round(e.y) - 13, { color: '#d8312b', align: 'center', shadow: null });
+    let key = loop(art.foes, A[0], t, e.kind === 'titular' ? 8 : 6);
+    if (e.kind === 'paparazzi' && e.state !== 'walk') key = e.state === 'flash' ? 'papFlash0' : 'papAim0';
+    if (e.kind === 'reportero' && (e.state === 'dash' || e.state === 'windup')) key = 'repDash0';
+    if (e.kind === 'reportero' && e.state === 'rest') key = 'repWalk0';
+    sprite(ctx, art.foes, key, fx, fy, flip);
+    // Destello suave del flash (local, sin parpadeo de pantalla completa).
+    if (e.kind === 'paparazzi' && e.state === 'flash') {
+      ctx.save(); ctx.globalAlpha = 0.45 * (1 - e.t / 0.25); ctx.fillStyle = '#fff6a8';
+      ctx.beginPath(); ctx.arc(fx + e.facing * 10, fy - 38, 26, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+    const word = e.kind === 'titular' ? e.word : e.kind === 'paparazzi' && e.state === 'aim' ? '¡FOTO!' : e.kind === 'reportero' && e.state !== 'walk' && e.state !== 'rest' ? '¿DECLARACIONES?' : null;
+    if (word) {
+      const top = Math.round(e.y) - (e.kind === 'titular' ? 15 : 16);
+      const bw = textWidth(word) + 6;
+      ctx.fillStyle = '#1b1226'; ctx.fillRect(Math.round(fx - bw / 2) - 1, top - 1, bw + 2, 12);
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(fx - bw / 2), top, bw, 10);
+      text(ctx, word, Math.round(fx), top + 1, { color: '#d8312b', align: 'center', shadow: null });
+    }
   }
   // Micrófono con su cable.
   if (g.mic.phase !== 'idle') {
     const a = micHand(g), b = micTip(g);
-    const hx = a.x + g.mic.dir * 8;
+    const hx = a.x;
     ctx.strokeStyle = '#1b1226'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(hx, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     ctx.strokeStyle = '#5b6068'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(hx, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     ctx.fillStyle = '#1b1226'; ctx.fillRect(Math.round(b.x) - 4, Math.round(b.y) - 4, 8, 8);
     ctx.fillStyle = '#b9bec6'; ctx.fillRect(Math.round(b.x) - 3, Math.round(b.y) - 3, 6, 6);
     ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(b.x) - 2, Math.round(b.y) - 2, 2, 2);
   }
-  // Pepe.
+  // Pepe (sprites oficiales de la hoja de Colores Ruidosos).
   const p = g.player;
-  if (!(g.invuln > 0 && Math.floor(t * 15) % 2)) {
-    const name = pepeFrame(g, t);
-    const img = art.pepe[name][p.facing > 0 ? 0 : 1];
-    ctx.drawImage(img, Math.round(p.x + p.w / 2 - 12), Math.round(p.y + p.h - 32));
+  if (!(g.invuln > 0 && g.invuln < 1.1 && Math.floor(t * 15) % 2)) {
+    if (p.frozen > 0) ctx.filter = 'brightness(1.7) saturate(0.4)';
+    sprite(ctx, art.pepe, pepeFrame(g, t, art), p.x + p.w / 2, p.y + p.h, p.facing < 0);
+    ctx.filter = 'none';
   }
   ctx.restore();
 }
 
-function pepeFrame(g, t) {
-  const p = g.player, throwing = g.mic.phase !== 'idle';
-  if (g.invuln > 1.2) return 'hurt';
-  if (!p.onGround) return throwing ? 'throwAir' : 'jump';
-  if (throwing) return 'throw';
-  if (Math.abs(p.vx) > 10) return `run${Math.floor(t * 12) % 4}`;
-  return Math.floor(t * 2) % 2 ? 'idle2' : 'idle';
+function pepeFrame(g, t, art) {
+  const p = g.player, m = g.mic;
+  if (g.status === 'won') return loop(art.pepe, 'win', t, 8);
+  if (g.status === 'gameover') return 'ko1';
+  if (g.invuln > 1.1) return 'hurt0';
+  if (p.frozen > 0) return 'crouch0';
+  if (m.phase !== 'idle') return m.phase === 'out' && m.len < 20 ? 'throw0' : 'throw1';
+  if (!p.onGround) return p.vy < 0 ? 'jump0' : 'jump1';
+  if (p.landT < 0.08) return 'land0';
+  if (Math.abs(p.vx) > 10) return loop(art.pepe, 'run', t, 8 + (Math.abs(p.vx) / 130) * 8);
+  return loop(art.pepe, 'idle', t, 5);
 }
 
 export function drawHud(ctx, g) {
@@ -265,29 +286,36 @@ export function drawBadge(ctx, x, y) {
   text(ctx, 'JMV', x, y + 1, { scale: 3, align: 'center', bands: CHROME, shadow: '#1b1226' });
 }
 
-export function drawTitle(ctx, t) {
+export function drawTitle(ctx, t, art) {
   for (let i = 0; i < SKY.length; i++) { ctx.fillStyle = SKY[i]; ctx.fillRect(0, Math.floor((i * H) / SKY.length), W, 34); }
   drawBadge(ctx, W / 2, 22);
   text(ctx, 'MÉXICO', W / 2, 66, { scale: 3, align: 'center', color: '#f7c86a' });
   text(ctx, 'VS.', W / 2, 92, { scale: 2, align: 'center', color: '#ff5a4f' });
   text(ctx, 'JOSÉ MADERO', W / 2, 112, { scale: 3, align: 'center', bands: CHROME });
+  if (art) {
+    sprite(ctx, art.pepe, loop(art.pepe, 'shout', t, 6), 46, 168);
+    sprite(ctx, art.foes, loop(art.foes, 'titularWalk', t, 8), 268, 168, true);
+    sprite(ctx, art.foes, art.foes.meta.anims.papAim[0], 298, 168, true);
+  }
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START / A', W / 2, 152, { align: 'center' });
   text(ctx, 'PROTOTIPO JUGABLE · NIVEL DE PRUEBA', W / 2, 176, { align: 'center', color: '#f2c66a' });
   text(ctx, 'HOMENAJE NO OFICIAL HECHO POR FANS', W / 2, 196, { align: 'center', color: '#e6e9f0' });
   text(ctx, '@COLORESRUIDOSOS', W / 2, 208, { align: 'center', color: '#ff5a4f' });
 }
 
-export function drawEnd(ctx, g, best) {
+export function drawEnd(ctx, g, best, art, t = 0) {
   ctx.fillStyle = 'rgba(27,18,38,0.82)'; ctx.fillRect(0, 0, W, H);
   if (g.status === 'won') {
-    text(ctx, '¡PIEZA RECUPERADA!', W / 2, 58, { scale: 2, align: 'center', color: '#f7c86a' });
-    text(ctx, `TIEMPO ${g.time.toFixed(1)} S`, W / 2, 96, { align: 'center' });
-    text(ctx, `PIEZAS ${g.piezas}/${g.pieces.length}`, W / 2, 110, { align: 'center' });
-    if (best) text(ctx, `MEJOR TIEMPO ${best.toFixed(1)} S`, W / 2, 124, { align: 'center', color: '#b9c0d0' });
-    text(ctx, 'PRÓXIMAMENTE: MUNDO 1 · CARMESÍ', W / 2, 150, { align: 'center', color: '#ff5a4f' });
+    if (art) sprite(ctx, art.pepe, loop(art.pepe, 'win', t, 8), W / 2, 76);
+    text(ctx, '¡PIEZA RECUPERADA!', W / 2, 84, { scale: 2, align: 'center', color: '#f7c86a' });
+    text(ctx, `TIEMPO ${g.time.toFixed(1)} S`, W / 2, 110, { align: 'center' });
+    text(ctx, `PIEZAS ${g.piezas}/${g.pieces.length}`, W / 2, 122, { align: 'center' });
+    if (best) text(ctx, `MEJOR TIEMPO ${best.toFixed(1)} S`, W / 2, 134, { align: 'center', color: '#b9c0d0' });
+    text(ctx, 'PRÓXIMAMENTE: MUNDO 1 · CARMESÍ', W / 2, 156, { align: 'center', color: '#ff5a4f' });
   } else {
-    text(ctx, 'LOS TITULARES', W / 2, 70, { scale: 2, align: 'center', color: '#ff5a4f' });
-    text(ctx, 'GANARON ESTA VEZ…', W / 2, 92, { scale: 2, align: 'center', color: '#ff5a4f' });
+    if (art) sprite(ctx, art.pepe, 'ko1', W / 2, 70);
+    text(ctx, 'LOS TITULARES', W / 2, 84, { scale: 2, align: 'center', color: '#ff5a4f' });
+    text(ctx, 'GANARON ESTA VEZ…', W / 2, 106, { scale: 2, align: 'center', color: '#ff5a4f' });
   }
   text(ctx, 'PULSA A PARA REPETIR', W / 2, 180, { align: 'center' });
 }

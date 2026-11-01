@@ -12,6 +12,15 @@
 - [ ] E5 🧪 `save`: serializar y deserializar con almacenamiento inyectado; versión del esquema
 - [x] E6 🎮 Prototipo: Pepe (sprite del dibujo de CR) corre, salta y lanza el micrófono en un nivel gris
 
+## Fase 1.5 — Arte v3 (hoja oficial de CR)
+- [x] A1 🧪 Pipeline de recorte: 29 fotogramas, anclas dentro del fotograma, alturas ≈ 48 px
+- [x] A2 🎨 Pepe con los sprites oficiales (reposo, carrera, salto/caída, aterrizaje, lanzar, daño, KO, victoria)
+- [x] A3 🧪 Paparazzi: se para, apunta y congela a Pepe si lo tiene delante
+- [x] A4 🧪 Reportero: embiste hacia Pepe y descansa
+- [x] A5 🎨 Enemigos chibi en SVG → mismo pipeline (Titular, Paparazzi, Reportero)
+- [x] A6 Brief para que CR genere las hojas finales de enemigos en el mismo estilo
+- [x] A7 🧪 El bot sigue completando el nivel con los nuevos enemigos
+
 ## Fase 2 — Juego base (🧪 + 🎨)
 - [ ] J1 🧪 Jugador: daño, invencibilidad tras golpe, muerte, vidas, power-ups
 - [ ] J2 🧪 Enemigo base (patrulla, pisotón) + Lunes 28 + Espina

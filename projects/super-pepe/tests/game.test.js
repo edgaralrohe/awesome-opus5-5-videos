@@ -4,7 +4,7 @@ import { TILE, MIC } from '../src/game/constants.js';
 import { createGame, stepGame } from '../src/game/game.js';
 import { LEVEL_1 } from '../src/data/level1.js';
 import { QUOTES } from '../src/data/quotes.js';
-import { buildPepe, PEPE_FRAMES } from '../src/render/sprites.js';
+import { bot } from './bot.js';
 
 const IDLE = { left: false, right: false, jump: false, mic: false };
 const run = (g, n, btn = IDLE) => { for (let i = 0; i < n; i++) stepGame(g, btn); };
@@ -48,7 +48,7 @@ describe('Titular (J10)', () => {
   });
 
   test('pisarlo lo derrota y Pepe rebota', () => {
-    const g = createGame('.....\n.....\n.P...\n.T...\n#####');
+    const g = createGame('.....\n.P...\n.....\n.T...\n#####');
     const e = g.enemies[0];
     e.vx = 0;
     run(g, 40);
@@ -63,31 +63,7 @@ describe('Titular (J10)', () => {
   });
 });
 
-describe('sprites (J4)', () => {
-  test('todos los fotogramas de Pepe son 24×32', () => {
-    for (const f of PEPE_FRAMES) {
-      const rows = buildPepe(f);
-      assert.equal(rows.length, 32, f.name);
-      for (const r of rows) assert.equal(r.length, 24, f.name);
-    }
-  });
-});
-
 describe('nivel 1 completable (J5, repetición con bot)', () => {
-  // Bot sencillo: corre a la derecha, salta obstáculos, huecos y enemigos, y lanza el micro a los ganchos.
-  function bot(g) {
-    const p = g.player, L = g.level;
-    const ahead = p.x + p.w + 6, feet = p.y + p.h;
-    const tx = Math.floor(ahead / TILE), tyFeet = Math.floor((feet - 1) / TILE);
-    const wall = L.tileAt(tx, tyFeet) === '#' || L.tileAt(tx, tyFeet - 1) === '#';
-    const gap = p.onGround && !['#', '='].includes(L.tileAt(Math.floor((p.x + p.w + 14) / TILE), tyFeet + 1));
-    const spike = L.tileAt(Math.floor((p.x + p.w + 18) / TILE), tyFeet) === '^';
-    const foe = g.enemies.some((e) => e.alive && e.x > p.x && e.x - p.x < 44 && Math.abs(e.y + e.h - feet) < 20);
-    const hook = g.level.hooks.find((h) => h.x > p.x && Math.hypot(h.x - p.x, h.y - (p.y + 10)) < MIC.range - 4 && Math.abs(h.y - (p.y + 10)) < MIC.aimY);
-    const jumpNow = p.onGround && (wall || gap || spike || foe);
-    return { left: false, right: true, jump: jumpNow || (!p.onGround && p.vy < 0), mic: !p.onGround && !!hook && g.mic.phase === 'idle' };
-  }
-
   test('el bot llega a la puerta en menos de 90 s sin perder todas las vidas', () => {
     const g = createGame(LEVEL_1);
     for (let i = 0; i < 60 * 90 && g.status === 'play'; i++) stepGame(g, bot(g));
