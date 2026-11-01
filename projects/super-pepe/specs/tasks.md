@@ -9,7 +9,7 @@
 - [ ] E3 🧪 `tilemap`: parsear niveles de texto; colisión sólida, semisólida y pinchos; no atravesar paredes a velocidad máxima
 - [ ] E4 🧪 `camera`: zona muerta y límites
 - [ ] E5 🧪 `save`: serializar y deserializar con almacenamiento inyectado; versión del esquema
-- [ ] E6 🎮 Prototipo: Pepe corre y salta en un nivel gris (validar la sensación de salto)
+- [ ] E6 🎮 Prototipo: Pepe (sprite del dibujo de CR) corre, salta y lanza el micrófono en un nivel gris
 
 ## Fase 2 — Juego base (🧪 + 🎨)
 - [ ] J1 🧪 Jugador: daño, invencibilidad tras golpe, muerte, vidas, power-ups
@@ -20,9 +20,12 @@
 - [ ] J6 🎨 Museo (hub) con 1 puerta + vitrinas
 - [ ] J7 Controles táctiles + mando
 - [ ] J8 Chiptune en tiempo real (tema de mundo y de jefe)
+- [ ] J9 🧪 Micrófono con cable: alcance, retorno, enganche a ganchos
+- [ ] J10 🧪 Enemigos de prensa recurrentes (Titular, Paparazzi, Micrófono de reportero)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
-- [ ] W2 Noche · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido… · W★ Érase una Bestia
+- [ ] W2 Noche · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
+- [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
 
 ## Fase 4 — Publicación
 - [ ] P1 Accesibilidad (flashes desactivables, modo asistido, remapeo)

@@ -1,6 +1,8 @@
-# Spec — «SÚPER PEPE: 8 MUNDOS» (título provisional)
+# Spec — «MÉXICO VS. JOSÉ MADERO» (v2)
 
-> Spec-Driven Development (Dominicode). Juego de plataformas 8 bits, jugable en la web de Colores Ruidosos, que recorre la carrera solista de José Madero. Cada disco es un mundo con enemigos y un jefe final. El hub es **el Museo**.
+> Spec-Driven Development (Dominicode). Juego de plataformas y acción **16 bits estilo Neo Geo** (referencia: *Spin Master*, Data East, 1993), jugable en la web de Colores Ruidosos, que recorre la carrera solista de José Madero. Cada disco es un mundo con su propia jugabilidad y un jefe. El hub es **el Museo**. El final es un concierto que sirve de **preludio a su show en la Arena Ciudad de México**.
+>
+> **v2:** título tomado de la playera oficial; estética 16 bits; micrófono como arma; un giro de jugabilidad por mundo; enemigos de prensa; jefe final «VS» en concierto.
 > Estado: **borrador para definir con el equipo**. Las celdas marcadas con ⚠️ esperan verificación o decisión.
 
 ---
@@ -16,10 +18,26 @@ Un homenaje jugable, hecho por fans, en el que cada disco de José Madero es un 
 
 **Éxito:** partidas completas compartidas en redes, visitas recurrentes a la web y comentarios del tipo «mi jefe favorito es…».
 
+### 1.1 Historia
+José Madero tiene que **recordar quién es** antes de su concierto en la **Arena Ciudad de México**. La prensa lo ha perseguido durante años con titulares («¡mamón!», «¡altanero!»), y entre tanto ruido su carrera se ha quedado desordenada en **el Museo**: cada sala es un disco y cada disco, un mundo. Recuperando las piezas de cada etapa, Pepe reconstruye su historia. Con ella llega a la Arena, donde le espera el combate final: **MÉXICO VS. JOSÉ MADERO**, un concierto en el que no se derrota a nadie: hay que **ganarse al público**.
+
+> El arco se apoya en algo que él ha contado: que al principio de su carrera fue arrogante y que lo dejó atrás («En algún momento fui un pendejo, pero dejé atrás eso hace mucho tiempo», La Razón, 2024; «no fuera tan arrogante», Publimetro, 2025). No se usan sus declaraciones sobre salud emocional o vida privada.
+
+### 1.2 Dirección de arte
+| Elemento | Decisión |
+|---|---|
+| Referencia | *Spin Master* (Neo Geo): sprites grandes y caricaturescos, contornos gruesos, colores saturados, escenarios con mucho detalle. **Solo el estilo**; ni sprites ni logo |
+| Resolución | **320×224** lógicos (Neo Geo), escalado entero |
+| Protagonista | El dibujo de Colores Ruidosos (`referencias/pepe-dibujo-colores-ruidosos.png`): Pepe *chibi*, barba, pañuelo rojo, camiseta blanca, vaqueros y **micrófono** |
+| Arma | **Micrófono con cable**, que se lanza y vuelve como el yoyó de *Spin Master*. Se mejora con power-ups |
+| Logo | Sello **«JMV»** propio estilo arcade de los 90 (letras cromadas en relieve en una placa). **No** imitar el óvalo de Nintendo ni el logo de Neo Geo ⚠️ confirmar que JMV = José Madero Vizcaíno |
+| Título | **«MÉXICO VS. JOSÉ MADERO»**, tomado de la playera oficial (`referencias/playera-mexico-vs-jose-madero.png`) |
+
 ### Riesgos que hay que asumir desde ya
 | Riesgo | Decisión propuesta |
 |---|---|
-| **Marca «Super Mario Bros.»** (Nintendo). «Súper José Madero Bros» puede generar reclamaciones o retiradas | Usar un título propio: **«SÚPER PEPE: 8 MUNDOS»** o **«MADERO: 8 MUNDOS»**. Las mecánicas de plataformas son libres; el nombre y los sprites de Nintendo no |
+| **Marcas de terceros** (Super Mario Bros., logo de Nintendo, Neo Geo, *Spin Master*) | Título propio («MÉXICO VS. JOSÉ MADERO»), sello «JMV» propio. Se toman mecánicas y estilo, nunca nombres, logos ni sprites |
+| **Prensa como enemigo** | Prensa genérica (titulares, flashes, micrófonos de reportero); **ningún medio ni periodista real**. Al vencer un titular aparece una frase verificada del propio Madero |
 | **Personajes de terror con dueño** (Jason, Freddy, Pinhead) | Arquetipos propios: «el Enmascarado del Lago», etc. Nunca los nombres ni los diseños registrados |
 | **Nombre e imagen de José Madero** en una web | Rótulo «Homenaje no oficial hecho por fans» en portada y créditos. Ideal: **avisar o pedir permiso a su equipo** (incluso puede salir una colaboración) |
 | **Su música grabada** | No se usa. Solo chiptunes originales compuestos por código |
@@ -73,6 +91,21 @@ Un homenaje jugable, hecho por fans, en el que cada disco de José Madero es un 
 | 8 | **Querido…** | 2026 | verde | 7.º disco, 13 canciones, **epistolar** y con aire **medieval**, cuerdas, sin sencillos. Portada: dos pierrots con perlas | Castillo medieval de cartas; los sobres son checkpoints; dos rutas (las «dos caras») |
 | ★ | **Érase una Bestia** (epílogo) | 2026 | todos | Su primer estadio: Estadio GNP Seguros, 24 ene 2026 | Escenario de estadio con público; jefe final del juego |
 
+### 3.1b Jugabilidad: mismos controles, un giro por mundo
+Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
+
+| Mundo | Giro de jugabilidad | Inspiración |
+|---|---|---|
+| Carmesí | **Clásico de acción** (tutorial): plataformas, enemigos y el micrófono | Base *Spin Master* |
+| Noche | **Supervivencia a oscuras** en blanco y negro: linterna limitada; los enemigos solo se ven con luz | Terror clásico |
+| Alba | **Luz y tiempo**: al amanecer aparecen plataformas; si te quedas quieto, la nostalgia te arrastra atrás | Concepto del disco |
+| Psalmos | **Ascenso vertical** por una catedral, con tu sombra copiándote (puzle de sombras) | Peter Pan + espiritualidad |
+| Giallo | **Sigilo**: los maniquíes se mueven cuando no los miras; luces que se apagan | Cine *giallo* |
+| Aurora (EP) | **Silencio**: medidor de ruido; saltar fuerte despierta a la sala («Aplaudan en silencio») | Canción |
+| Sarajevo | **Natación**: tramo submarino con oxígeno y luciérnagas como guía | «Rey Ahogado», «Luciérnaga» |
+| Querido… | **Mensajero**: llevar cartas entre torres medievales contra reloj; las cartas son checkpoints | Disco epistolar |
+| Arena CDMX | **Concierto VS** (ritmo + acción): ver §3.3 | Playera «México vs. José Madero» |
+
 ### 3.2 Enemigos (borrador para definir)
 
 Regla: cada enemigo sale de **un título de canción, una portada o un concepto verificado**, nunca de inventos sobre la vida privada del artista.
@@ -100,6 +133,9 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Querido… | **Carta voladora** | Disco epistolar | Sobre que planea; al abrirlo suelta una pieza |
 | Querido… | **Juglar** | Aire medieval y cuerdas | Lanza notas en arco |
 | Querido… | **Pierrot de perlas** | Portada | Llora lágrimas que caen como proyectiles |
+| **Todos** (recurrentes) | **Titular** | Persecución mediática (genérica) | Cartel con insulto («¡MAMÓN!», «¡ALTANERO!») que te persigue; al vencerlo muestra una frase verificada de Madero |
+| **Todos** | **Paparazzi** | Ídem | Flash suave (< 3 Hz, desactivable) que te frena; se le vence por detrás |
+| **Todos** | **Micrófono de reportero** | Ídem | Se interpone en tu camino; lo neutralizas con tu propio micrófono |
 
 ### 3.3 Jefes finales
 
@@ -113,7 +149,9 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Aurora | **Casanova** (minijefe) | «Casanova» | Duelo corto de esquivar rosas | Hoja de hiedra (pieza) |
 | Sarajevo | **El Rey Ahogado** | «Rey Ahogado» (con Lasso) | Bajo el agua: corona que tira corrientes; las luciérnagas marcan los huecos | Corona (pieza) |
 | Querido… | **Los Dos Pierrots** | Portada (dos rostros) | Jefe doble: cuando uno ríe, el otro llora; hay que golpear al que llora | Carta sellada (pieza dorada) |
-| ★ Epílogo | **La Bestia** | «Érase una Bestia», su primer estadio (24 ene 2026) | Combina patrones de los 8 jefes al ritmo del público | Créditos + museo completo |
+| Intermedio | **La Rueda de Prensa** | Persecución mediática (genérica) | Mesa con micrófonos que disparan preguntas; hay que responder con las piezas del museo recuperadas | Pase a la Arena |
+| ★ **Final** | **MÉXICO VS. JOSÉ MADERO** | Playera oficial + concierto en la Arena CDMX ⚠️ fecha por confirmar | Pantalla «VS» de juego de lucha. La barra de México **no es de vida, es de público**: se llena tocando a ritmo (las canciones de cada mundo en chiptune) y esquivando titulares. Fases: 1) público frío · 2) se enciende · 3) canta contigo | Concierto completo, créditos y museo lleno |
+| Opcional | **La Bestia** | «Érase una Bestia», su primer estadio (24 ene 2026) | Jefe secreto con patrones de los 8 jefes | Partitura dorada |
 
 ### 3.4 Power-ups y objetos
 
@@ -132,6 +170,9 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 
 ### 3.5 Hitos «¿SABÍAS QUE…?» (verificados)
 
+Además de estos hitos, las frases que aparecen al vencer un **Titular** salen solo de entrevistas citadas (La Razón 2024, Publimetro 2025, Milenio). Las frases **«sacado de contexto»** no están verificadas: ⚠️ no se usan hasta tener fuente.
+
+
 | Tras | Hito | Fuentes |
 |---|---|---|
 | Carmesí | Salió el 29 abr 2016; fue **Disco de Oro** (nov. 2016) y monitorLATINO lo nombró Artista Revelación 2016. Muchas canciones son de 2008–2010 | Wikipedia (Carmesí) |
@@ -144,6 +185,7 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Estadio | 24 ene 2026: su primer Estadio GNP Seguros, «Érase una Bestia», con museo en una carpa | Chilango, Excélsior |
 | Museo | Monterrey, 21 jul–21 ago 2026: más de 100 piezas, gratis, con la partitura original de «Plural siendo singular» | MVS Noticias, El Horizonte, Info7 |
 | Querido… | 3 sep 2026: 7.º disco, 13 canciones, epistolar, sin sencillos previos; el verde es su color | CineMedios, El Sol de Sinaloa, Indie AM |
+| Playera | «México vs. José Madero»: merch a la venta en su tienda oficial de música | Class Music |
 
 ---
 
@@ -167,7 +209,7 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 ## 5. Arquitectura
 
 - **Motor propio en ES Modules + Canvas 2D**, sin dependencias de runtime. Reutiliza de «8 cabañas» la paleta, la fuente 5×7, los sprites y el chiptune.
-- **Resolución lógica 256×224** (NES), escalado entero, `image-rendering: pixelated`. Responsive: cabe en horizontal y en vertical con controles táctiles debajo.
+- **Resolución lógica 320×224** (Neo Geo), escalado entero, `image-rendering: pixelated`. Responsive: cabe en horizontal y en vertical con controles táctiles debajo.
 - **Lógica pura y testeable en Node** (sin DOM): física AABB, colisiones con tiles, IA de enemigos (funciones `update(state, dt)`), patrones de jefes, inventario y guardado.
 - **Bucle de paso fijo a 60 Hz** (determinista: permite repeticiones y grabar reels).
 - **Datos**: niveles como texto (un carácter = un tile), mundos y hitos en JSON/JS.
@@ -187,7 +229,8 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Legal | Título propio; «Homenaje no oficial»; sin música grabada, portadas ni personajes registrados |
 
 ## Decisiones abiertas (para definir juntos)
-1. **Título**: «SÚPER PEPE: 8 MUNDOS», «MADERO: 8 MUNDOS» u otro (mi recomendación: evitar «Bros»).
+0. **Fecha y enlace del concierto en la Arena CDMX** (no aparece en ninguna fuente pública consultada) y confirmar **JMV = José Madero Vizcaíno**.
+1. **Título**: ✅ propuesta «MÉXICO VS. JOSÉ MADERO» (de la playera). Evitar «Bros» y el óvalo de Nintendo.
 2. **Alcance de la v1**: 8 mundos × (1 nivel + jefe), o un MVP de 2 mundos (Carmesí + Noche) para probar primero.
 3. ¿Incluimos **Panda/PXNDX** como mundo 0?
 4. ¿Escribimos al **equipo de José Madero** antes de publicar?

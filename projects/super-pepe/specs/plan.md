@@ -21,7 +21,7 @@ projects/super-pepe/
 │   │   ├── powerups.js
 │   │   ├── museum.js       hub: puertas, vitrinas, piezas
 │   │   └── scenes.js       título, museo, nivel, jefe, hito, créditos
-│   ├── render/           Canvas: tiles, sprites, HUD, fuente 5×7 (de «8 cabañas»)
+│   ├── render/           Canvas: tiles, sprites 16 bits con contorno, HUD estilo arcade
 │   └── audio/            sintetizador chiptune en WebAudio
 ├── data/
 │   ├── worlds.js         paletas, nombres, hitos
