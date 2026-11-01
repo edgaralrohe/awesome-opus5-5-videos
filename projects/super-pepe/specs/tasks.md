@@ -22,7 +22,8 @@
 - [x] A7 🧪 El bot sigue completando el nivel con los nuevos enemigos
 
 ## Fase 1.6 — v4: paseos y memorial (pendiente de decisiones)
-- [ ] V1 Confirmar qué discos son paseo y aprobar los jefes v4
+- [x] V1a Paseos: *Alba* y *Aurora* (*Querido…* es acción)
+- [ ] V1b Jefes: revisión del usuario
 - [ ] V2 🧪 Modo paseo: sin daño, sin enemigos, pasajes por proximidad, momento final
 - [ ] V3 🧪 Memorial «Luciérnagas»: aviso con salto, «alzar la voz» enciende luciérnagas, sin puntos ni derrota, recursos al final
 - [ ] V4 Verificar en fuentes oficiales los teléfonos de ayuda (911 y líneas especializadas)

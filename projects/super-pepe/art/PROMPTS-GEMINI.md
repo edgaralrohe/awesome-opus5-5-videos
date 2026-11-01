@@ -75,7 +75,7 @@ Las referencias salen de canciones, portadas y conceptos verificados (ver `specs
 - `w2-murcielago.png` — **Murciélago**: murciélago chibi con colmillos. VOLAR ×4 en lugar de CAMINAR. Tamaño 50 %.
 - Nota: este mundo se verá en blanco y negro (lo convierte el código), pero generadlo **a color**.
 
-### Mundo 3 · ALBA (blanco, 2018, nostalgia)
+### Mundo 3 · ALBA (blanco, 2018, nostalgia) — **paseo: no generéis enemigos** (se mantienen solo como referencia)
 - `w3-recuerdo.png` — **Recuerdo**: foto polaroid viva con una imagen borrosa de un atardecer, mirada triste, bracitos. ATAQUE: abraza (te arrastra). Tamaño 75 %.
 - `w3-maldita-rueda.png` — **Maldita Rueda**: rueda de madera vieja con cara enfadada. RODAR ×4 en lugar de CAMINAR. Tamaño 70 %.
 
@@ -88,9 +88,8 @@ Las referencias salen de canciones, portadas y conceptos verificados (ver `specs
 - `w5-maniqui.png` — **Maniquí**: maniquí de tienda color crema, sin cara, articulaciones visibles. Fila extra: CONGELADO ×2 (posturas rígidas distintas). Tamaño 105 %.
 - `w5-guante.png` — **Guante negro**: mano enguantada de cuero negro que sale de una cortina amarilla. Solo ESPERA ×2 · ATAQUE ×2 (agarra) · DERROTA ×1. Tamaño 60 %.
 
-### Mundo 6 · AURORA (EP 2023, naranja óxido)
-- `w6-flash.png` — **Flash**: cámara antigua con patas y fuelle. ATAQUE: destello suave (sin rayos que llenen la imagen). Tamaño 60 %.
-- `w6-ceniza.png` — **Ceniza**: nubecita gris de ceniza con brasas naranjas y cara cansada. Tamaño 60 %.
+### Mundo 6 · AURORA (EP 2023, naranja óxido) — **paseo**
+- **Sin enemigos: es un paseo reflexivo.** Solo hacen falta fondos (§8) y bloques (§9). Mundo 3 *Alba* tampoco necesita enemigos: ⚠️ no generéis `w3-*.png`.
 
 ### Mundo 7 · SARAJEVO (lila, 2024)
 - `w7-bailarina.png` — **Bailarina**: bailarina chibi con vestido lila y tacones, girando. CAMINAR = giros ×4. Tamaño 95 %.
@@ -122,7 +121,6 @@ Fila 4: DERROTA ×2
 | `boss-w3-nostalgia.png` | **La Nostalgia** | Figura etérea blanca y dorada hecha de fotos antiguas flotando, con un reloj de bolsillo que gira hacia atrás. A: rebobinar (espiral) · B: lanza fotos |
 | `boss-w4-sombra.png` | **La Sombra** | Sombra gigante con forma de niño volador de cuento (silueta de capa y gorro puntiagudo) separándose de una figura en posición fetal. A: picado · B: manos de sombra desde el suelo |
 | `boss-w5-maniqui.png` | **El Maniquí en Llamas** | Maniquí gigante color crema con la cabeza envuelta en una llama amarilla (como la portada de *Giallo*), sobre un escenario de teatro. A: brazos giratorios · B: bola de fuego amarilla |
-| `boss-w6-casanova.png` | **Casanova** (minijefe) | Galán chibi con traje naranja óxido, pelo engominado y rosas. A: lanza rosas · B: guiño que aturde |
 | `boss-w7-rey.png` | **El Rey Ahogado** | Rey submarino lila y verde agua con corona torcida, capa empapada y burbujas. A: corriente de agua · B: lanza la corona como bumerán |
 | `boss-w8-pierrots.png` | **Los Dos Pierrots** | Dos pierrots gigantes con cuello de perlas: uno ríe y otro llora (como la portada de *Querido…*). A: el que ríe gira · B: el que llora lanza lágrimas |
 | `boss-prensa.png` | **La Rueda de Prensa** | Mesa larga con muchos micrófonos genéricos sobre brazos mecánicos y un foco. A: micrófonos que se estiran · B: ráfaga de flashes suaves |
