@@ -60,6 +60,11 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. Más de 50 
   - Historia: Pepe tiene que «recordar quién es».
 - **Mundos:** Carmesí (2016, rojo) · Noche (2017, negro / B y N) · Alba (2018, blanco) · Psalmos (2019, azul) · Giallo (2022, amarillo) · Aurora EP (2023, naranja óxido) · Sarajevo (2024, lila) · Querido… (3 sep 2026, verde). Enemigos, jefes y power-ups en la spec, §3.2–3.4.
 
+## Spec v4 (1 nov 2026) — `projects/super-pepe/specs/spec.md` §3.0b, §3.0c y §3.3
+- Los discos tranquilos pasan a ser **paseos reflexivos** (propuesta: *Alba* y *Querido…*). Pasajes de letras **solo con licencia**; mientras tanto, título de la canción y una reflexión de CR o una cita verificada.
+- **Memorial «Luciérnagas»** (cierre de *Sarajevo*): «Luciérnaga» trata del feminicidio de Karen Rebeca Esquivel (Naucalpan, 2016). Madero la escribió con su madre, Becky Espinosa (La Razón, Milenio, UnoTV). Mecánica: «alzar la voz» enciende luciérnagas. Sin combate, sin puntos y sin derrota; aviso previo con opción de saltarlo; recursos de ayuda verificados; **sin nombres de víctimas sin consentimiento de la familia**. La luciérnaga deja de ser power-up (ahora es un **farol**).
+- Jefes v4: los Dos Pierrots ya no «golpean al que llora» (reciben las cartas); la Nostalgia es un momento final; el Enmascarado se quita la máscara; música del final original.
+
 ## Pendiente con el usuario
 1. **Feedback del prototipo** (sensación de salto y del micrófono). Ajustar `src/game/constants.js` → `P` y `MIC`.
 2. **Fecha y enlace del concierto en la Arena Ciudad de México.** No aparece en fuentes públicas: pedírselo al usuario.

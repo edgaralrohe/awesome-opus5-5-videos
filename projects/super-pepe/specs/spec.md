@@ -87,7 +87,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 | 4 | **Psalmos** | 2019 | azul | Espiritualidad y desamor. Portada: figura en posición fetal en una esquina. Iba a tratar «el lado oscuro de Peter Pan» | Vidrieras de colores y sombras que se separan de sus dueños |
 | 5 | **Giallo** | 2022 | amarillo | Doble sentido: amarillo y cine *giallo* italiano. Portada: maniquí con la cabeza en llamas. Gira *Giallo Fantastique* | Teatro y bastidores; luces amarillas que se encienden y apagan; maniquíes que solo se mueven cuando no los miras |
 | 6 | **Aurora** (EP) | 2023 | naranja óxido / gris | 6 canciones. Portada: hiedra con hojas rojas sobre pared blanca | Mundo corto. Sección de sigilo «Aplaudan en silencio»: un salto ruidoso despierta a los enemigos |
-| 7 | **Sarajevo** | 2024 | lila | Portada: piernas con tacones ante una cortina lila. Canciones: «Luciérnaga», «Rey Ahogado» (con Lasso) | Nivel nocturno con luciérnagas como luz; tramo **bajo el agua** hasta el Rey Ahogado |
+| 7 | **Sarajevo** | 2024 | lila | Portada: piernas con tacones ante una cortina lila. Canciones: «Luciérnaga», «Rey Ahogado» (con Lasso) | Nivel nocturno con faroles; tramo **bajo el agua** hasta el Rey Ahogado; cierra con el memorial «Luciérnagas» |
 | 8 | **Querido…** | 2026 | verde | 7.º disco, 13 canciones, **epistolar** y con aire **medieval**, cuerdas, sin sencillos. Portada: dos pierrots con perlas | Castillo medieval de cartas; los sobres son checkpoints; dos rutas (las «dos caras») |
 | ★ | **Érase una Bestia** (epílogo) | 2026 | todos | Su primer estadio: Estadio GNP Seguros, 24 ene 2026 | Escenario de estadio con público; jefe final del juego |
 
@@ -106,6 +106,29 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 
 Todos se vencen pisándolos o con el micrófono, y al caer muestran una frase verificada de Madero.
 
+### 3.0b v4 · Ritmo: mundos de acción y **paseos reflexivos**
+Propuesta (⚠️ el usuario confirma qué discos): los discos más tranquilos dejan de ser niveles de combate y pasan a ser **paseos**: sin enemigos ni daño, caminar a tu ritmo y leer **pasajes**.
+- **Candidatos a paseo:** *Alba* (conceptual, nostalgia, «el amanecer») y *Querido…* (acústico, cuerdas, epistolar). Opcional: *Psalmos* o *Aurora*.
+- **Pasajes de canciones:** ⚠️ **las letras tienen derechos de autor.** Solo se muestran fragmentos **con permiso por escrito** del editor o del equipo de José Madero. Hasta entonces, cada pasaje es: **título de la canción + una reflexión escrita por Colores Ruidosos** (con sus propias palabras) **o una declaración verificada** de Madero sobre ese disco, con su fuente.
+- Mecánica del paseo: luz y cámara lentas; los pasajes aparecen al pasar junto a objetos del disco; música ambiental original; no hay forma de perder. Al final, en lugar de un combate, hay un **momento final**.
+
+### 3.0c v4 · Nivel «Luciérnagas»: alzar la voz (Sarajevo) — tema delicado
+**Hecho verificado:** «Luciérnaga» (*Sarajevo*, 2024) trata del feminicidio de Karen Rebeca Esquivel (19 años; Naucalpan, 2016). José Madero la escribió **con su madre, Becky Espinosa**, y la dedicó, entre otras, «a las mujeres que hoy no pueden alzar la voz» (La Razón, Milenio, UnoTV, Diario de México, Revista Netas). En un podcast también habló del feminicidio de una seguidora, Prisma Lorena Villarreal (El Heraldo de México).
+
+**Principios (no negociables):**
+1. **No es un juego, es un memorial.** Sin enemigos, sin daño, sin puntos, sin cronómetro y sin «perder».
+2. **No se representa la violencia** ni a víctimas ni a agresores como personajes.
+3. **No se usan nombres de víctimas sin el consentimiento de sus familias.** Por defecto, el nivel no nombra a nadie. Si la familia lo autoriza, a través del equipo de Madero, se añade una dedicatoria.
+4. **Aviso previo** con la opción de **saltarlo** sin penalización (el progreso cuenta igual).
+5. **Recursos de ayuda** al final, ⚠️ con teléfonos verificados en fuentes oficiales antes de publicar (911 y líneas especializadas).
+6. Cifras sobre feminicidio solo de fuentes oficiales (SESNSP, INEGI) y con fecha. ⚠️ De momento no se incluyen.
+7. Sin la canción ni su letra (derechos). Música ambiental original, mínima.
+8. Revisión previa por el equipo de Madero y, idealmente, por una organización especializada.
+
+**Mecánica — «alzar la voz»:** calle nocturna en silencio y casi a oscuras. Pepe camina. El botón del micrófono ya no ataca: **Pepe canta (pose «shout»)** y una onda de luz despierta **luciérnagas** que suben y se quedan con él. Cada vez que alza la voz, el enjambre crece y la calle se ilumina: farolas, ventanas que se encienden y otras siluetas genéricas que se asoman a acompañar, nunca víctimas. Al final, las luciérnagas forman una gran luz sobre el escenario: un momento de silencio con la dedicatoria verificada de Madero y los recursos de ayuda.
+**Lugar en el juego:** cierre del mundo *Sarajevo*, después del jefe y fuera del combate. También accesible desde el Museo («Sala de las luciérnagas»).
+**Cambio derivado:** la luciérnaga **deja de ser un power-up o aliada** en el resto del juego. En los niveles oscuros, la luz pasa a ser un **farol**.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -117,7 +140,7 @@ Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire 
 | Psalmos | **Ascenso vertical** por una catedral, con tu sombra copiándote (puzle de sombras) | Peter Pan + espiritualidad |
 | Giallo | **Sigilo**: los maniquíes se mueven cuando no los miras; luces que se apagan | Cine *giallo* |
 | Aurora (EP) | **Silencio**: medidor de ruido; saltar fuerte despierta a la sala («Aplaudan en silencio») | Canción |
-| Sarajevo | **Natación**: tramo submarino con oxígeno y luciérnagas como guía | «Rey Ahogado», «Luciérnaga» |
+| Sarajevo | **Natación**: tramo submarino con oxígeno y faroles como guía; cierra con el memorial «Luciérnagas» (§3.0c) | «Rey Ahogado» |
 | Querido… | **Mensajero**: llevar cartas entre torres medievales contra reloj; las cartas son checkpoints | Disco epistolar |
 | Arena CDMX | **Concierto VS** (ritmo + acción): ver §3.3 | Playera «México vs. José Madero» |
 
@@ -143,7 +166,6 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Aurora | **Casanova** | «Casanova» | Te lanza rosas que desvían el salto |
 | Aurora | **Flash** | «Posa y sonríe» | Cámara: si te pilla en su encuadre, te congela 1 s (flash suave) |
 | Aurora | **Ceniza** | «Domingo de Ceniza» | Nube que se deshace al pisarla |
-| Sarajevo | **Luciérnaga** (amiga) | «Luciérnaga» | No es enemiga: ilumina zonas oscuras |
 | Sarajevo | **Bailarina** | «Baila conmigo» ⚠️ (versión extendida, confirmar) | Gira y rebota |
 | Querido… | **Carta voladora** | Disco epistolar | Sobre que planea; al abrirlo suelta una pieza |
 | Querido… | **Juglar** | Aire medieval y cuerdas | Lanza notas en arco |
@@ -152,7 +174,25 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | **Todos** | **Paparazzi** | Ídem | Flash suave (< 3 Hz, desactivable) que te frena; se le vence por detrás |
 | **Todos** | **Micrófono de reportero** | Ídem | Se interpone en tu camino; lo neutralizas con tu propio micrófono |
 
-### 3.3 Jefes finales
+### 3.3 Jefes finales — v4 (propuesta revisada, ⚠️ pendiente de aprobación)
+
+Criterios de la revisión: (1) cada jefe sale de un concepto verificado; (2) en los **paseos** no hay combate sino un **momento final**; (3) ningún jefe castiga la vulnerabilidad ni la tristeza; (4) nada de música ni letras sin licencia.
+
+| Mundo | Tipo | Jefe / momento final | Cómo se resuelve | Cambio respecto a v3 |
+|---|---|---|---|---|
+| Carmesí | Acción | **La Rosa Carmesí** | 3 fases: pétalos → espinas → se deshace como en la portada | Igual |
+| Noche | Acción | **El Enmascarado del Lago** | Aparece y desaparece entre cabañas; apagón (solo ojos); persecución. Al vencerlo **se quita la máscara** y debajo hay alguien normal (la idea de «Noche de brujas»: las máscaras sociales) | Final con mensaje |
+| Alba | **Paseo** | **La Nostalgia** (momento final) | No se pelea: rebobina el camino y solo se supera **siguiendo adelante**; al final amanece | De jefe a momento final |
+| Psalmos | Acción suave *o* paseo ⚠️ | **La Sombra** | Si es acción: la luz de las vidrieras la debilita. Si es paseo: la sombra **acompaña** a Pepe y se funde con él al salir de la esquina (nadie se queda solo en la esquina) | Abierto según confirméis |
+| Giallo | Acción | **El Maniquí en Llamas** | Teatro a oscuras; solo ataca cuando le das la espalda (cine *giallo*, sin temas de salud mental) | Igual |
+| Aurora (EP) | Acción corta | **Casanova** (minijefe) | Duelo corto esquivando rosas | Igual |
+| Sarajevo | Acción + memorial | **El Rey Ahogado** → memorial **«Luciérnagas»** | Combate submarino; después, el nivel de alzar la voz (§3.0c), sin combate | Añadido el memorial |
+| Querido… | **Paseo** | **Los Dos Pierrots** (momento final) | Ya no se golpea a nadie: uno ríe y otro llora, y Pepe **les entrega las cartas** recogidas; al leerlas, los dos se reconcilian en una sola cara | Antes «golpear al que llora» ❌ |
+| Intermedio | Acción | **La Rueda de Prensa** | Micrófonos que disparan preguntas; se responde con las piezas del museo y salen frases verificadas de Madero | Igual |
+| ★ Final | Ritmo | **MÉXICO VS. JOSÉ MADERO** | Pantalla VS; la barra es el **cariño del público**. Música: **chiptune original**; sus canciones solo con licencia | Corregida la música |
+| Secreto | Acción | **La Bestia** | Patrones de los jefes anteriores | Igual |
+
+### 3.3-v3 Jefes finales (versión anterior, como referencia)
 
 | Mundo | Jefe | Referencia | Fases (borrador) | Al vencerlo |
 |---|---|---|---|---|
@@ -162,10 +202,10 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Psalmos | **La Sombra** | Concepto original del lado oscuro de Peter Pan; la pelea es en la esquina de la portada | Se separa de la figura en posición fetal; la luz de la vidriera la debilita | Vidriera (pieza) |
 | Giallo | **El Maniquí en Llamas** | Portada | Se apagan las luces del teatro; ataca cuando le das la espalda | Programa de mano de *Giallo Fantastique* (pieza) |
 | Aurora | **Casanova** (minijefe) | «Casanova» | Duelo corto de esquivar rosas | Hoja de hiedra (pieza) |
-| Sarajevo | **El Rey Ahogado** | «Rey Ahogado» (con Lasso) | Bajo el agua: corona que tira corrientes; las luciérnagas marcan los huecos | Corona (pieza) |
+| Sarajevo | **El Rey Ahogado** | «Rey Ahogado» (con Lasso) | Bajo el agua: corona que tira corrientes; los faroles marcan los huecos | Corona (pieza) → abre el memorial «Luciérnagas» |
 | Querido… | **Los Dos Pierrots** | Portada (dos rostros) | Jefe doble: cuando uno ríe, el otro llora; hay que golpear al que llora | Carta sellada (pieza dorada) |
 | Intermedio | **La Rueda de Prensa** | Persecución mediática (genérica) | Mesa con micrófonos que disparan preguntas; hay que responder con las piezas del museo recuperadas | Pase a la Arena |
-| ★ **Final** | **MÉXICO VS. JOSÉ MADERO** | Playera oficial + concierto en la Arena CDMX ⚠️ fecha por confirmar | Pantalla «VS» de juego de lucha. La barra de México **no es de vida, es de público**: se llena tocando a ritmo (las canciones de cada mundo en chiptune) y esquivando titulares. Fases: 1) público frío · 2) se enciende · 3) canta contigo | Concierto completo, créditos y museo lleno |
+| ★ **Final** | **MÉXICO VS. JOSÉ MADERO** | Playera oficial + concierto en la Arena CDMX ⚠️ fecha por confirmar | Pantalla «VS» de juego de lucha. La barra de México **no es de vida, es de público**: se llena tocando a ritmo (las canciones de cada mundo en chiptune) y esquivando titulares. Fases: 1) público frío · 2) se enciende · 3) canta contigo. ⚠️ v4: música original (sus canciones solo con licencia) | Concierto completo, créditos y museo lleno |
 | Opcional | **La Bestia** | «Érase una Bestia», su primer estadio (24 ene 2026) | Jefe secreto con patrones de los 8 jefes | Partitura dorada |
 
 ### 3.4 Power-ups y objetos
@@ -177,7 +217,7 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | **Disco de Oro** | Disco de Oro de *Carmesí* (nov. 2016) | Vida extra |
 | **Máscara de hockey** | Terror de la gira *Noche* | Invencible 8 s (las máscaras de la fiesta te ignoran) |
 | **Luz del Alba** | «El amanecer» (*Alba*) | Revela plataformas ocultas durante 10 s |
-| **Luciérnaga** | «Luciérnaga» (*Sarajevo*) | Ilumina el entorno en zonas oscuras |
+| **Farol** | Niveles nocturnos | Ilumina el entorno en zonas oscuras (la luciérnaga se reserva para el nivel memorial) |
 | **Micrófono** | Directo | Grito que aturde a los enemigos de la pantalla (1 uso) |
 | **Carta** | *Querido…* epistolar | Checkpoint |
 | **Partitura dorada** | Partitura original de «Plural siendo singular» expuesta en el museo | Pieza dorada secreta (1 por mundo; todas = final secreto) |
@@ -244,6 +284,7 @@ Además de estos hitos, las frases que aparecen al vencer un **Titular** salen s
 | Legal | Título propio; «Homenaje no oficial»; sin música grabada, portadas ni personajes registrados |
 
 ## Decisiones abiertas (para definir juntos)
+- **v4:** ¿qué discos son paseo (propuesta: *Alba* y *Querido…*; ¿*Psalmos*? ¿*Aurora*?) · ¿aprobáis la revisión de jefes (§3.3 v4)? · ¿pedimos al equipo de Madero el **permiso para los fragmentos de letras** y, a la familia (a través de su equipo), el **consentimiento para la dedicatoria** del memorial?
 0. **Fecha y enlace del concierto en la Arena CDMX** (no aparece en ninguna fuente pública consultada) y confirmar **JMV = José Madero Vizcaíno**.
 1. **Título**: ✅ propuesta «MÉXICO VS. JOSÉ MADERO» (de la playera). Evitar «Bros» y el óvalo de Nintendo.
 2. **Alcance de la v1**: 8 mundos × (1 nivel + jefe), o un MVP de 2 mundos (Carmesí + Noche) para probar primero.

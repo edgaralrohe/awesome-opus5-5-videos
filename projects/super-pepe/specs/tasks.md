@@ -21,6 +21,14 @@
 - [x] A6 Brief para que CR genere las hojas finales de enemigos en el mismo estilo
 - [x] A7 🧪 El bot sigue completando el nivel con los nuevos enemigos
 
+## Fase 1.6 — v4: paseos y memorial (pendiente de decisiones)
+- [ ] V1 Confirmar qué discos son paseo y aprobar los jefes v4
+- [ ] V2 🧪 Modo paseo: sin daño, sin enemigos, pasajes por proximidad, momento final
+- [ ] V3 🧪 Memorial «Luciérnagas»: aviso con salto, «alzar la voz» enciende luciérnagas, sin puntos ni derrota, recursos al final
+- [ ] V4 Verificar en fuentes oficiales los teléfonos de ayuda (911 y líneas especializadas)
+- [ ] V5 Permiso de letras (editor) y consentimiento de la familia para la dedicatoria (a través del equipo de Madero)
+- [ ] V6 Revisión del memorial por el equipo de Madero y, si es posible, por una organización especializada
+
 ## Fase 2 — Juego base (🧪 + 🎨)
 - [ ] J1 🧪 Jugador: daño, invencibilidad tras golpe, muerte, vidas, power-ups
 - [ ] J2 🧪 Enemigo base (patrulla, pisotón) + Lunes 28 + Espina

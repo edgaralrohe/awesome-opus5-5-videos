@@ -94,7 +94,6 @@ Las referencias salen de canciones, portadas y conceptos verificados (ver `specs
 
 ### Mundo 7 · SARAJEVO (lila, 2024)
 - `w7-bailarina.png` — **Bailarina**: bailarina chibi con vestido lila y tacones, girando. CAMINAR = giros ×4. Tamaño 95 %.
-- `w7-luciernaga.png` — **Luciérnaga (aliada)**: luciérnaga chibi simpática con el abdomen brillante amarillo. VOLAR ×4 y BRILLAR ×2. Tamaño 35 %.
 - `w7-pez.png` — **Pez linterna** (tramo submarino): pez lila con antena luminosa. NADAR ×4. Tamaño 55 %.
 
 ### Mundo 8 · QUERIDO… (verde, 2026, epistolar y medieval)
@@ -154,7 +153,7 @@ Archivo: `pepe-extra.png`
 ```
 [BLOQUE DE ESTILO]
 HOJA DE OBJETOS, cada objeto suelto y separado, del mismo tamaño aproximado (30 % de la altura de Pepe), en este orden de izquierda a derecha y de arriba abajo:
-1 púa de guitarra roja brillante · 2 rosa carmesí · 3 disco de oro · 4 máscara blanca lisa de portero (genérica) · 5 sol de amanecer pequeño · 6 luciérnaga brillante · 7 micrófono plateado · 8 sobre con lacre rojo · 9 partitura dorada enrollada · 10 disco de vinilo dorado (pieza del museo) · 11 corazón rojo · 12 gancho metálico de anilla
+1 púa de guitarra roja brillante · 2 rosa carmesí · 3 disco de oro · 4 máscara blanca lisa de portero (genérica) · 5 sol de amanecer pequeño · 6 farol antiguo encendido · 7 micrófono plateado · 8 sobre con lacre rojo · 9 partitura dorada enrollada · 10 disco de vinilo dorado (pieza del museo) · 11 corazón rojo · 12 gancho metálico de anilla
 ```
 Archivo: `objetos.png`
 
@@ -181,12 +180,18 @@ CAPA <LEJANA | MEDIA>: <descripción>
 | 4 · Psalmos | Interior de catedral azul en penumbra con rayos de luz | Columnas, vidrieras de colores y bancos de iglesia |
 | 5 · Giallo | Escenario de teatro con telón amarillo y focos | Bastidores, escaleras de tramoya, maniquíes de utilería y cuerdas |
 | 6 · Aurora | Pared blanca gastada con hiedra y hojas rojo-naranja (como la portada del EP) | Ventanas viejas, macetas y enredaderas |
-| 7 · Sarajevo | Noche lila con cortinas de terciopelo lila enormes y luciérnagas | Escenario con cortinas; versión submarina: algas y burbujas lilas |
+| 7 · Sarajevo | Noche lila con cortinas de terciopelo lila enormes | Escenario con cortinas; versión submarina: algas y burbujas lilas |
 | 8 · Querido… | Castillo medieval verde en la colina, cielo verdoso | Torres, estandartes verdes sin escudos y buzones antiguos |
 | Museo (hub) | Sala de museo moderna en penumbra | Vitrinas vacías iluminadas y 8 puertas de colores (rojo, negro, blanco, azul, amarillo, naranja, lila, verde), sin texto |
 | Arena (final) | Interior de una arena de conciertos llena, luces de escenario moradas y rojas, público con luces de móvil | Estructura del escenario, focos y pantallas (sin logos) |
 
 ---
+
+## 8b. Nivel memorial «Luciérnagas» (tono sobrio; esperad a confirmar el diseño)
+- Fondo lejano: calle de barrio mexicano de noche, casas bajas y cables de luz, cielo azul muy oscuro, sin personas, sin texto. Tono respetuoso, nada de terror.
+- Fondo medio (magenta #FF00FF donde no hay estructura): fachadas con ventanas apagadas, farolas apagadas y un pequeño escenario al fondo.
+- Variante: la misma calle **iluminada** por cientos de luciérnagas cálidas y ventanas encendidas.
+- Partículas: luciérnaga **realista y sencilla** (un punto de luz cálida con un halo), no un personaje chibi ni una mascota.
 
 ## 9. Bloques del suelo (tileset por mundo)
 
