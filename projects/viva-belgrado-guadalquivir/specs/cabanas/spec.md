@@ -40,7 +40,7 @@ Un reel 9:16 de unos 67 s con estética de videojuego de terror de NES. La refer
 | 1 | Carmesí | 2016 | rojo | rosa |
 | 2 | Noche | 2017 | negro | rostro en sombra + guiño de terror |
 | 3 | Alba | 2018 | blanco | ramas desnudas |
-| 4 | Psalmos | 2019 | azul | figura abrazando las rodillas |
+| 4 | Psalmos | 2019 | azul | persona en posición fetal en una esquina (24×24) |
 | 5 | Giallo | 2022 | amarillo | cabeza con llama |
 | 6 | Aurora (EP) | 2023 | naranja óxido | rama con hojas rojas |
 | 7 | Sarajevo | 2024 | lila | tacón |

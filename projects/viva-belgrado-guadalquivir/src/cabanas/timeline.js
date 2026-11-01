@@ -7,7 +7,7 @@ export const LEVELS = [
   { n: 1, title: 'CARMESÍ', year: 2016, item: 'rosa', bg: 'R', band: 'r', ink: 'w' },
   { n: 2, title: 'NOCHE', year: 2017, item: 'sombra', bg: 'k', band: 'K', ink: 'w', terror: true },
   { n: 3, title: 'ALBA', year: 2018, item: 'ramas', bg: 'w', band: 'G', ink: 'k' },
-  { n: 4, title: 'PSALMOS', year: 2019, item: 'figura', bg: 'B', band: 'b', ink: 'w' },
+  { n: 4, title: 'PSALMOS', year: 2019, item: 'figura', bg: 'B', band: 'b', ink: 'w', corner: true },
   { n: 5, title: 'GIALLO', year: 2022, item: 'llama', bg: 'y', band: 'o', ink: 'k' },
   { n: 6, title: 'AURORA', year: 2023, item: 'hojas', bg: 'G', band: 'g', ink: 'k', sub: 'EP · 2023' },
   { n: 7, title: 'SARAJEVO', year: 2024, item: 'tacon', bg: 'L', band: 'l', ink: 'k' },

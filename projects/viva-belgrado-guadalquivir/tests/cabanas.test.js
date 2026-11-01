@@ -18,12 +18,12 @@ describe('palette + sprites (K-T1)', () => {
     }
   });
 
-  test('los objetos de disco son de 16×16', () => {
+  test('los objetos de disco son cuadrados de 16×16 (o 24×24 si necesitan detalle)', () => {
     for (const l of LEVELS) {
       const s = SPRITES[l.item];
       assert.ok(s, l.item);
-      assert.equal(s.length, 16, l.item);
-      assert.equal(s[0].length, 16, l.item);
+      assert.ok([16, 24].includes(s.length), l.item);
+      assert.equal(s[0].length, s.length, l.item);
     }
   });
 

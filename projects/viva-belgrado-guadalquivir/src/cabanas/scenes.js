@@ -89,15 +89,28 @@ export function drawRoom(ctx, t, level, { L }) {
   dither(ctx, 0, 0, LW, 6, level.band, level.bg);
   rect(ctx, 0, 140, LW, 100, level.band);
   dither(ctx, 0, 136, LW, 4, level.bg, level.band);
+  // Psalmos: la figura está en una esquina (dos paredes + suelo en perspectiva).
+  if (level.corner) {
+    rect(ctx, 0, 6, 67, 130, 'b');
+    // Bajo la arista, los zócalos bajan en diagonal hacia fuera; entre ellos, el suelo.
+    for (let y = 112; y < 136; y++) {
+      const spread = Math.round((y - 112) * 2.8);
+      dither(ctx, 67 - spread, y, spread * 2 + 1, 1, 'b', 'k');
+    }
+    dither(ctx, 66, 6, 2, 106, 'b', 'c');
+  }
   // Ventana a la noche (con luna).
   rect(ctx, 92, 16, 32, 30, 'M'); rect(ctx, 94, 18, 28, 26, 'k');
   disc(ctx, 114, 25, 4, 'Y'); rect(ctx, 107, 18, 2, 26, 'M'); rect(ctx, 94, 30, 28, 2, 'M');
 
   // Objeto del disco: entra a escalones enteros (2→3→4) y flota.
-  const s = L < 0.15 ? 2 : L < 0.3 ? 3 : 4;
+  const px = SPRITES[level.item].length; // 16, o 24 para la figura de Psalmos
+  const max = px === 24 ? 3 : 4;
+  const s = Math.min(max, L < 0.15 ? 2 : L < 0.3 ? 3 : 4);
   const bob = Math.floor(q(L, 4) * 4) % 2;
-  const size = 16 * s;
-  sprite(ctx, SPRITES[level.item], Math.round((LW - size) / 2), 70 - size / 2 + 4 + bob, { scale: s });
+  const size = px * s;
+  const itemY = level.corner ? 124 - size : 70 - size / 2 + 4 + bob; // en la esquina, sentada en el suelo y quieta
+  sprite(ctx, SPRITES[level.item], Math.round((LW - size) / 2), itemY, { scale: s });
 
   text(ctx, `NIVEL ${level.n}`, LW / 2, 150, { align: 'center', color: level.ink, chars: type(L) });
   if (L > 0.3) text(ctx, level.title, LW / 2, 164, { scale: 2, align: 'center', color: level.ink, chars: type(L - 0.3, 20) });
