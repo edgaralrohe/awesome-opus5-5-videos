@@ -69,7 +69,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. Más de 50 
 6. Marca real de Colores Ruidosos (logo y colores) para sustituir el tema provisional del reel y del cierre.
 7. ¿Publicar el juego como enlace privado? (Usa el nombre de un artista real: que decida el usuario.)
 
-8. Arte final de los enemigos según `art/BRIEF-enemigos.md` (opcional: los provisionales funcionan).
+8. Arte final: el usuario generará con Gemini siguiendo `projects/super-pepe/art/PROMPTS-GEMINI.md` (hay un borrador de la hoja de prensa en `art/source/prensa-gemini-borrador.png`, con rótulos y sombras que hay que quitar).
 
 **Siguiente tarea natural:** con el feedback, construir el **Mundo 1 «Carmesí»**: nivel rojo; enemigos Lunes 28, Libro ruso y Espina; jefe **La Rosa Carmesí**, que suelta el **Disco de Oro**; tarjeta «¿Sabías que…?». Seguir `specs/tasks.md`, fase 2 (J1–J8), con TDD.
 
