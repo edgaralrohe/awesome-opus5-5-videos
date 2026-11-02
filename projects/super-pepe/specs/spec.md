@@ -199,6 +199,11 @@ La barra de Ovación conecta con el final («la barra es el cariño del público
 | D14 | El vídeo de «Plural siendo singular» se grabó en el Parque Nacional Cumbres del Ajusco | Wikipedia EN | ⚠️ 1 fuente |
 | D15 | Estuvo entre los 10 discos más vendidos de México en mayo de 2016 | Wikipedia (según AMPROFON) | ⚠️ 1 fuente |
 | D16 | Rechazó presentarlo en el Auditorio Nacional | La Prensa (OEM) | ⚠️ 1 fuente |
+| D17 | Rodrigo «Bucho» Montfort, director musical, tocó todos los teclados y llevó las trompetas, el cuarteto de cuerdas, las flautas y el acordeón, y entregó las partituras a los músicos de sesión; trabajaron sobre las sesiones de las maquetas en Digital Performer | Sound:check (entrevista), Discogs (director musical, teclados), IMDb, montfortmusic.com | ✅ |
+| D18 | Las 13 canciones tienen letra y música de José Madero | Intolerancia Diario, Discogs, Wikipedia ES | ✅ |
+| D19 | En 2015 empezó con Andreas Östberg el podcast «Dos Nombres Comunes» | Apple Podcasts, iVoox, Spotify | ✅ |
+| D20 | Bajo: Andrés Zablah; batería: «Pecas» Martínez | Discogs, Wikipedia ES | ✅ |
+| — | ❌ No confirmado (texto aportado por el usuario, 2 nov): que Roberto Martínez sea coanfitrión del podcast (solo aparece como invitado) o que el podcast filtrara la selección de canciones; que la base la grabara «Los Lemons»; que Madero financiara el disco de forma independiente (salió con EMI / Universal); trombón y corno francés. **No se usan.** | Búsquedas sin resultado | ❌ |
 No se usan: polémicas de la firma de autógrafos ni la acusación de plagio de la portada (son de prensa negativa y no aportan al homenaje).
 
 **Trajes (decidido).** Uno por mundo y el resto desbloqueables en la **Galería del Museo**:
