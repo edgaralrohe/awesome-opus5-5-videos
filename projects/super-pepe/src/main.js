@@ -44,15 +44,29 @@ addEventListener('keydown', (e) => {
 });
 addEventListener('keyup', (e) => { if (KEYS[e.code]) held[KEYS[e.code]] = false; });
 
+// Controles táctiles. En iOS, mantener pulsado selecciona texto y abre el menú «Copiar / Traducir»,
+// y el botón se queda pegado: se bloquean esos gestos y cualquier interrupción suelta los botones.
+const touching = new Map(); // pointerId → botón
+const release = (k) => { held[k] = false; document.querySelector(`[data-btn="${k}"]`)?.classList.remove('on'); };
+const releaseAll = () => { touching.clear(); for (const b of document.querySelectorAll('[data-btn]')) release(b.dataset.btn); };
 for (const btn of document.querySelectorAll('[data-btn]')) {
   const k = btn.dataset.btn;
-  const on = (e) => { e.preventDefault(); held[k] = true; btn.classList.add('on'); if (k === 'jump') startPressed = true; audio.unlock(); };
-  const off = (e) => { e.preventDefault(); held[k] = false; btn.classList.remove('on'); };
+  const on = (e) => { e.preventDefault(); touching.set(e.pointerId, k); held[k] = true; btn.classList.add('on'); if (k === 'jump') startPressed = true; audio.unlock(); };
+  const off = (e) => { e.preventDefault(); touching.delete(e.pointerId); release(k); };
   btn.addEventListener('pointerdown', on);
   btn.addEventListener('pointerup', off);
-  btn.addEventListener('pointercancel', off);
   btn.addEventListener('pointerleave', off);
+  btn.addEventListener('contextmenu', (e) => e.preventDefault());
 }
+const padEl = document.querySelector('.pad');
+for (const ev of ['touchstart', 'touchmove']) padEl?.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
+padEl?.addEventListener('contextmenu', (e) => e.preventDefault());
+document.addEventListener('selectstart', (e) => { if (e.target.closest?.('.pad')) e.preventDefault(); });
+// Toque interrumpido por el sistema (selección, llamada, cambio de app): se suelta ese botón.
+addEventListener('pointercancel', (e) => { const k = touching.get(e.pointerId); touching.delete(e.pointerId); if (k) release(k); });
+addEventListener('pointerup', (e) => { const k = touching.get(e.pointerId); if (k) { touching.delete(e.pointerId); release(k); } });
+addEventListener('blur', releaseAll);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseAll(); });
 document.getElementById('music').addEventListener('click', (e) => { e.currentTarget.textContent = audio.toggleMusic() ? '♪ ON' : '♪ OFF'; });
 cv.addEventListener('pointerdown', () => { startPressed = true; audio.unlock(); });
 
@@ -121,6 +135,7 @@ function frame(now) {
 }
 // Acceso para pruebas automáticas (no afecta al juego).
 window.__jmv = {
+  get held() { return held; },
   get game() { return game; }, get screen() { return screen; }, get level() { return WORLD_1[levelIdx].id; },
   start() { startPressed = true; }, goto(i) { loadLevel(i, carry); screen = 'play'; },
 };

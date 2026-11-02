@@ -82,3 +82,28 @@ test('v5: los tres niveles del Mundo 1 se dibujan sin errores', async () => {
   }
   assert.deepEqual(errors, []);
 });
+
+test('móvil: los botones no se seleccionan ni se quedan pegados (iOS)', async () => {
+  const r = await page.evaluate(() => {
+    const btn = document.querySelector('[data-btn="right"]');
+    const st = getComputedStyle(btn);
+    const out = { select: st.webkitUserSelect || st.userSelect };
+    btn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 7 }));
+    out.down = window.__jmv.held.right;
+    // iOS interrumpe el toque (selección, llamada, cambio de app) sin pointerup sobre el botón.
+    window.dispatchEvent(new PointerEvent('pointercancel', { bubbles: true, pointerId: 7 }));
+    out.afterCancel = window.__jmv.held.right;
+    btn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true, pointerId: 8 }));
+    window.dispatchEvent(new Event('blur'));
+    out.afterBlur = window.__jmv.held.right;
+    const menu = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+    btn.dispatchEvent(menu);
+    out.menuBlocked = menu.defaultPrevented;
+    return out;
+  });
+  assert.equal(r.select, 'none');
+  assert.equal(r.down, true);
+  assert.equal(r.afterCancel, false);
+  assert.equal(r.afterBlur, false);
+  assert.equal(r.menuBlocked, true);
+});
