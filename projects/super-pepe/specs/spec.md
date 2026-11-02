@@ -206,6 +206,8 @@ La barra de Ovación conecta con el final («la barra es el cariño del público
 | — | ❌ No confirmado (texto aportado por el usuario, 2 nov): que Roberto Martínez sea coanfitrión del podcast (solo aparece como invitado) o que el podcast filtrara la selección de canciones; que la base la grabara «Los Lemons»; que Madero financiara el disco de forma independiente (salió con EMI / Universal); trombón y corno francés. **No se usan.** | Búsquedas sin resultado | ❌ |
 No se usan: polémicas de la firma de autógrafos ni la acusación de plagio de la portada (son de prensa negativa y no aportan al homenaje).
 
+**Escenarios (v6):** Gemini no separa capas; cada escena completa se usa como **fondo panorámico** de 224 px de alto que recorre la imagen de un borde al otro a lo largo del nivel (sin repetirse ni costuras). El cartel en blanco de las Azoteas lleva «COLORES RUIDOSOS» puesto por código. En las Azoteas sale el **Cerro de la Silla** (Monterrey) en lugar de los volcanes del prompt ⏳ (el usuario decide).
+
 **Trajes (decidido).** Uno por mundo y el resto desbloqueables en la **Galería del Museo**:
 | Traje | Uso |
 |---|---|

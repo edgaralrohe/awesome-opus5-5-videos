@@ -169,4 +169,12 @@ function teatro() {
 }
 
 export const THEMES = { calle, azoteas, teatro };
-export const buildTheme = (name) => (THEMES[name] || calle)();
+import { BACKDROPS } from '../data/backdrops-w1.js';
+
+// Si hay fondo panorámico importado (Gemini → scripts/import_backdrop.py), sustituye a las capas por código.
+export const buildTheme = (name) => {
+  const th = (THEMES[name] || calle)();
+  const bd = BACKDROPS[name];
+  if (bd && typeof Image !== 'undefined') th.backdrop = Object.assign(new Image(), { src: bd.png }), th.backdropW = bd.w;
+  return th;
+};

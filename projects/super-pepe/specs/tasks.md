@@ -58,7 +58,7 @@
 - [x] H3 🧪 Capítulo al empezar cada nivel y tarjeta «¿Sabías que…?» al terminarlo
 - [x] H4 🎨 Piezas = pequeños Carmesís (moneda con rosa)
 - [ ] H5 🧪 Trajes por mundo + Galería del Museo con desbloqueos (guardado en el navegador)
-- [ ] H6 🎨 Escenarios por capas desde el editor de imágenes (prompts en art/PROMPTS-GEMINI.md §0c)
+- [~] H6 🎨 Escenarios: Gemini entrega escenas completas, no capas → se usan como **fondo panorámico** (`scripts/import_backdrop.py`, `src/render/backdrop.js`): ✅ 1-1 Calle, ✅ 1-2 Azoteas, ⏳ 1-3 Teatro (sigue el fondo por código)
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

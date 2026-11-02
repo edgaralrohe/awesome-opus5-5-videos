@@ -8,6 +8,7 @@ import { TRAIDOR_META, TRAIDOR_PNG } from '../data/traidor-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
 import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
 import { buildTheme, hash } from './themes.js';
+import { panOffset } from './backdrop.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
 const rect = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
@@ -180,12 +181,23 @@ function drawGuitar(ctx, x, y) {
 // ── Fotograma ─────────────────────────────────────────────
 export function drawWorld(ctx, g, art, camX, t, levelId = '') {
   const th = art.theme;
-  ctx.drawImage(th.sky, 0, 0);
   const shake = g.shake > 0 ? Math.round((hash(g.frame, 3) - 0.5) * 6 * Math.min(1, g.shake * 4)) : 0;
-  const fx = -Math.floor(camX * 0.2) % 640;
-  ctx.drawImage(th.far, fx, 0); ctx.drawImage(th.far, fx + 640, 0);
-  const mx = -Math.floor(camX * 0.5) % 256;
-  for (let x = mx; x < W; x += 256) ctx.drawImage(th.mid, x, 0);
+  if (th.backdrop && th.backdrop.complete && th.backdrop.naturalWidth) {
+    // Fondo panorámico de Gemini: recorre la imagen de un borde al otro a lo largo del nivel.
+    const ox = panOffset(camX, g.level.w * TILE, th.backdropW);
+    ctx.drawImage(th.backdrop, -ox, 0);
+    if (art.themeName === 'azoteas') {
+      // Cartel en blanco de la imagen → Colores Ruidosos (lo pone el código, no la IA).
+      text(ctx, 'COLORES', 270 - ox, 137, { color: '#c02a38', align: 'center', shadow: null });
+      text(ctx, 'RUIDOSOS', 270 - ox, 147, { color: '#1c0810', align: 'center', shadow: null });
+    }
+  } else {
+    ctx.drawImage(th.sky, 0, 0);
+    const fx = -Math.floor(camX * 0.2) % 640;
+    ctx.drawImage(th.far, fx, 0); ctx.drawImage(th.far, fx + 640, 0);
+    const mx = -Math.floor(camX * 0.5) % 256;
+    for (let x = mx; x < W; x += 256) ctx.drawImage(th.mid, x, 0);
+  }
 
   ctx.save();
   ctx.translate(-camX + shake, shake ? Math.round((hash(g.frame, 9) - 0.5) * 4) : 0);
