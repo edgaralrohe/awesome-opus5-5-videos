@@ -148,6 +148,7 @@ Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source
 3. **Rayo cegador** horizontal a ras de suelo (se salta) o, en la fase 2, a la altura de la cabeza (se esquiva quedándose en el suelo). Rayo suave, sin destellos de pantalla completa.
 4. **Expuesto** (2 s): el lente se agrieta y echa humo; solo entonces el micrófono le hace daño.
 - 6 golpes, **uno por apertura del lente**. Con 3 o menos entra en **fase 2**: camina más rápido y alterna rayo bajo y alto.
+- **Entrada del jefe (cinemática, ~4,5 s, saltable con A/B tras 0,5 s):** bandas negras de cine y luz baja → Pepe entra solo al escenario (controles bloqueados) → el Flash-Bot **cae del techo** (temblor y polvo) → se encienden sus focos y aparece el cartel **«JEFE · CÁMARA FLASH-BOT · «LA PRENSA ROSA»»** → «¡A ESCENA!» y empieza el combate. Durante la cinemática el cronómetro no corre, el jefe no ataca y no hay daño. Sin destellos de pantalla completa.
 - Al vencerlo se deshace en pétalos y deja el **Disco de Oro** (*Carmesí* fue Disco de Oro en nov. 2016, Wikipedia).
 
 **Ritmo («dinámico y rápido»):**

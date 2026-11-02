@@ -108,7 +108,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 8. ¿Publicar el juego como enlace privado? Usa el nombre de un artista real: decide el usuario.
 9. Antes de publicar el memorial: verificar teléfonos de ayuda en fuentes oficiales y, si se usan cifras, que sean de SESNSP o INEGI.
 
-**Hecho (2 nov, v0.3):** Mundo 1 «Carmesí» completo con TDD (spec §3.0d, tareas C1–C9).
+**Hecho (2 nov, v0.3):** Mundo 1 «Carmesí» completo con TDD (spec §3.0d, tareas C1–C9). Además: **cinemática de entrada del jefe** (C11: bandas de cine, Pepe entra solo, el Flash-Bot cae del techo, cartel «JEFE · CÁMARA FLASH-BOT · «LA PRENSA ROSA»», «¡A ESCENA!»; saltable con A; cronómetro parado) y cámara que encuadra a Pepe y al jefe durante el combate.
 
 **Siguiente tarea:** feedback del Mundo 1 → ajustes en `constants.js`; sustituir los sprites provisionales cuando lleguen las hojas laterales; después, **Mundo 2 «Noche»** con TDD.
 

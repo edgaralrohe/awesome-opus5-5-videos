@@ -1,4 +1,4 @@
-import { TILE, P, MIC, DT, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP } from './constants.js';
+import { TILE, P, MIC, DT, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP, INTRO } from './constants.js';
 import { parseLevel } from '../engine/tilemap.js';
 import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
@@ -25,6 +25,8 @@ export function createGame(levelText, carry = {}) {
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
   };
+  // Niveles con jefe: empiezan con su cinemática de entrada.
+  g.intro = level.boss ? { t: 0, x0: g.player.x, drop: INTRO.dropH, landed: false } : null;
   return g;
 }
 
@@ -152,12 +154,40 @@ function stepMic(g, pressed) {
   }
 }
 
+// Cinemática del jefe: Pepe entra solo, el jefe cae del techo, cartel y «¡A ESCENA!».
+// El cronómetro no corre y nadie ataca. A o B la saltan tras INTRO.skip segundos.
+function stepIntro(g, btn) {
+  const it = g.intro, p = g.player;
+  const ed = edges(g.prev, btn);
+  g.prev = { ...btn };
+  if (it.t === 0) g.events.push('bossintro');
+  it.t += DT;
+  g.frame++;
+  g.shake = Math.max(0, g.shake - DT);
+  if ((ed.jumpPressed || ed.micPressed) && it.t >= INTRO.skip) it.t = INTRO.total;
+  const walking = it.t < INTRO.walk && p.x < it.x0 + INTRO.walkDist;
+  stepPlayerMotion(p, { left: false, right: walking, jump: false, jumpPressed: false }, g.level);
+  if (!walking && p.onGround) p.vx = 0;
+  const k = Math.min(1, Math.max(0, (it.t - INTRO.dropStart) / (INTRO.dropEnd - INTRO.dropStart)));
+  it.drop = INTRO.dropH * (1 - k * k);
+  if (!it.landed && it.t >= INTRO.dropEnd) { it.landed = true; g.shake = 0.35; g.events.push('bossland'); }
+  if (!it.card && it.t >= INTRO.card) { it.card = true; g.events.push('bosscard'); }
+  if (it.t >= INTRO.total) {
+    it.drop = 0;
+    g.intro = null;
+    g.boss.t = 0;
+    g.events.push('fight');
+  }
+  return g;
+}
+
 // Un paso de 1/60 s. `btn` = botones mantenidos {left,right,jump,mic,special}.
 export function stepGame(g, btn) {
   g.events = [];
   if (g.status !== 'play') return g;
   // Parón de impacto: el mundo se congela unos fotogramas (los flancos de botón se guardan para después).
   if (g.hitstop > 0) { g.hitstop--; return g; }
+  if (g.intro) return stepIntro(g, btn);
   const ed = edges(g.prev, btn);
   g.prev = { ...btn };
   g.frame++; g.time += DT;

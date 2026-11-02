@@ -1,4 +1,4 @@
-import { W, H, TILE, OVATION, BOSS } from '../game/constants.js';
+import { W, H, TILE, OVATION, BOSS, INTRO } from '../game/constants.js';
 import { GLYPHS, ADVANCE, textWidth } from './font.js';
 import { micHand, micTip } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
@@ -319,7 +319,16 @@ function drawBoss(ctx, g, art, t) {
     : b.state === 'charge' ? A.bossCharge[b.t > BOSS.charge / 2 ? 1 : 0]
     : b.state === 'beam' ? 'bossFire0'
     : b.state === 'walk' || b.state === 'retreat' ? A.bossWalk[Math.floor(t * 10) % 4] : 'bossWalk0';
-  if (!(hurtBlink && b.hurtT < BOSS.hurtT / 2)) sprite(ctx, art.boss, key, fx, fy + 1, flip);
+  const drop = g.intro ? g.intro.drop : 0; // cae del techo en la cinemática
+  if (!(hurtBlink && b.hurtT < BOSS.hurtT / 2)) sprite(ctx, art.boss, g.intro && !g.intro.landed ? 'bossHurt0' : key, fx, fy + 1 - drop, flip);
+  if (g.intro && g.intro.landed && g.intro.t < INTRO.dropEnd + 0.6) {
+    // Polvo al aterrizar.
+    const k = (g.intro.t - INTRO.dropEnd) / 0.6;
+    for (let i = 0; i < 14; i++) {
+      const side = i % 2 ? 1 : -1, d = 10 + k * (30 + hash(i, 4) * 30);
+      ctx.globalAlpha = 1 - k; rect(ctx, '#b9a08a', fx + side * d, fy - 4 - hash(i, 2) * 10 * k, 3, 3); ctx.globalAlpha = 1;
+    }
+  }
   const lensX = fx + b.facing * 20, lensY = fy - 34;
   if (b.state === 'charge') {
     // Aviso: el lente brilla cada vez más (sin parpadeo rápido).
@@ -455,4 +464,42 @@ export function drawEnd(ctx, g, best, art, t = 0) {
     text(ctx, 'VUELVES AL INICIO DEL NIVEL', W / 2, 134, { align: 'center', color: '#b9c0d0' });
   }
   text(ctx, 'PULSA A PARA SEGUIR', W / 2, 180, { align: 'center' });
+}
+
+// Cinemática de entrada del jefe (spec §3.0d): bandas de cine, foco sobre el jefe, cartel y «¡A ESCENA!».
+const ease = (x) => Math.max(0, Math.min(1, x));
+export function drawIntro(ctx, g, camX, t) {
+  const it = g.intro, b = g.boss;
+  if (!it || !b) return;
+  const out = ease((INTRO.total - it.t) / 0.3), inn = ease(it.t / 0.4);
+  // Luz baja con un foco sobre el escenario (sin destellos).
+  const bx = b.x + b.w / 2 - camX, by = b.y + b.h / 2 - it.drop;
+  ctx.save();
+  ctx.globalAlpha = 0.5 * inn * out;
+  ctx.fillStyle = '#05010a';
+  ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(bx, by, 56 + (it.landed ? 6 : 0), 0, Math.PI * 2); ctx.fill('evenodd');
+  ctx.restore();
+  // Focos del jefe que se encienden al aterrizar.
+  if (it.landed) {
+    const k = ease((it.t - INTRO.dropEnd) / 0.5) * out;
+    ctx.save(); ctx.globalAlpha = 0.35 * k; ctx.fillStyle = '#fff2c0';
+    for (const dx of [-12, 10]) { ctx.beginPath(); ctx.arc(bx + dx * (b.facing < 0 ? -1 : 1), b.y - 14, 8, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+  }
+  // Bandas de cine.
+  const bar = Math.round(24 * inn * out);
+  rect(ctx, '#000000', 0, 0, W, bar); rect(ctx, '#000000', 0, H - bar, W, bar);
+  // Cartel del jefe: entra desde la derecha.
+  if (it.t >= INTRO.card && it.t < INTRO.fight + 0.1) {
+    const k = ease((it.t - INTRO.card) / 0.3), x = W / 2 + (1 - k) * 220;
+    rect(ctx, '#1b1226', x - 130, 40, 260, 54); rect(ctx, '#7a0e1e', x - 128, 42, 256, 50); rect(ctx, '#c8963c', x - 128, 42, 256, 2); rect(ctx, '#c8963c', x - 128, 90, 256, 2);
+    text(ctx, 'JEFE · MUNDO 1', x, 48, { align: 'center', color: '#ffcf7a' });
+    text(ctx, 'CÁMARA FLASH-BOT', x, 60, { scale: 2, align: 'center', bands: CHROME });
+    text(ctx, '«LA PRENSA ROSA»', x, 79, { align: 'center', color: '#ffb3b3' });
+  }
+  if (it.t >= INTRO.fight) {
+    const k = ease((it.t - INTRO.fight) / 0.15);
+    text(ctx, '¡A ESCENA!', W / 2, 100 - (1 - k) * 10, { scale: 3, align: 'center', color: '#ffcf7a' });
+  }
+  if (it.t >= INTRO.skip && bar > 8) text(ctx, 'A: SALTAR', W - 6, H - 15, { align: 'right', color: '#8a7a9a', shadow: null });
 }

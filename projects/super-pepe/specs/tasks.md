@@ -52,6 +52,7 @@
 - [x] C7 🎨 Niveles 1-1 Calle, 1-2 Azoteas, 1-3 Teatro con fondos por capas hechos por código
 - [x] C8 🧪 Repetición: el bot completa 1-1 y 1-2; un bot de jefe vence al Flash-Bot
 - [x] C9 🎨 HUD (marcador, cronómetro, combo, Ovación) + botón ★ táctil
+- [x] C11 🧪 Cinemática de entrada del jefe: controles bloqueados, caída del jefe, cartel, saltable, cronómetro parado
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

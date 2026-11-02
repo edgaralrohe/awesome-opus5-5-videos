@@ -3,7 +3,7 @@ import { createGame, stepGame } from './game/game.js';
 import { followCamera } from './engine/camera.js';
 import { WORLD_1 } from './data/world1.js';
 import { FACTS } from './data/facts.js';
-import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard } from './render/draw.js';
+import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
 import { createAudio } from './audio/audio.js';
 
 const cv = document.getElementById('game');
@@ -99,12 +99,16 @@ function frame(now) {
     startPressed = false;
   }
   const p = game.player;
-  camX = followCamera(camX, p.x + p.w / 2, game.level.w * 16, p.facing * 24);
+  // Contra el jefe (y en su cinemática), la cámara encuadra a Pepe y al jefe a la vez.
+  const duel = game.boss && game.boss.alive;
+  const target = duel ? (p.x + p.w / 2 + game.boss.x + game.boss.w / 2) / 2 + W * 0.08 : p.x + p.w / 2;
+  camX = followCamera(camX, target, game.level.w * 16, duel ? 0 : p.facing * 24);
   if (screen === 'title') drawTitle(ctx, t, art);
   else {
     const L = WORLD_1[levelIdx];
     drawWorld(ctx, game, art, camX, t, L.id);
-    drawHud(ctx, game, `${L.id} ${L.name}`, t);
+    if (game.intro) drawIntro(ctx, game, camX, t);
+    else drawHud(ctx, game, `${L.id} ${L.name}`, t);
     if (screen === 'card') drawCard(ctx, card, art, t);
     if (screen === 'end') drawEnd(ctx, game, store.get(), art, t);
     if (paused) { ctx.fillStyle = 'rgba(27,18,38,0.7)'; ctx.fillRect(0, 0, W, H); }

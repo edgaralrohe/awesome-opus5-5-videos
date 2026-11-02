@@ -9,6 +9,8 @@ const IDLE = { left: false, right: false, jump: false, mic: false, special: fals
 const run = (g, n, btn = IDLE) => { for (let i = 0; i < n; i++) stepGame(g, btn); };
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 const row = (s, n = 30) => s.padEnd(n, '.');
+// Combate directo: la cinemática de entrada tiene sus propios tests (v5-intro.test.js).
+const fightGame = (m) => { const g = createGame(m); g.intro = null; return g; };
 
 describe('Rumor Volador (C5)', () => {
   test('planea en onda sin caerse cuando Pepe no está debajo', () => {
@@ -72,13 +74,13 @@ const ARENA = [row(''), row(''), row(''), row(''), row(''), row('.P.............
 
 describe('jefe Cámara Flash-Bot (C6)', () => {
   test('el nivel con «B» tiene jefe con 6 golpes', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     assert.ok(g.boss);
     assert.equal(g.boss.hp, BOSS.hp);
   });
 
   test('ciclo: camina → carga → rayo → expuesto → camina', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     g.hearts = 99;
     const seen = [];
     for (let i = 0; i < 60 * 12; i++) { stepGame(g, IDLE); if (seen.at(-1) !== g.boss.state) seen.push(g.boss.state); }
@@ -86,7 +88,7 @@ describe('jefe Cámara Flash-Bot (C6)', () => {
   });
 
   test('rayo bajo: alcanza a Pepe de pie y no a Pepe saltando; el alto, al revés', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     const b = g.boss, p = g.player;
     run(g, 2);
     const standing = { ...p };
@@ -100,13 +102,13 @@ describe('jefe Cámara Flash-Bot (C6)', () => {
   });
 
   test('el rayo quita un corazón a Pepe si no lo esquiva', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     run(g, 60 * 4);
     assert.ok(g.hearts < 3);
   });
 
   test('solo le hace daño el micrófono cuando el lente está expuesto', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     const b = g.boss;
     b.state = 'walk';
     assert.equal(hitBoss(g, b), false);
@@ -117,7 +119,7 @@ describe('jefe Cámara Flash-Bot (C6)', () => {
   });
 
   test('con 3 golpes o menos entra en fase 2: más rápido y alterna rayo alto y bajo', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     const b = g.boss;
     g.hearts = 99;
     b.hp = BOSS.phase2 + 1; b.state = 'exposed';
@@ -130,14 +132,14 @@ describe('jefe Cámara Flash-Bot (C6)', () => {
   });
 
   test('el Solo de guitarra le quita un golpe aunque no esté expuesto', () => {
-    const g = createGame([row(''), row(''), row(''), row(''), row(''), row('.P.......B'), '#'.repeat(30)].join('\n'));
+    const g = fightGame([row(''), row(''), row(''), row(''), row(''), row('.P.......B'), '#'.repeat(30)].join('\n'));
     g.ovacion = OVATION.max;
     stepGame(g, { ...IDLE, special: true });
     assert.equal(g.boss.hp, BOSS.hp - 1);
   });
 
   test('al vencerlo deja el Disco de Oro; tocarlo completa el mundo', () => {
-    const g = createGame(ARENA);
+    const g = fightGame(ARENA);
     const b = g.boss;
     b.hp = 1; b.state = 'exposed';
     hitBoss(g, b);
@@ -150,7 +152,7 @@ describe('jefe Cámara Flash-Bot (C6)', () => {
   });
 
   test('tocarlo de lado quita un corazón', () => {
-    const g = createGame([row(''), row(''), row(''), row(''), row(''), row('.....P.B'), '#'.repeat(30)].join('\n'));
+    const g = fightGame([row(''), row(''), row(''), row(''), row(''), row('.....P.B'), '#'.repeat(30)].join('\n'));
     run(g, 60, { ...IDLE, right: true });
     assert.ok(g.hearts < 3);
   });

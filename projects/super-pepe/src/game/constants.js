@@ -36,3 +36,6 @@ export const BOSS = {
   charge: 0.8, beam: 0.4, exposed: 2.0, hurtT: 0.35, retreat: 150, retreatT: 1.0,
   beamLow: 14, beamHigh: 54, beamH: 12, // altura del centro del rayo sobre el suelo y grosor
 };
+
+// Cinemática de entrada del jefe (spec §3.0d): tiempos en segundos.
+export const INTRO = { total: 4.5, skip: 0.5, walk: 1.3, walkDist: 96, dropStart: 1.4, dropEnd: 1.9, dropH: 190, card: 2.1, fight: 3.7 };

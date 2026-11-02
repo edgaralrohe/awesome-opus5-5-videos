@@ -72,6 +72,10 @@ export function createAudio() {
     clank: () => tone('square', 180, 160, 0.08, 0.12),
     bosshit: () => { tone('sawtooth', 300, 60, 0.25, 0.2); setTimeout(() => tone('square', 900, 900, 0.06, 0.1), 40); },
     bossdown: () => [784, 659, 784, 1046, 1318].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.18, 0.13), i * 140)),
+    bossintro: () => tone('triangle', 60, 40, 1.2, 0.25),
+    bossland: () => { tone('sawtooth', 120, 30, 0.45, 0.3); tone('square', 70, 40, 0.3, 0.2); },
+    bosscard: () => [[220, 277, 330], [208, 262, 311]].forEach((ch, i) => setTimeout(() => ch.forEach((f) => tone('sawtooth', f, f, 0.4, 0.07)), i * 260)),
+    fight: () => [392, 523, 659, 784].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.12, 0.12), i * 70)),
     gameover: () => [392, 330, 262].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.25, 0.2), i * 180)),
   };
   return {
