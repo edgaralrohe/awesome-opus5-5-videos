@@ -188,12 +188,13 @@ La barra de Ovación conecta con el final («la barra es el cariño del público
 | D5 | *Carmesí* salió el 29 abr 2016 con 13 canciones | Wikipedia EN, El Siglo de Torreón, Excélsior | ✅ |
 | D6 | La mayoría de las canciones se escribieron entre 2008 y 2010 y nunca se usaron en Panda | Wikipedia ES, Zeta Tijuana | ✅ |
 | D7 | Fue Disco de Oro en 2016 (más de 30.000 copias) | Wikipedia ES, Jackson Live, blog El arte me llama | ✅ (mes ⚠️: oct. o nov.) |
-| D8 | monitorLATINO lo nombró Artista Revelación México 2016 por la rotación en radio de sus dos primeros sencillos | Wikipedia EN | ✅ (ya verificado antes) |
+| D8 | monitorLATINO lo nombró Artista Revelación México 2016 (lista publicada el 10 dic 2016) | monitorLATINO (fuente original), LJZ 2025 | ✅ |
 | D9 | Presentó *Carmesí* en el Teatro Metropólitan el 29 y 30 sep 2016, con un show anunciado de unas 2 horas y 23 canciones | Excélsior, El Universal, Reconoce MX, Revista Kuadro | ✅ |
 | D10 | Edición Deluxe (oct. 2016): 5 canciones extra, entre ellas versiones de Vicentico («Sólo un momento») y Los Auténticos Decadentes («El pájaro vio el cielo y se voló»), y un DVD de la grabación | Zeta Tijuana, Apple Music, Amazon MX, Wikipedia EN | ✅ |
 | D11 | El Tour Carmesí llegó a Buenos Aires y Lima en diciembre de 2016 | Concert Archives, Wikipedia ES | ✅ |
 | D12 | Cita: «No por ser artista tengo que ser un súper hombre» (sep. 2016) | El Universal, Noroeste, Vanguardia | ✅ |
-| D13 | Segundo sencillo «La noche de la mesa triste» (19 ago 2016) y tercero «Literatura rusa» (30 ene 2017) | Wikipedia EN; Looking Back cita «Sinmigo» | ⚠️ no coinciden |
+| D13 | «Sinmigo» fue sencillo de *Carmesí*, con vídeo oficial el 19 ago 2016: Madero con ropa de época y una turba que quiere quemarlo en la hoguera; primer guiño al terror en sus vídeos | Revista Kuadro, Apple Music, YouTube oficial, Wikipedia ES | ✅ (que sea el 2.º o el 3.er sencillo ⚠️ no coincide) |
+| — | ❌ **«La noche de la mesa triste» NO es de *Carmesí*:** es de PXNDX (*Bonanza*, 2012). La Wikipedia EN de *Carmesí* lo pone mal → **no usar la Wikipedia EN de *Carmesí* como fuente única** | Usuario; Spotify, Letras.com | Corregido |
 | D14 | El vídeo de «Plural siendo singular» se grabó en el Parque Nacional Cumbres del Ajusco | Wikipedia EN | ⚠️ 1 fuente |
 | D15 | Estuvo entre los 10 discos más vendidos de México en mayo de 2016 | Wikipedia (según AMPROFON) | ⚠️ 1 fuente |
 | D16 | Rechazó presentarlo en el Auditorio Nacional | La Prensa (OEM) | ⚠️ 1 fuente |
