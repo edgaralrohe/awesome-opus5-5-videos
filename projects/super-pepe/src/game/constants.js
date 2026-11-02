@@ -33,6 +33,6 @@ export const ENEMY = {
 export const BOSS = {
   w: 60, h: 56, hp: 6, phase2: 3,
   walk: 1.6, speed: 40, speed2: 70,
-  charge: 0.8, beam: 0.9, exposed: 2.0, hurtT: 0.35,
+  charge: 0.8, beam: 0.4, exposed: 2.0, hurtT: 0.35, retreat: 150, retreatT: 1.0,
   beamLow: 14, beamHigh: 54, beamH: 12, // altura del centro del rayo sobre el suelo y grosor
 };

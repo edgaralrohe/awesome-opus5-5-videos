@@ -30,6 +30,9 @@ export function hitBoss(g, b, force = false) {
   g.hitstop = 6; g.shake = Math.max(g.shake, 0.3);
   g.floats.push({ x: b.x + b.w / 2, y: b.y, text: '+500', t: 0.9 });
   if (b.hp <= BOSS.phase2) b.phase = 2;
+  // Un golpe por apertura: el lente se cierra y retrocede hacia el otro lado del escenario.
+  const away = Math.sign(b.x + b.w / 2 - (g.player.x + g.player.w / 2)) || 1;
+  b.state = 'retreat'; b.t = 0; b.facing = away;
   if (b.hp <= 0) {
     b.alive = false; b.state = 'dead';
     g.score += 5000;
@@ -53,9 +56,11 @@ export function stepBoss(g, b, hurt, prevBottom) {
   if (b.state === 'walk') {
     b.facing = Math.sign(pc - bc) || b.facing;
     b.vx = Math.abs(pc - bc) > 40 ? b.facing * speed : 0;
-  } else b.vx = 0;
+  } else if (b.state === 'retreat') b.vx = b.facing * BOSS.retreat;
+  else b.vx = 0;
   const r = moveBody(g.level, b, b.vx * DT, b.vy * DT);
   if (r.ground) b.vy = 0;
+  if (b.state === 'retreat' && (r.hitX || b.t >= BOSS.retreatT)) { b.state = 'walk'; b.t = 0; }
 
   if (b.state === 'walk' && b.t >= BOSS.walk) {
     b.state = 'charge'; b.t = 0; b.cycle++;

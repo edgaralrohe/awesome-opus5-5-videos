@@ -133,7 +133,7 @@ Propuesta (⚠️ el usuario confirma qué discos): los discos más tranquilos d
 ### 3.0d v5 · Mundo 1 «Carmesí» (✅ decidido el 2 nov 2026)
 Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source/carmesi/`). Se usan como **guía de estilo**; los recursos del juego se rehacen sin texto ni sombras (personajes) o se dibujan por código (fondos).
 
-**Estructura (3 niveles, 2–3 min cada uno):**
+**Estructura (3 niveles; en el prototipo, 1 min aprox. cada uno; se alargan tras probarlos):**
 | Nivel | Escenario | Qué enseña | Final |
 |---|---|---|---|
 | 1-1 «Calle Carmesí» | Calle nocturna con balcones, telones rojos, papel picado y faroles; al fondo, la fachada del **Teatro Carmesí** | Correr, saltar, micrófono, primer gancho | Puerta del teatro |
@@ -147,7 +147,7 @@ Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source
 2. **Carga** (aviso de 0,8 s: el lente brilla).
 3. **Rayo cegador** horizontal a ras de suelo (se salta) o, en la fase 2, a la altura de la cabeza (se esquiva quedándose en el suelo). Rayo suave, sin destellos de pantalla completa.
 4. **Expuesto** (2 s): el lente se agrieta y echa humo; solo entonces el micrófono le hace daño.
-- 6 golpes. Con 3 o menos entra en **fase 2**: camina más rápido y alterna rayo bajo y alto.
+- 6 golpes, **uno por apertura del lente**. Con 3 o menos entra en **fase 2**: camina más rápido y alterna rayo bajo y alto.
 - Al vencerlo se deshace en pétalos y deja el **Disco de Oro** (*Carmesí* fue Disco de Oro en nov. 2016, Wikipedia).
 
 **Ritmo («dinámico y rápido»):**
