@@ -4,7 +4,7 @@ import { micHand, micTip } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
 import { PEPE_META, PEPE_PNG } from '../data/pepe-atlas.js';
 import { ENEMIES_META, ENEMIES_PNG } from '../data/enemies-atlas.js';
-import { CARMESI_META, CARMESI_PNG } from '../data/carmesi-atlas.js';
+import { TRAIDOR_META, TRAIDOR_PNG } from '../data/traidor-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
 import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
 import { buildTheme, hash } from './themes.js';
@@ -55,8 +55,8 @@ let SHEETS = null;
 function sheets() {
   if (SHEETS) return SHEETS;
   const mk = (png, meta) => ({ img: loadImage(png), meta });
-  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), carmesi: mk(CARMESI_PNG, CARMESI_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META) };
-  SHEETS.ready = Promise.all(['pepe', 'foes', 'carmesi', 'boss', 'rumor'].map((k) => SHEETS[k].img.decode()));
+  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META) };
+  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor'].map((k) => SHEETS[k].img.decode()));
   return SHEETS;
 }
 
@@ -262,7 +262,7 @@ function drawEnemies(ctx, g, art, t) {
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';
-    const sheet = e.kind === 'rumor' ? art.rumor : carm ? art.carmesi : art.foes;
+    const sheet = e.kind === 'rumor' ? art.rumor : e.kind === 'traidor' ? art.traidor : art.foes;
     const A = { titular: ['titularWalk', 'titularKo', 'titularHurt'], paparazzi: ['papWalk', 'papKo', 'papHurt'], reportero: ['repWalk', 'repKo', 'repHurt'], rumor: ['rumorFly', 'rumorKo', 'rumorKo'], traidor: ['traidorHover', 'traidorKo', 'traidorKo'] }[e.kind];
     if (!e.alive) {
       // Primero el gesto de daño y luego la derrota, desvaneciéndose.
@@ -277,10 +277,11 @@ function drawEnemies(ctx, g, art, t) {
     if (e.kind === 'reportero' && (e.state === 'dash' || e.state === 'windup')) key = 'repDash0';
     if (e.kind === 'reportero' && e.state === 'rest') key = 'repWalk0';
     if (e.kind === 'rumor' && e.state === 'dive') key = 'rumorDive0';
-    if (e.kind === 'traidor' && (e.state === 'lunge' || e.state === 'aim')) key = 'traidorAtk0';
+    if (e.kind === 'traidor' && e.state === 'aim') key = 'traidorAim0';
+    if (e.kind === 'traidor' && e.state === 'lunge') key = loop(sheet, 'traidorLunge', t, 12);
     // Los voladores aletean (pequeño balanceo) y el Traidor tiembla al apuntar.
     const wob = carm ? (e.kind === 'traidor' && e.state === 'aim' ? Math.round(Math.sin(t * 60)) : Math.round(Math.sin(t * 10))) : 0;
-    sprite(ctx, sheet, key, fx + (e.kind === 'traidor' && e.state === 'aim' ? wob : 0), fy + (e.kind === 'rumor' ? wob : 0), e.kind === 'traidor' ? false : flip);
+    sprite(ctx, sheet, key, fx + (e.kind === 'traidor' && e.state === 'aim' ? wob : 0), fy + (e.kind === 'rumor' ? wob : 0), e.kind === 'traidor' ? (e.state === 'aim' || e.state === 'lunge' ? flip : false) : flip);
     if (e.kind === 'paparazzi' && e.state === 'flash') {
       ctx.save(); ctx.globalAlpha = 0.45 * (1 - e.t / 0.25); ctx.fillStyle = '#fff6a8';
       ctx.beginPath(); ctx.arc(fx + e.facing * 10, fy - 38, 26, 0, Math.PI * 2); ctx.fill(); ctx.restore();
@@ -422,7 +423,7 @@ export function drawTitle(ctx, t, art) {
   if (art) {
     sprite(ctx, art.pepe, loop(art.pepe, 'shout', t, 6), 40, 176);
     sprite(ctx, art.boss, loop(art.boss, 'bossWalk', t, 8), 292, 204, true);
-    sprite(ctx, art.carmesi, 'traidorHover0', 292, 52 + Math.round(Math.sin(t * 4) * 3));
+    sprite(ctx, art.traidor, loop(art.traidor, 'traidorHover', t, 8), 292, 52 + Math.round(Math.sin(t * 4) * 3));
     sprite(ctx, art.rumor, loop(art.rumor, 'rumorFly', t, 8), 30, 46 + Math.round(Math.sin(t * 5) * 3));
   }
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START / A', W / 2, 140, { align: 'center' });

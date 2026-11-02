@@ -13,7 +13,10 @@ from PIL import Image
 
 def load(src):
     a = np.asarray(Image.open(src).convert('RGB')).astype(np.int16)
-    bg = np.median(np.concatenate([a[:6].reshape(-1, 3), a[-6:].reshape(-1, 3)]), axis=0)
+    # Fondo = color más frecuente (las capturas de pantalla traen bordes oscuros que engañan a la mediana de los bordes).
+    q = (a // 4).reshape(-1, 3)
+    vals, counts = np.unique(q[:: max(1, len(q) // 200000)], axis=0, return_counts=True)
+    bg = vals[counts.argmax()] * 4 + 2
     return a, bg
 
 def flood(passable, seed):
@@ -25,7 +28,7 @@ def flood(passable, seed):
         if (n == reach).all(): return reach
         reach = n
 
-def frame(a, bg, box, scale, blank=(), shadow=True):
+def frame(a, bg, box, scale, blank=(), shadow=True, holes=False):
     x0, y0, x1, y1 = box
     c = a[y0:y1, x0:x1].copy()
     for bx0, by0, bx1, by1 in blank:  # rótulos que se cuelan en la caja
@@ -38,6 +41,10 @@ def frame(a, bg, box, scale, blank=(), shadow=True):
         seed = np.zeros_like(fg); seed[0, :] = seed[-1, :] = seed[:, 0] = seed[:, -1] = True
         gone = flood(shade | ~fg, seed) & fg
         fg &= ~gone
+    if holes:
+        # Lo que el fondo no alcanza desde el borde es parte de la figura (metal gris parecido al fondo).
+        seed = np.zeros_like(fg); seed[0, :] = seed[-1, :] = seed[:, 0] = seed[:, -1] = True
+        fg |= ~flood(~fg, seed)
     rgba = np.dstack([c.astype(np.uint8), np.where(fg, 255, 0).astype(np.uint8)])
     img = Image.fromarray(rgba, 'RGBA')
     img = img.crop(img.getbbox())
@@ -72,6 +79,12 @@ SETS = {
         (sc((1075, 425, 1465, 735)), 1),
         (sc((485, 745, 865, 1040)), 1), (sc((1100, 870, 1615, 1090)), 1),
     ], []),
+    # Micrófono Traidor (captura de 1008 px): FLOTAR×4 · APUNTAR×1 · EMBESTIDA×2 · DERROTA×2
+    'traidor': ('art/source/carmesi/w1-traidor-gemini.png', 'art/source/carmesi/traidor-sheet.png', [
+        ((80, 5, 245, 182), 1), ((295, 20, 470, 172), 1), ((520, 20, 718, 168), 1), ((765, 5, 948, 178), 1),
+        ((88, 200, 255, 338), 1), ((368, 178, 605, 332), 1), ((645, 192, 885, 328), 1),
+        ((300, 348, 472, 508), 1), ((518, 380, 735, 505), 1),
+    ], [], dict(shadow=False, holes=True, out_bg=(255, 0, 255))),
     # Prensa: TITULAR (espera, caminar, ataque, daño, derrota) · PAPARAZZI (ídem) · REPORTERO (ídem)
     'prensa': ('art/source/prensa-gemini.jpg', 'art/source/prensa-sheet.png', [
         ((96, 140, 372, 540), 1), ((470, 140, 820, 540), 1), ((870, 150, 1300, 540), 1), ((1300, 150, 1640, 540), 1), ((1620, 300, 2030, 600), 1),
@@ -82,6 +95,8 @@ SETS = {
 
 if __name__ == '__main__':
     name = sys.argv[1]
-    src, out, frames, blank = SETS[name]
+    src, out, frames, blank, *opt = SETS[name]
+    opt = opt[0] if opt else {}
     a, bg = load(src)
-    sheet([frame(a, bg, b, s, blank) for b, s in frames], out, bg)
+    # Fondo de salida magenta cuando la figura tiene grises parecidos al fondo original.
+    sheet([frame(a, bg, b, s, blank, opt.get('shadow', True), opt.get('holes', False)) for b, s in frames], out, opt.get('out_bg', bg))

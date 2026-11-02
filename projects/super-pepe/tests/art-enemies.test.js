@@ -4,6 +4,7 @@ import { PEPE_META } from '../src/data/pepe-atlas.js';
 import { ENEMIES_META } from '../src/data/enemies-atlas.js';
 import { FLASHBOT_META } from '../src/data/flashbot-atlas.js';
 import { RUMOR_META } from '../src/data/rumor-atlas.js';
+import { TRAIDOR_META } from '../src/data/traidor-atlas.js';
 import { createGame, stepGame } from '../src/game/game.js';
 
 const IDLE = { left: false, right: false, jump: false, mic: false };
@@ -32,6 +33,7 @@ describe('atlas de sprites (A1)', () => {
     checkAtlas(FLASHBOT_META, { bossWalk: 4, bossCharge: 2, bossFire: 1, bossExposed: 2, bossHurt: 1, bossKo: 2 });
     for (const k of FLASHBOT_META.anims.bossWalk) assert.ok(Math.abs(FLASHBOT_META.frames[k].h - 76) <= 3, k);
     checkAtlas(RUMOR_META, { rumorFly: 3, rumorDive: 1, rumorKo: 2 });
+    checkAtlas(TRAIDOR_META, { traidorHover: 4, traidorAim: 1, traidorLunge: 2, traidorKo: 2 });
   });
 });
 

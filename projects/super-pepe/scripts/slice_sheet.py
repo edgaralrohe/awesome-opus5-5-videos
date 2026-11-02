@@ -8,7 +8,7 @@ Uso: python3 scripts/slice_sheet.py <hoja> <nombre> <altura_px> <filas> <anim1:n
                      (p. ej. el micro dibujado en «throw»: el juego dibuja su propio cable).
 Salida: art/out/<nombre>.png, art/out/<nombre>-preview.png y src/data/<nombre>-atlas.js
 """
-import base64, io, json, sys
+import base64, io, json, os, sys
 import numpy as np
 from PIL import Image
 
@@ -61,12 +61,24 @@ def main():
     mask = dist > 30
 
     comps = [c for c in components(mask) if c[4] >= 40]
+    if os.environ.get('SLICE_BY_GAP'):
+        # Hojas compuestas de una sola fila (scripts/compose_frames.py): cada hueco horizontal grande separa
+        # una pose, aunque la pose esté hecha de varias piezas (imágenes de poca resolución).
+        groups = []
+        for c in sorted(comps, key=lambda c: c[0]):
+            if groups and c[0] <= groups[-1]['x1'] + 60:
+                g = groups[-1]; g['boxes'].append(c); g['runs'] += c[5]; g['x1'] = max(g['x1'], c[2])
+            else:
+                groups.append({'boxes': [c], 'runs': list(c[5]), 'x1': c[2]})
+        for g in groups: g['boxes'].sort(key=lambda c: -c[4])
+    else:
+        groups = None
     # Figura = componente grande (≥ 4000 px y ≥ 20 % de la mayor); lo demás (destellos, papeles, gorras que salen volando) se une a la figura más cercana.
     limit = max(4000, 0.2 * max(c[4] for c in comps))
     big = [c for c in comps if c[4] >= limit]
     small = [c for c in comps if c[4] < limit]
-    groups = [{'boxes': [c], 'runs': list(c[5])} for c in big]
-    for s in small:  # efectos (destellos, rayas, cable) al personaje más cercano
+    if groups is None: groups = [{'boxes': [c], 'runs': list(c[5])} for c in big]
+    for s in (small if not os.environ.get('SLICE_BY_GAP') else []):  # efectos (destellos, rayas, cable) al personaje más cercano
         cx, cy = (s[0] + s[2]) / 2, (s[1] + s[3]) / 2
         def gap(g):
             b = g['boxes'][0]
