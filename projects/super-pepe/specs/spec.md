@@ -183,7 +183,8 @@ La barra de Ovación conecta con el final («la barra es el cariño del público
 |---|---|---|---|
 | D1 | El 28 feb 2016 fue el último concierto de Panda antes de su pausa, en la Arena Ciudad de México; a las 0:00 del lunes 29 apareció «Lunes 28» en streaming | Wikipedia ES (Carmesí), CineMedios | ✅ |
 | D2 | «Lunes 28» fue el adelanto del proyecto, no un sencillo oficial; abre el disco | Wikipedia EN y ES | ✅ |
-| D3 | El 28 mar 2016 anunció *Carmesí* en sus redes; lo produjo él mismo | Wikipedia EN y ES, The Electroside | ✅ |
+| D3 | El 28 mar 2016 anunció *Carmesí* en sus redes | Wikipedia ES, The Electroside | ✅ |
+| D3b | Se grabó y mezcló en enero de 2016 en Estudios DMY (Monterrey), con Gil Elguezabal; en los créditos, José Madero Vizcaíno figura como **productor** (no «lo hizo todo solo»: hay ingeniero, músicos y masterización de Jaime Cavazos en OVU) | Créditos del disco en Discogs (edición estándar y Deluxe), Qobuz, Wikipedia ES | ✅ con este matiz (⏳ el usuario lo revisa) |
 | D4 | «Plural siendo singular» fue el primer sencillo; su vídeo se estrenó el 8 abr 2016 | Wikipedia EN, El Siglo de Torreón | ✅ |
 | D5 | *Carmesí* salió el 29 abr 2016 con 13 canciones | Wikipedia EN, El Siglo de Torreón, Excélsior | ✅ |
 | D6 | La mayoría de las canciones se escribieron entre 2008 y 2010 y nunca se usaron en Panda | Wikipedia ES, Zeta Tijuana | ✅ |
