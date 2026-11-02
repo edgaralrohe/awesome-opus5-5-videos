@@ -43,15 +43,15 @@
 - [x] J10 🧪 Enemigos de prensa recurrentes (Titular, Paparazzi, Micrófono de reportero)
 
 ## Fase 2b — v5 · Mundo 1 «Carmesí» (🧪 primero)
-- [ ] C1 🧪 Ritmo: velocidad 165, impulso al soltar el gancho, parón de impacto, combo y puntuación, cronómetro
-- [ ] C2 🧪 Titulares genéricos; frase verificada solo al vencer un Titular
-- [ ] C3 🧪 Ovación + Solo de guitarra (vence a todo lo que hay en pantalla; al jefe, 1 golpe; invulnerable 1 s)
-- [ ] C4 🧪 Amplificador (alcance ×2, 10 s) y Carta de fan (+1 corazón, máx. 3)
-- [ ] C5 🧪 Rumor Volador (onda + picado) y Micrófono Traidor (flota, apunta, se lanza)
-- [ ] C6 🧪 Jefe Cámara Flash-Bot: fases, rayo bajo/alto, solo vulnerable expuesto, fase 2, Disco de Oro
-- [ ] C7 🎨 Niveles 1-1 Calle, 1-2 Azoteas, 1-3 Teatro con fondos por capas hechos por código
-- [ ] C8 🧪 Repetición: el bot completa 1-1 y 1-2; un bot de jefe vence al Flash-Bot
-- [ ] C9 🎨 HUD (marcador, cronómetro, combo, Ovación) + botón ★ táctil
+- [x] C1 🧪 Ritmo: velocidad 165, impulso al soltar el gancho, parón de impacto, combo y puntuación, cronómetro
+- [x] C2 🧪 Titulares genéricos; frase verificada solo al vencer un Titular
+- [x] C3 🧪 Ovación + Solo de guitarra (vence a todo lo que hay en pantalla; al jefe, 1 golpe; invulnerable 1 s)
+- [x] C4 🧪 Amplificador (alcance ×2, 10 s) y Carta de fan (+1 corazón, máx. 3)
+- [x] C5 🧪 Rumor Volador (onda + picado) y Micrófono Traidor (flota, apunta, se lanza)
+- [x] C6 🧪 Jefe Cámara Flash-Bot: fases, rayo bajo/alto, solo vulnerable expuesto, fase 2, Disco de Oro
+- [x] C7 🎨 Niveles 1-1 Calle, 1-2 Azoteas, 1-3 Teatro con fondos por capas hechos por código
+- [x] C8 🧪 Repetición: el bot completa 1-1 y 1-2; un bot de jefe vence al Flash-Bot
+- [x] C9 🎨 HUD (marcador, cronómetro, combo, Ovación) + botón ★ táctil
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

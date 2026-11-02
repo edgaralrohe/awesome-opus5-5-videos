@@ -60,3 +60,25 @@ test('no quedan restos de fotogramas anteriores en los fosos', async () => {
   const a = await shot(200), b = await shot(1500);
   assert.equal(a, b);
 });
+
+test('v5: el Solo de guitarra vence a los enemigos cercanos', async () => {
+  await page.evaluate(() => { window.__jmv.goto(0); const g = window.__jmv.game; g.ovacion = 100; g.player.x = g.enemies[0].x - 60; });
+  await page.waitForTimeout(100);
+  await page.keyboard.down('KeyC'); await page.waitForTimeout(80); await page.keyboard.up('KeyC');
+  await page.waitForTimeout(200);
+  await page.screenshot({ path: 'out/04-solo.png' });
+  const r = await page.evaluate(() => ({ alive: window.__jmv.game.enemies[0].alive, ov: window.__jmv.game.ovacion }));
+  assert.equal(r.alive, false);
+  assert.equal(r.ov, 0);
+  assert.deepEqual(errors, []);
+});
+
+test('v5: los tres niveles del Mundo 1 se dibujan sin errores', async () => {
+  for (const [i, id] of [[0, '1-1'], [1, '1-2'], [2, '1-3']]) {
+    await page.evaluate((n) => window.__jmv.goto(n), i);
+    await page.waitForTimeout(1500);
+    assert.equal(await page.evaluate(() => window.__jmv.level), id);
+    await page.screenshot({ path: `out/05-nivel-${id}.png` });
+  }
+  assert.deepEqual(errors, []);
+});

@@ -61,6 +61,17 @@ export function createAudio() {
     dash: () => tone('sawtooth', 200, 500, 0.15, 0.08),
     checkpoint: () => tone('triangle', 523, 1046, 0.25, 0.2),
     won: () => [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.15, 0.12), i * 110)),
+    // v5 · Carmesí
+    guitar: () => [330, 392, 494, 659, 784, 988].forEach((f, i) => setTimeout(() => { tone('sawtooth', f, f * 1.01, 0.16, 0.12); tone('square', f / 2, f / 2, 0.16, 0.06); }, i * 55)),
+    powerup: () => [523, 784, 1046].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.08, 0.1), i * 60)),
+    heal: () => [659, 880].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.12, 0.18), i * 80)),
+    dive: () => tone('square', 1200, 300, 0.25, 0.06),
+    charge: () => tone('sawtooth', 200, 1400, 0.8, 0.07),
+    beam: () => tone('sawtooth', 1600, 400, 0.4, 0.09),
+    exposed: () => tone('square', 900, 700, 0.15, 0.08),
+    clank: () => tone('square', 180, 160, 0.08, 0.12),
+    bosshit: () => { tone('sawtooth', 300, 60, 0.25, 0.2); setTimeout(() => tone('square', 900, 900, 0.06, 0.1), 40); },
+    bossdown: () => [784, 659, 784, 1046, 1318].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.18, 0.13), i * 140)),
     gameover: () => [392, 330, 262].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.25, 0.2), i * 180)),
   };
   return {

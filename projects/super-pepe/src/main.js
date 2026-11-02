@@ -1,8 +1,9 @@
 import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { followCamera } from './engine/camera.js';
-import { LEVEL_1 } from './data/level1.js';
-import { createArt, drawWorld, drawHud, drawTitle, drawEnd } from './render/draw.js';
+import { WORLD_1 } from './data/world1.js';
+import { FACTS } from './data/facts.js';
+import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard } from './render/draw.js';
 import { createAudio } from './audio/audio.js';
 
 const cv = document.getElementById('game');
@@ -11,17 +12,26 @@ const ctx = cv.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 const audio = createAudio();
 
-let game = createGame(LEVEL_1);
-let art = createArt(game.level);
-let screen = 'title', camX = 0, t = 0, paused = false;
+// ── Progresión del Mundo 1: 1-1 → 1-2 → 1-3 (jefe) → «¿Sabías que…?» → fin ──
+let levelIdx = 0, carry = {}, levelStart = {};
+let game, art;
+function loadLevel(i, c = {}) {
+  levelIdx = i; carry = c; levelStart = { ...c };
+  const L = WORLD_1[i];
+  game = createGame(L.map, c);
+  art = createArt(game.level, L.theme);
+}
+loadLevel(0);
+
+let screen = 'title', camX = 0, t = 0, paused = false, card = null, screenT = 0;
 const store = {
-  get: () => { try { return Number(localStorage.getItem('jmv-best')) || 0; } catch { return 0; } },
-  set: (v) => { try { localStorage.setItem('jmv-best', String(v)); } catch { /* sin almacenamiento */ } },
+  get: () => { try { return Number(localStorage.getItem('jmv-record')) || 0; } catch { return 0; } },
+  set: (v) => { try { localStorage.setItem('jmv-record', String(v)); } catch { /* sin almacenamiento */ } },
 };
 
-// ── Entrada: teclado, táctil y mando → mismos 4 botones ──
-const held = { left: false, right: false, jump: false, mic: false };
-const KEYS = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', KeyZ: 'jump', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', KeyX: 'mic', KeyJ: 'mic', KeyK: 'mic' };
+// ── Entrada: teclado, táctil y mando → mismos 5 botones ──
+const held = { left: false, right: false, jump: false, mic: false, special: false };
+const KEYS = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', KeyZ: 'jump', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', KeyX: 'mic', KeyJ: 'mic', KeyK: 'mic', KeyC: 'special', KeyL: 'special' };
 let startPressed = false;
 addEventListener('keydown', (e) => {
   if (KEYS[e.code]) { held[KEYS[e.code]] = true; e.preventDefault(); }
@@ -48,7 +58,20 @@ function pad() {
   if (!gp) return {};
   const ax = gp.axes[0] || 0;
   if (gp.buttons[9]?.pressed || gp.buttons[0]?.pressed) startPressed = startPressed || screen !== 'play';
-  return { left: ax < -0.4 || gp.buttons[14]?.pressed, right: ax > 0.4 || gp.buttons[15]?.pressed, jump: gp.buttons[0]?.pressed, mic: gp.buttons[2]?.pressed || gp.buttons[1]?.pressed };
+  return { left: ax < -0.4 || gp.buttons[14]?.pressed, right: ax > 0.4 || gp.buttons[15]?.pressed, jump: gp.buttons[0]?.pressed, mic: gp.buttons[2]?.pressed || gp.buttons[1]?.pressed, special: gp.buttons[3]?.pressed };
+}
+
+function finishLevel() {
+  const L = WORLD_1[levelIdx];
+  const next = WORLD_1[levelIdx + 1];
+  const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx };
+  if (next) {
+    card = { kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, then: () => loadLevel(levelIdx + 1, c) };
+  } else {
+    if (game.score > store.get()) store.set(game.score);
+    card = { kind: 'fact', ...FACTS.carmesi, then: () => { screen = 'end'; } };
+  }
+  screen = 'card'; screenT = 0;
 }
 
 // ── Bucle de paso fijo ─────────────────────────────────
@@ -57,33 +80,42 @@ function frame(now) {
   acc += Math.min(0.1, (now - last) / 1000);
   last = now;
   const gp = pad();
-  const btn = { left: held.left || gp.left, right: held.right || gp.right, jump: held.jump || gp.jump, mic: held.mic || gp.mic };
+  const btn = { left: held.left || gp.left, right: held.right || gp.right, jump: held.jump || gp.jump, mic: held.mic || gp.mic, special: held.special || gp.special };
   while (acc >= DT) {
-    acc -= DT; t += DT;
-    if (screen === 'title' && startPressed) { audio.unlock(); screen = 'play'; game = createGame(LEVEL_1); }
+    acc -= DT; t += DT; screenT += DT;
+    if (screen === 'title' && startPressed) { audio.unlock(); loadLevel(0); screen = 'play'; }
     else if (screen === 'play' && !paused) {
       stepGame(game, btn);
       audio.play(game.events);
-      if (game.status !== 'play') {
-        screen = 'end';
-        if (game.status === 'won') { const b = store.get(); if (!b || game.time < b) store.set(game.time); }
-      }
-    } else if (screen === 'end' && startPressed && t > 0.5) { game = createGame(LEVEL_1); screen = 'play'; }
+      if (game.status === 'won') finishLevel();
+      else if (game.status === 'gameover') { screen = 'end'; screenT = 0; }
+    } else if (screen === 'card' && startPressed && screenT > 0.6) {
+      const then = card.then; card = null; screen = 'play'; then();
+    } else if (screen === 'end' && startPressed && screenT > 0.6) {
+      // Tras perder, se repite el nivel con lo que tenías al empezarlo; tras ganar, vuelta a la portada.
+      if (game.status === 'gameover') { loadLevel(levelIdx, { ...levelStart, hearts: 3 }); screen = 'play'; }
+      else screen = 'title';
+    }
     startPressed = false;
   }
   const p = game.player;
   camX = followCamera(camX, p.x + p.w / 2, game.level.w * 16, p.facing * 24);
   if (screen === 'title') drawTitle(ctx, t, art);
   else {
-    drawWorld(ctx, game, art, camX, t);
-    drawHud(ctx, game);
+    const L = WORLD_1[levelIdx];
+    drawWorld(ctx, game, art, camX, t, L.id);
+    drawHud(ctx, game, `${L.id} ${L.name}`, t);
+    if (screen === 'card') drawCard(ctx, card, art, t);
     if (screen === 'end') drawEnd(ctx, game, store.get(), art, t);
     if (paused) { ctx.fillStyle = 'rgba(27,18,38,0.7)'; ctx.fillRect(0, 0, W, H); }
   }
   requestAnimationFrame(frame);
 }
 // Acceso para pruebas automáticas (no afecta al juego).
-window.__jmv = { get game() { return game; }, start() { startPressed = true; } };
+window.__jmv = {
+  get game() { return game; }, get screen() { return screen; }, get level() { return WORLD_1[levelIdx].id; },
+  start() { startPressed = true; }, goto(i) { loadLevel(i, carry); screen = 'play'; },
+};
 art.ready.then(() => requestAnimationFrame(frame));
 
 // Escalado: entero cuando cabe (píxeles nítidos); fraccionario en pantallas pequeñas.

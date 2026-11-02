@@ -1,6 +1,6 @@
 # Contexto para retomar el trabajo (Colores Ruidosos)
 
-> Última actualización: 1 nov 2026. Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: 2 nov 2026. Pega este archivo, o su ruta, al empezar una sesión nueva.
 
 ## Quién y cómo trabajamos
 - **Cliente:** Colores Ruidosos (@coloresruidosos), medio musical que hace reels de Instagram y una web. Escribe en español.
@@ -37,9 +37,10 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 ## 2. `projects/super-pepe/` — juego «MÉXICO VS. JOSÉ MADERO» (en curso)
 
 ### Estado
-- **Spec v4:** `specs/spec.md` (+ `plan.md`, `tasks.md`). Referencias en `specs/referencias/`.
-- **Prototipo v0.2 jugable:** `dist/mexico-vs-jose-madero.html`, un archivo de unos 157 KB que funciona sin servidor y en el móvil.
-  - `npm test`: 27 tests (física, micro, enemigos, atlas, un bot que completa el nivel y pruebas en navegador).
+- **Spec v5:** `specs/spec.md` (+ `plan.md`, `tasks.md`); el Mundo 1 está en §3.0d. Referencias en `specs/referencias/`.
+- **v0.3 · Mundo 1 «Carmesí» jugable:** `dist/mexico-vs-jose-madero.html`, un archivo de unos 216 KB que funciona sin servidor y en el móvil.
+  - Niveles 1-1 Calle Carmesí → 1-2 Azoteas → 1-3 El Teatro (jefe) → tarjeta «¿Sabías que…?» (Carmesí, Wikipedia) → fin.
+  - `npm test`: 64 tests (física, micro, ritmo, Ovación, power-ups, enemigos, jefe, bots que completan 1-1, 1-2 y vencen al jefe, y pruebas en navegador).
   - `npm run dev`: servidor en :5174.
   - `npm run build`: genera el archivo único.
 - **Motor propio:**
@@ -48,7 +49,8 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - `src/render/`: dibujo y fuente 5×7.
   - `src/audio/`: chiptune y efectos originales.
   - Paso fijo de 60 Hz, resolución 320×224.
-- **Nivel de prueba:** `src/data/level1.js`. Leyenda: `#` sólido, `=` semisólido, `^` pinchos, `H` gancho, `*` pieza, `P` Pepe, `T` Titular, `F` Paparazzi, `R` Reportero, `C` checkpoint, `G` puerta.
+- **Niveles:** `src/data/world1.js` (generado una vez con `scripts/levels_world1.py`; el texto es la fuente). El antiguo nivel de prueba `src/data/level1.js` sigue para los tests. Leyenda: `#` sólido, `=` semisólido, `^` pinchos, `H` gancho, `*` pieza, `P` Pepe, `T` Titular, `F` Paparazzi, `R` Reportero, `C` checkpoint, `G` puerta; v5: `V` Rumor Volador, `M` Micrófono Traidor, `B` jefe, `A` Amplificador, `+` Carta de fan.
+- **v5 · Ritmo:** velocidad 165 px/s, impulso al soltar el gancho, parón de impacto (4 fotogramas), combo (2 s) × 100 puntos, cronómetro. **Ovación** (barra) → **Solo de guitarra** (C / ★ / Y): vence a todo en pantalla y quita 1 golpe al jefe. **Amplificador** (micro ×2, 10 s) y **Carta de fan** (+1 corazón). IA en `src/game/enemies.js`, jefe en `src/game/boss.js`, fondos por código en `src/render/themes.js`.
 - **Mecánica:** salto variable con *coyote time* y *jump buffer*. Micrófono con cable que golpea y se engancha a ganchos, con asistencia de puntería que sigue al gancho. Caja de colisión de Pepe 14×40; mano a 29 px del suelo.
 
 ### Arte
@@ -59,13 +61,15 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - Ancla en los pies y escribe `src/data/<nombre>-atlas.js`.
 - **Enemigos provisionales** (SVG → pipeline): Titular, Paparazzi (el flash congela 0,6 s) y Reportero (embiste).
 - **Arte final con Gemini:** prompts en **`art/PROMPTS-GEMINI.md`** (bloque de estilo, plantillas, enemigos, jefes, objetos, poses extra de Pepe, fondos por capas y bloques). Reglas: fondo gris liso #474747 (o magenta #FF00FF en las capas de fondo), sin texto, sin marcos, sin sombras, mirando a la derecha y con las poses separadas.
+- **v5 · Conceptos de Carmesí** rescatados de Gemini en `art/source/carmesi/` (jefe y enemigos, teatro, calle, azoteas). Rumor, Micrófono Traidor y Flash-Bot se recortan de ahí **provisionalmente** con `scripts/compose_carmesi.py` → `slice_sheet.py` (atlas `carmesi` y `flashbot`). Los fondos se dibujan por código tomándolos como referencia (Gemini ya no se usa para escenarios).
 - **Borrador de Gemini de la hoja de prensa** (Documento / Paparazzi / Reportero): `art/source/prensa-gemini-borrador.png`. El estilo está aprobado, pero hay que regenerarla sin rótulos ni sombras, **un personaje por imagen**. Trae poses de Daño separadas de Derrota, que hay que aprovechar.
 
 ### Decisiones tomadas
 - **Título** «MÉXICO VS. JOSÉ MADERO» (de la playera oficial). **Sello JMV = José Madero Vizcaíno** (confirmado), diseño propio.
 - Estética **16 bits estilo Neo Geo / *Spin Master***. Arma: **micrófono con cable**.
 - **Historia:** Pepe tiene que «recordar quién es» antes de su concierto en la **Arena Ciudad de México**, mientras le persigue la prensa. **Hub: el Museo**, inspirado en el museo real de 2026.
-- **Enemigos recurrentes de prensa** genéricos. Al vencerlos aparece una frase verificada de Madero.
+- **Enemigos recurrentes de prensa** genéricos. Los Titulares gritan titulares genéricos («¡EXCLUSIVA!», «¡POLÉMICA!», «¡ÚLTIMA HORA!»), sin insultos; al vencer a un **Titular** aparece una frase verificada de Madero.
+- **Logo de Colores Ruidosos:** el de los conceptos de Gemini es el real (✅ 2 nov), pero falta el **archivo original** para meterlo en el juego; de momento hay un cartel con el nombre en las Azoteas.
 - **Jefe intermedio:** Rueda de Prensa. **Final:** pantalla VS «México vs. José Madero» en concierto; la barra es el cariño del público y la música es original.
 - **Mundos:** Carmesí (2016, rojo) · Noche (2017, negro / B y N) · Alba (2018, blanco) · Psalmos (2019, azul) · Giallo (2022, amarillo) · Aurora EP (2023, naranja óxido) · Sarajevo (2024, lila) · Querido… (3 sep 2026, verde).
 - **v4 · Paseos reflexivos:** ✅ ***Alba* y *Aurora*** (sin enemigos ni daño, con pasajes y un momento final). *Querido…* es **acción normal**. Pasajes de letras **solo con licencia**; mientras tanto, título de la canción y una reflexión de CR o una cita verificada.
@@ -76,10 +80,10 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - Dedicatoria con nombres solo con consentimiento de la familia.
   - La luciérnaga **ya no es power-up**: en los niveles oscuros la luz es un **farol**.
 
-### Jefes (spec §3.3 v4) — ⏳ **EL USUARIO LOS ESTÁ REVISANDO**
+### Jefes (spec §3.3 v4/v5) — ⏳ el usuario revisa los de los mundos 2–8
 | Mundo | Propuesta actual |
 |---|---|
-| Carmesí | La Rosa Carmesí (pétalos → espinas → se deshace) → Disco de Oro |
+| Carmesí | ✅ **Cámara Flash-Bot** («La Prensa Rosa»): camina → carga → rayo bajo/alto → lente expuesto; 6 golpes, uno por apertura; fase 2 con 3 o menos; se deshace en pétalos → Disco de Oro |
 | Noche | El Enmascarado del Lago (arquetipo propio); al vencerlo se quita la máscara |
 | Alba (paseo) | La Nostalgia: momento final, se supera siguiendo adelante |
 | Psalmos | La Sombra (lado oscuro de Peter Pan) |
@@ -92,8 +96,9 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 ---
 
 ## Pendiente con el usuario
-1. **Revisión de los jefes** (la está haciendo él) y el **momento final de *Aurora***.
-2. **Imágenes de Gemini**, en este orden: prensa limpia (3 imágenes) → Mundo 1 Carmesí (Lunes 28, Libro ruso, Espina, jefe Rosa Carmesí, 2 fondos y bloques) → Noche → objetos y poses extra de Pepe → resto.
+1. **Probar el Mundo 1** y dar feedback (velocidad, jefe, Ovación, duración de los niveles: ahora rondan 1 min).
+1b. **Revisión de los jefes** de los mundos 2–8 y el **momento final de *Aurora***.
+2. **Imágenes de Gemini (solo personajes, un personaje por imagen, de lado, sin texto ni sombras):** Flash-Bot de perfil (andar, carga, rayo, expuesto, daño), Rumor Volador y Micrófono Traidor con 2–3 fotogramas por animación, prensa limpia (3) → Noche → poses extra de Pepe. Archivo del logo de CR.
 3. **Feedback del prototipo** (salto, micro, ritmo del Paparazzi y el Reportero): se ajusta en `constants.js`.
 4. **Fecha y enlace del concierto en la Arena CDMX** (no aparecen en fuentes públicas).
 5. **Escribir al equipo de Madero:** visto bueno al juego, **licencia de letras y música** y **consentimiento de la familia** para la dedicatoria del memorial.
@@ -102,7 +107,11 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 8. ¿Publicar el juego como enlace privado? Usa el nombre de un artista real: decide el usuario.
 9. Antes de publicar el memorial: verificar teléfonos de ayuda en fuentes oficiales y, si se usan cifras, que sean de SESNSP o INEGI.
 
-**Siguiente tarea:** cuando lleguen la revisión de jefes y las imágenes de Carmesí, construir el **Mundo 1 «Carmesí»** con TDD:
+**Hecho (2 nov, v0.3):** Mundo 1 «Carmesí» completo con TDD (spec §3.0d, tareas C1–C9).
+
+**Siguiente tarea:** feedback del Mundo 1 → ajustes en `constants.js`; sustituir los sprites provisionales cuando lleguen las hojas laterales; después, **Mundo 2 «Noche»** con TDD.
+
+~~Plan anterior del Mundo 1:~~
 1. Recortar las hojas con `slice_sheet.py` (usar Daño y Derrota por separado).
 2. Enemigos Lunes 28, Libro ruso y Espina, con sus tests.
 3. Jefe La Rosa Carmesí como máquina de fases, con tests.
