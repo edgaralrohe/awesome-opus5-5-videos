@@ -1,39 +1,45 @@
-import { TILE, P, MIC, ENEMY, FREEZE, DT } from './constants.js';
-import { parseLevel, moveBody } from '../engine/tilemap.js';
+import { TILE, P, MIC, DT, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP } from './constants.js';
+import { parseLevel } from '../engine/tilemap.js';
 import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
 import { QUOTES, HEADLINES } from '../data/quotes.js';
+import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
 
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
-export function createGame(levelText) {
+// `carry`: lo que se conserva entre niveles del mismo mundo (puntos, Ovación, corazones).
+export function createGame(levelText, carry = {}) {
   const level = parseLevel(levelText);
   const g = {
     level,
     player: createPlayer(level.player),
     mic: { phase: 'idle', len: 0, dir: 1, ax: 1, ay: 0, hook: null },
-    enemies: level.enemies.map((s, i) => {
-      const k = ENEMY[s.kind];
-      return { kind: s.kind, x: s.x - k.w / 2, y: s.y - k.h, w: k.w, h: k.h, vx: -k.speed, vy: 0, facing: -1, state: 'walk', t: 0, alive: true, deadT: 0, word: HEADLINES[i % HEADLINES.length] };
-    }),
+    enemies: level.enemies.map((s, i) => createEnemy(s, i, HEADLINES)),
     pieces: level.pieces.map((s) => ({ ...s, taken: false })),
-    hearts: 3, piezas: 0, time: 0, frame: 0, invuln: 0,
-    checkpoint: { ...level.player }, quoteIdx: 0,
-    status: 'play', popups: [], events: [], prev: {},
+    items: level.items.map((s) => ({ ...s, taken: false })),
+    boss: null,
+    hearts: carry.hearts ?? 3, piezas: 0, time: 0, frame: 0, invuln: 0,
+    score: carry.score ?? 0, combo: 0, comboT: 0, ovacion: carry.ovacion ?? 0,
+    hitstop: 0, shake: 0, guitarT: 0, amp: 0,
+    checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
+    status: 'play', popups: [], floats: [], events: [], prev: {},
   };
   return g;
 }
 
+export const micRange = (g) => MIC.range * (g.amp > 0 ? AMP.mult : 1);
 export const micHand = (g) => ({ x: g.player.x + g.player.w / 2 + g.mic.dir * MIC.handX, y: g.player.y + g.player.h - MIC.handY });
 export const micTip = (g) => {
   const h = micHand(g);
   return { x: h.x + g.mic.ax * g.mic.len, y: h.y + g.mic.ay * g.mic.len };
 };
 
-function hurt(g, fromX) {
+export function hurt(g, fromX) {
   if (g.invuln > 0) return;
   g.hearts--;
   g.invuln = P.invuln;
+  g.combo = 0; g.comboT = 0;
+  g.shake = Math.max(g.shake, 0.25);
   g.events.push('hurt');
   const p = g.player;
   p.vx = (p.x + p.w / 2 < fromX ? -1 : 1) * P.knockback;
@@ -48,22 +54,51 @@ function respawn(g) {
   g.mic.phase = 'idle'; g.mic.len = 0;
 }
 
-function defeat(g, e) {
+// Puntos con combo, Ovación, parón de impacto y temblor leve.
+export function scoreHit(g, x, y) {
+  g.combo = g.comboT > 0 ? g.combo + 1 : 1;
+  g.comboT = COMBO_WINDOW;
+  const pts = POINTS * g.combo;
+  g.score += pts;
+  g.ovacion = Math.min(OVATION.max, g.ovacion + OVATION.perHit * g.combo);
+  g.hitstop = HITSTOP;
+  g.shake = Math.max(g.shake, 0.12);
+  g.floats.push({ x, y, text: g.combo > 1 ? `+${pts} X${g.combo}` : `+${pts}`, t: 0.9 });
+}
+
+// Vencer a un enemigo; si es un Titular, sale una frase verificada de Madero.
+export function defeat(g, e) {
+  if (!e.alive) return;
   e.alive = false;
   g.events.push('defeat');
-  const q = QUOTES[g.quoteIdx++ % QUOTES.length];
-  g.popups.push({ text: q.text, source: q.source, t: 4 });
+  scoreHit(g, e.x + e.w / 2, e.y);
+  if (e.kind === 'titular') {
+    const q = QUOTES[g.quoteIdx++ % QUOTES.length];
+    g.popups.push({ text: q.text, source: q.source, t: 3 });
+  }
+}
+
+// Solo de guitarra: vence a todo lo que hay en pantalla (y daña al jefe, si lo hay).
+function guitar(g) {
+  const pc = g.player.x + g.player.w / 2;
+  for (const e of g.enemies) if (e.alive && Math.abs(e.x + e.w / 2 - pc) <= GUITAR.reach) defeat(g, e);
+  if (g.onGuitar) g.onGuitar(g, pc);
+  g.ovacion = 0;
+  g.invuln = Math.max(g.invuln, GUITAR.invuln);
+  g.guitarT = GUITAR.fx;
+  g.shake = Math.max(g.shake, 0.4);
+  g.events.push('guitar');
 }
 
 function stepMic(g, pressed) {
-  const m = g.mic, p = g.player;
+  const m = g.mic, p = g.player, range = micRange(g);
   if (m.phase === 'idle') {
     if (pressed) {
       m.phase = 'out'; m.dir = p.facing; m.len = 0; m.ax = m.dir; m.ay = 0; m.target = null;
       // Asistencia de puntería: si hay un gancho delante a tiro, el micro sale hacia él.
       const hand = micHand(g);
       const target = g.level.hooks
-        .filter((h) => (h.x - hand.x) * m.dir > 0 && Math.abs(h.y - hand.y) <= MIC.aimY && Math.hypot(h.x - hand.x, h.y - hand.y) <= MIC.range)
+        .filter((h) => (h.x - hand.x) * m.dir > 0 && Math.abs(h.y - hand.y) <= MIC.aimY && Math.hypot(h.x - hand.x, h.y - hand.y) <= range)
         .sort((a, b) => Math.abs(a.x - hand.x) - Math.abs(b.x - hand.x))[0];
       if (target) m.target = target;
       g.events.push('mic');
@@ -71,7 +106,7 @@ function stepMic(g, pressed) {
     return;
   }
   if (m.phase === 'out') {
-    m.len = Math.min(MIC.range, m.len + MIC.outSpeed * DT);
+    m.len = Math.min(range, m.len + MIC.outSpeed * DT);
     if (m.target) {
       // Sigue apuntando al gancho elegido aunque Pepe se mueva en el aire.
       const hand = micHand(g);
@@ -86,9 +121,10 @@ function stepMic(g, pressed) {
       g.events.push('hook');
       return;
     }
-    const e = g.enemies.find((en) => en.alive && tip.x >= en.x - 2 && tip.x <= en.x + en.w + 2 && tip.y >= en.y - 4 && tip.y <= en.y + en.h);
+    const e = g.enemies.find((en) => en.alive && tip.x >= en.x - 2 && tip.x <= en.x + en.w + 2 && tip.y >= en.y - 4 && tip.y <= en.y + en.h + 2);
     if (e) { defeat(g, e); m.phase = 'back'; return; }
-    if (m.len >= MIC.range) m.phase = 'back';
+    if (g.onMicTip && g.onMicTip(g, tip)) { m.phase = 'back'; return; }
+    if (m.len >= range) m.phase = 'back';
     return;
   }
   if (m.phase === 'hook') {
@@ -98,6 +134,7 @@ function stepMic(g, pressed) {
     m.len = d0; m.ax = dx / d0; m.ay = dy / d0;
     if (Math.hypot(m.hook.x - (p.x + p.w / 2), m.hook.y - (p.y + p.h - MIC.handY)) < 12) {
       p.hooked = null;
+      // Se conserva el impulso: sale disparado en la dirección en la que iba.
       p.vx = m.dir * MIC.releaseVx;
       p.vy = -MIC.releaseVy;
       p.jumping = false;
@@ -112,82 +149,20 @@ function stepMic(g, pressed) {
   }
 }
 
-// Patrulla común: gravedad, rebote en paredes y sin tirarse por los bordes.
-function patrol(g, e, speed) {
-  e.vy = Math.min(420, e.vy + 1400 * DT);
-  const r = moveBody(g.level, e, e.vx * DT, e.vy * DT);
-  if (r.ground) e.vy = 0;
-  if (r.hitX) e.vx = -e.vx;
-  let ledge = false;
-  if (r.ground && e.vx) {
-    const frontX = e.vx > 0 ? e.x + e.w + 1 : e.x - 1;
-    const below = g.level.tileAt(Math.floor(frontX / TILE), Math.floor((e.y + e.h + 1) / TILE));
-    const spikes = g.level.tileAt(Math.floor(frontX / TILE), Math.floor((e.y + e.h - 1) / TILE)) === '^';
-    if ((below !== '#' && below !== '=') || spikes) { e.vx = -e.vx; ledge = true; }
-  }
-  if (e.vx) e.facing = Math.sign(e.vx);
-  if (speed !== undefined && e.vx) e.vx = Math.sign(e.vx) * speed;
-  return { ...r, ledge };
-}
-
-// ¿Pepe está a la vista (delante si `front`), a menos de `range` y a su altura?
-function sees(g, e, range, front) {
-  const p = g.player;
-  const dx = p.x + p.w / 2 - (e.x + e.w / 2);
-  const sameRow = p.y < e.y + e.h && p.y + p.h > e.y - 8;
-  return sameRow && Math.abs(dx) <= range && (!front || Math.sign(dx) === e.facing);
-}
-
-function stepEnemy(g, e) {
-  if (!e.alive) { e.deadT += DT; return; }
-  const k = ENEMY[e.kind];
-  e.t += DT;
-  if (e.kind === 'paparazzi') {
-    if (e.state === 'walk') {
-      patrol(g, e, k.speed);
-      if (sees(g, e, k.sight, true)) { e.state = 'aim'; e.t = 0; e.vx = 0; }
-    } else {
-      e.vx = 0; patrol(g, e);
-      if (e.state === 'aim' && e.t >= k.aim) {
-        e.state = 'flash'; e.t = 0;
-        g.events.push('flash');
-        const p = g.player;
-        if (sees(g, e, k.sight + 10, true) && g.invuln <= 0) { p.frozen = FREEZE; g.events.push('frozen'); }
-      } else if (e.state === 'flash' && e.t >= k.flash) { e.state = 'cool'; e.t = 0; }
-      else if (e.state === 'cool' && e.t >= k.cool) { e.state = 'walk'; e.t = 0; e.vx = e.facing * k.speed; }
-    }
-  } else if (e.kind === 'reportero') {
-    if (e.state === 'walk') {
-      patrol(g, e, k.speed);
-      if (sees(g, e, k.sight, false)) {
-        e.state = 'windup'; e.t = 0;
-        e.facing = Math.sign(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) || e.facing;
-        e.vx = 0;
-      }
-    } else if (e.state === 'windup') {
-      patrol(g, e);
-      if (e.t >= k.windup) { e.state = 'dash'; e.t = 0; e.vx = e.facing * k.dashSpeed; g.events.push('dash'); }
-    } else if (e.state === 'dash') {
-      const r = patrol(g, e);
-      if (r.ledge || r.hitX || e.t >= k.dash) { e.state = 'rest'; e.t = 0; e.vx = 0; }
-    } else if (e.state === 'rest') {
-      patrol(g, e);
-      if (e.t >= k.rest) { e.state = 'walk'; e.t = 0; e.vx = e.facing * k.speed; }
-    }
-  } else {
-    patrol(g, e, k.speed);
-  }
-  if (e.y > g.level.h * TILE + 64) e.alive = false;
-}
-
-// Un paso de 1/60 s. `btn` = botones mantenidos {left,right,jump,mic}.
+// Un paso de 1/60 s. `btn` = botones mantenidos {left,right,jump,mic,special}.
 export function stepGame(g, btn) {
   g.events = [];
   if (g.status !== 'play') return g;
+  // Parón de impacto: el mundo se congela unos fotogramas (los flancos de botón se guardan para después).
+  if (g.hitstop > 0) { g.hitstop--; return g; }
   const ed = edges(g.prev, btn);
   g.prev = { ...btn };
   g.frame++; g.time += DT;
   g.invuln = Math.max(0, g.invuln - DT);
+  g.comboT = Math.max(0, g.comboT - DT);
+  g.amp = Math.max(0, g.amp - DT);
+  g.shake = Math.max(0, g.shake - DT);
+  g.guitarT = Math.max(0, g.guitarT - DT);
   const p = g.player;
 
   // Congelado por un flash: no responde a los botones (la gravedad sigue).
@@ -196,6 +171,7 @@ export function stepGame(g, btn) {
   const input = frozen ? { left: false, right: false, jump: false, jumpPressed: false } : { ...btn, jumpPressed: ed.jumpPressed };
   if (frozen) p.vx = 0;
 
+  if (ed.specialPressed && g.ovacion >= OVATION.max) guitar(g);
   stepMic(g, !frozen && ed.micPressed);
   const prevBottom = p.y + p.h;
   const wasGround = p.onGround;
@@ -209,21 +185,23 @@ export function stepGame(g, btn) {
       defeat(g, e);
       p.vy = -P.stompBounce; p.jumping = false;
       g.events.push('stomp');
-    } else {
+    } else if (g.invuln <= 0) {
       hurt(g, e.x + e.w / 2);
-      e.facing = e.x + e.w / 2 < p.x + p.w / 2 ? -1 : 1;
-      if (e.state === 'walk') e.vx = e.facing * ENEMY[e.kind].speed;
-      else if (e.state === 'dash') { e.state = 'rest'; e.t = 0; e.vx = 0; }
+      bounceOff(g, e);
     }
   }
+  if (g.onStep) g.onStep(g, prevBottom);
 
-  for (const pc of g.pieces) {
-    if (!pc.taken && Math.abs(pc.x - (p.x + p.w / 2)) < 12 && Math.abs(pc.y - (p.y + p.h / 2)) < 18) {
-      pc.taken = true; g.piezas++; g.events.push('piece');
-    }
+  const near = (o) => Math.abs(o.x - (p.x + p.w / 2)) < 12 && Math.abs(o.y - (p.y + p.h / 2)) < 18;
+  for (const pc of g.pieces) if (!pc.taken && near(pc)) { pc.taken = true; g.piezas++; g.events.push('piece'); }
+  for (const it of g.items) {
+    if (it.taken || !near(it)) continue;
+    it.taken = true;
+    if (it.kind === 'amp') { g.amp = AMP.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'MICRO X2', t: 1.2 }); }
+    else if (it.kind === 'carta') { g.hearts = Math.min(3, g.hearts + 1); g.events.push('heal'); g.floats.push({ x: it.x, y: it.y - 10, text: '+♥', t: 1.2 }); }
   }
 
-  // Pinchos bajo los pies.
+  // Pinchos (zarzas) bajo los pies.
   const tyFeet = Math.floor((p.y + p.h - 1) / TILE);
   for (const tx of [Math.floor((p.x + 2) / TILE), Math.floor((p.x + p.w - 2) / TILE)]) {
     if (g.level.tileAt(tx, tyFeet) === '^') hurt(g, tx * TILE + TILE / 2);
@@ -246,5 +224,7 @@ export function stepGame(g, btn) {
 
   for (const pop of g.popups) pop.t -= DT;
   g.popups = g.popups.filter((pop) => pop.t > 0);
+  for (const f of g.floats) { f.t -= DT; f.y -= 20 * DT; }
+  g.floats = g.floats.filter((f) => f.t > 0);
   return g;
 }

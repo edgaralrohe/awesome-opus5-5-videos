@@ -1,11 +1,12 @@
 import { TILE } from '../game/constants.js';
 
 // Niveles como texto: '#' sólido, '=' semisólido, '^' pinchos, 'H' gancho, '*' pieza,
-// 'P' Pepe, 'T' Titular, 'F' Paparazzi, 'R' Reportero, 'C' checkpoint, 'G' puerta (meta). Un carácter = 16×16 px.
+// 'P' Pepe, 'T' Titular, 'F' Paparazzi, 'R' Reportero, 'C' checkpoint, 'G' puerta (meta).
+// v5: 'V' Rumor Volador, 'M' Micrófono Traidor, 'B' jefe, 'A' Amplificador, '+' Carta de fan. Un carácter = 16×16 px.
 export function parseLevel(text) {
   const rows = text.split('\n');
   const h = rows.length, w = Math.max(...rows.map((r) => r.length));
-  const L = { w, h, grid: [], player: null, enemies: [], pieces: [], hooks: [], checkpoints: [], goal: null };
+  const L = { w, h, grid: [], player: null, enemies: [], pieces: [], hooks: [], checkpoints: [], items: [], boss: null, goal: null };
   rows.forEach((row, ty) => {
     let out = '';
     for (let tx = 0; tx < w; tx++) {
@@ -16,6 +17,11 @@ export function parseLevel(text) {
       else if (c === 'T') L.enemies.push({ ...feet, kind: 'titular' });
       else if (c === 'F') L.enemies.push({ ...feet, kind: 'paparazzi' });
       else if (c === 'R') L.enemies.push({ ...feet, kind: 'reportero' });
+      else if (c === 'V') L.enemies.push({ ...feet, kind: 'rumor' });
+      else if (c === 'M') L.enemies.push({ ...feet, kind: 'traidor' });
+      else if (c === 'B') L.boss = feet;
+      else if (c === 'A') L.items.push({ ...center, kind: 'amp' });
+      else if (c === '+') L.items.push({ ...center, kind: 'carta' });
       else if (c === '*') L.pieces.push(center);
       else if (c === 'H') L.hooks.push(center);
       else if (c === 'C') L.checkpoints.push(feet);

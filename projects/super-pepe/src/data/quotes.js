@@ -12,5 +12,5 @@ export const QUOTES = [
   },
 ];
 
-// Lo que gritan los Titulares (etiquetas de la prensa, no opiniones nuestras).
-export const HEADLINES = ['¡MAMÓN!', '¡ALTANERO!', '¡PRESUMIDO!'];
+// Lo que gritan los Titulares: titulares sensacionalistas genéricos (v5: sin insultos).
+export const HEADLINES = ['¡EXCLUSIVA!', '¡POLÉMICA!', '¡ÚLTIMA HORA!'];
