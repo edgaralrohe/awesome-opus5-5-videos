@@ -5,8 +5,8 @@ import { moveBody } from '../engine/tilemap.js';
 export function createEnemy(spawn, i, headlines) {
   const k = ENEMY[spawn.kind];
   const x = spawn.x - k.w / 2;
-  // Los voladores aparecen centrados en su casilla; los de suelo, de pie sobre ella.
-  const y = k.fly ? spawn.y - TILE / 2 - k.h / 2 : spawn.y - k.h;
+  // De pie sobre su casilla; los voladores, 2 px por encima del borde inferior (sin tocar el suelo).
+  const y = spawn.y - k.h - (k.fly ? 2 : 0);
   return {
     kind: spawn.kind, x, y, w: k.w, h: k.h, vx: k.speed ? -k.speed : 0, vy: 0, facing: -1,
     state: k.fly ? (spawn.kind === 'rumor' ? 'fly' : 'hover') : 'walk',

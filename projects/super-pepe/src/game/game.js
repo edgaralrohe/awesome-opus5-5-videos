@@ -4,6 +4,7 @@ import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
 import { QUOTES, HEADLINES } from '../data/quotes.js';
 import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
+import { createBoss, stepBoss, hitBoss } from './boss.js';
 
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
@@ -17,7 +18,7 @@ export function createGame(levelText, carry = {}) {
     enemies: level.enemies.map((s, i) => createEnemy(s, i, HEADLINES)),
     pieces: level.pieces.map((s) => ({ ...s, taken: false })),
     items: level.items.map((s) => ({ ...s, taken: false })),
-    boss: null,
+    boss: level.boss ? createBoss(level.boss) : null, disco: null,
     hearts: carry.hearts ?? 3, piezas: 0, time: 0, frame: 0, invuln: 0,
     score: carry.score ?? 0, combo: 0, comboT: 0, ovacion: carry.ovacion ?? 0,
     hitstop: 0, shake: 0, guitarT: 0, amp: 0,
@@ -82,7 +83,8 @@ export function defeat(g, e) {
 function guitar(g) {
   const pc = g.player.x + g.player.w / 2;
   for (const e of g.enemies) if (e.alive && Math.abs(e.x + e.w / 2 - pc) <= GUITAR.reach) defeat(g, e);
-  if (g.onGuitar) g.onGuitar(g, pc);
+  const b = g.boss;
+  if (b?.alive && Math.abs(b.x + b.w / 2 - pc) <= GUITAR.reach + b.w / 2) hitBoss(g, b, true);
   g.ovacion = 0;
   g.invuln = Math.max(g.invuln, GUITAR.invuln);
   g.guitarT = GUITAR.fx;
@@ -123,7 +125,8 @@ function stepMic(g, pressed) {
     }
     const e = g.enemies.find((en) => en.alive && tip.x >= en.x - 2 && tip.x <= en.x + en.w + 2 && tip.y >= en.y - 4 && tip.y <= en.y + en.h + 2);
     if (e) { defeat(g, e); m.phase = 'back'; return; }
-    if (g.onMicTip && g.onMicTip(g, tip)) { m.phase = 'back'; return; }
+    const b = g.boss;
+    if (b?.alive && tip.x >= b.x && tip.x <= b.x + b.w && tip.y >= b.y && tip.y <= b.y + b.h) { hitBoss(g, b); m.phase = 'back'; return; }
     if (m.len >= range) m.phase = 'back';
     return;
   }
@@ -190,7 +193,11 @@ export function stepGame(g, btn) {
       bounceOff(g, e);
     }
   }
-  if (g.onStep) g.onStep(g, prevBottom);
+  if (g.boss) stepBoss(g, g.boss, hurt, prevBottom);
+  // Disco de Oro que deja el jefe: tocarlo completa el mundo.
+  if (g.disco && !g.disco.taken && g.boss.deadT > 0.4 && Math.abs(g.disco.x - (p.x + p.w / 2)) < 16 && Math.abs(g.disco.y - (p.y + p.h / 2)) < 26) {
+    g.disco.taken = true; g.status = 'won'; g.events.push('won');
+  }
 
   const near = (o) => Math.abs(o.x - (p.x + p.w / 2)) < 12 && Math.abs(o.y - (p.y + p.h / 2)) < 18;
   for (const pc of g.pieces) if (!pc.taken && near(pc)) { pc.taken = true; g.piezas++; g.events.push('piece'); }
