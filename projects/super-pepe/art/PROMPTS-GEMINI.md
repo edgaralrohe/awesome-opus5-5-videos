@@ -119,6 +119,82 @@ Haz una imagen para cada personaje: `prensa-documento.png` (el periódico enfada
 
 ---
 
+## 0c. ⭐ Escenarios del Mundo 1 por capas (v6, 2 nov 2026)
+
+El juego pinta cada nivel con **3 capas**: **CIELO** (fija), **LEJOS** (se mueve despacio) y **CERCA** (se mueve a media velocidad). Encima van el suelo y los bloques, los ganchos y candelabros y los letreros, que dibuja el código. **Una imagen por capa y una conversación por imagen.** Adjunta como referencia el concepto del nivel: `art/source/carmesi/concepto-calle.jpg`, `concepto-azoteas.jpg` o `concepto-teatro.jpg`.
+
+**BLOQUE ESCENARIO** (pégalo antes de cada prompt):
+```
+ESTILO: pixel art 16 bits de arcade de los 90 (Neo Geo), igual que la imagen de referencia adjunta: contornos oscuros, sombreado plano con 2-3 tonos por color, paleta limitada y saturada. Usa la referencia SOLO para el estilo y la paleta: no copies sus personajes, su texto ni su interfaz.
+FORMATO: fondo para un videojuego de plataformas 2D en VISTA LATERAL PLANA (sin perspectiva ni punto de fuga), formato apaisado 16:9. La imagen debe ser REPETIBLE EN HORIZONTAL: el borde izquierdo continúa exactamente en el borde derecho.
+PROHIBIDO: personas o personajes (solo siluetas lejanas si se pide), texto, letras, números, logotipos, marcas, marcos, interfaz, firmas o marcas de agua.
+```
+Las capas LEJOS y CERCA llevan **fondo magenta liso #FF00FF** detrás de los elementos: el juego lo vuelve transparente.
+
+### 1-1 «Lunes 28» · Calle Carmesí (medianoche del 28 feb 2016)
+**`w1-calle-cielo.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CIELO (cubre toda la imagen, sin magenta): cielo nocturno de ciudad a medianoche, degradado de morado muy oscuro arriba a carmesí oscuro abajo, con tramado de píxeles, pocas estrellas y una luna pequeña. Sin edificios.
+```
+**`w1-calle-lejos.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA LEJOS sobre fondo magenta liso #FF00FF: silueta de ciudad mexicana de noche en tonos carmesí y morado oscuro, con ventanas encendidas en naranja. A la izquierda, la cúpula iluminada de una gran arena de conciertos genérica (sin nombre ni logotipo), con haces de luz hacia el cielo, como si acabara de terminar un concierto. Algunas torres de iglesia. Los edificios ocupan el 60 % inferior y la parte de arriba es magenta.
+```
+**`w1-calle-cerca.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CERCA sobre fondo magenta liso #FF00FF: fachadas de una calle del centro a medianoche: edificios de ladrillo rojo con balcones de hierro, telones rojos colgando, faroles encendidos, cables con papel picado rojo y crema sin letras, puestos de comida cerrados con la cortina bajada y pétalos de rosa rojos en el aire. Carteles pegados en la pared, en blanco o con manchas abstractas (sin texto). El 15 % inferior de la imagen va vacío en magenta (ahí va el suelo del juego).
+```
+
+### 1-2 «Plural siendo singular» · Azoteas (abril de 2016, atardecer)
+**`w1-azoteas-cielo.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CIELO (cubre toda la imagen, sin magenta): atardecer sobre la ciudad, degradado de morado arriba a naranja y amarillo abajo, nubes alargadas con tramado de píxeles y un sol grande y bajo. Sin edificios.
+```
+**`w1-azoteas-lejos.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA LEJOS sobre fondo magenta liso #FF00FF: dos volcanes nevados a contraluz al fondo y, delante, la ciudad en siluetas moradas con ventanas encendidas. Abajo, entre los edificios, pequeños destellos blancos de flashes de cámaras, como si hubiera una multitud de fotógrafos en la calle (sin dibujar personas). Los elementos ocupan el 65 % inferior.
+```
+**`w1-azoteas-cerca.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CERCA sobre fondo magenta liso #FF00FF: azoteas de ciudad mexicana: tinacos negros sobre bases de metal, antenas de televisión, ropa tendida en un cable, escaleras de emergencia oxidadas, cables eléctricos que cruzan de lado a lado, un marco de cartel publicitario vacío en blanco y unas macetas con rosas rojas. El 15 % inferior va vacío en magenta.
+```
+
+### 1-3 «La presentación» · El Teatro (septiembre de 2016)
+**`w1-teatro-cielo.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CIELO (cubre toda la imagen, sin magenta): pared del fondo de un teatro clásico en penumbra, color vino muy oscuro, con un gran arco de proscenio de estilo art déco con motivos geométricos dorados y un telón de terciopelo rojo recogido a los lados. Luz cálida de candilejas desde abajo.
+```
+**`w1-teatro-lejos.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA LEJOS sobre fondo magenta liso #FF00FF: tres pisos de palcos de teatro art déco con barandillas doradas y siluetas oscuras de público (sin rasgos ni caras). Sin candelabros (los pone el juego).
+```
+**`w1-teatro-cerca.png`**
+```
+[BLOQUE ESCENARIO]
+CAPA CERCA sobre fondo magenta liso #FF00FF: en los extremos izquierdo y derecho, telones de terciopelo rojo que caen desde arriba; columnas art déco con capiteles dorados; una cenefa de telón arriba a lo ancho, con flecos dorados. El centro y el 15 % inferior van vacíos en magenta. Sin candelabros.
+```
+
+### Bloques del suelo (opcional; ahora los dibuja el código)
+**`w1-bloques.png`**
+```
+[BLOQUE ESCENARIO]
+HOJA DE TEXTURAS sobre gris liso #474747, sin texto: tres cuadrados grandes separados, vistos de frente y sin perspectiva: 1) adoquín rojo oscuro con borde superior de piedra clara (suelo de la calle); 2) ladrillo de azotea con borde de lámina oxidada; 3) tablas de madera de escenario con un ribete rojo arriba. Cada cuadrado debe poder repetirse en horizontal y en vertical.
+```
+
+**Si sale mal, contesta:** «Vista lateral plana, sin perspectiva» · «Quita todo el texto y las personas» · «El fondo detrás de los elementos debe ser magenta liso #FF00FF» · «Haz que el borde izquierdo continúe en el derecho para poder repetirla».
+
+**Al recibirlas:** el juego las reduce a 224 px de alto, vuelve transparente el magenta, ajusta la paleta y, si el borde no empalma, lo funde (tarea H6).
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```
