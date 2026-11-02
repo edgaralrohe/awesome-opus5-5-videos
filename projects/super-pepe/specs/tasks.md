@@ -53,6 +53,12 @@
 - [x] C8 🧪 Repetición: el bot completa 1-1 y 1-2; un bot de jefe vence al Flash-Bot
 - [x] C9 🎨 HUD (marcador, cronómetro, combo, Ovación) + botón ★ táctil
 - [x] C11 🧪 Cinemática de entrada del jefe: controles bloqueados, caída del jefe, cartel, saltable, cronómetro parado
+- [x] H1 🧪 Datos de la época de Carmesí aprobados (D1–D20 sin dudosos), con fuente y dibujables con la fuente
+- [x] H2 🧪 Titulares: un dato distinto cada vez, el contador sigue entre niveles
+- [x] H3 🧪 Capítulo al empezar cada nivel y tarjeta «¿Sabías que…?» al terminarlo
+- [x] H4 🎨 Piezas = pequeños Carmesís (moneda con rosa)
+- [ ] H5 🧪 Trajes por mundo + Galería del Museo con desbloqueos (guardado en el navegador)
+- [ ] H6 🎨 Escenarios por capas desde el editor de imágenes (prompts en art/PROMPTS-GEMINI.md §0c)
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

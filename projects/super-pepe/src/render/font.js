@@ -36,5 +36,10 @@ export const GLYPHS = {
   '(': G('00010 00100 01000 01000 01000 00100 00010'), ')': G('01000 00100 00010 00010 00010 00100 01000'),
 };
 
+// Mayúsculas acentuadas: letra completa + marca encima (filas negativas). Ö para nombres propios.
+const AGUDO = [[3, -2], [2, -1]];
+export const ACCENT = { 'Á': ['A', AGUDO], 'É': ['E', AGUDO], 'Í': ['I', AGUDO], 'Ó': ['O', AGUDO], 'Ú': ['U', AGUDO], 'Ñ': ['N', [[1, -1], [2, -2], [3, -1], [4, -2]]], 'Ö': ['O', [[1, -2], [3, -2]]], 'Ü': ['U', [[1, -2], [3, -2]]] };
+export const canRender = (ch) => ch === ' ' || !!GLYPHS[ch] || !!ACCENT[ch];
+
 export const ADVANCE = 6;
 export const textWidth = (s, scale = 1) => (s.length ? (s.length * ADVANCE - 1) * scale : 0);

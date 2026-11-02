@@ -9,7 +9,8 @@ import { createBoss, stepBoss, hitBoss } from './boss.js';
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
 // `carry`: lo que se conserva entre niveles del mismo mundo (puntos, Ovación, corazones).
-export function createGame(levelText, carry = {}) {
+// `opts.facts`: datos que salen al vencer a un Titular (por mundo; por defecto, las citas generales).
+export function createGame(levelText, carry = {}, opts = {}) {
   const level = parseLevel(levelText);
   const g = {
     level,
@@ -24,6 +25,7 @@ export function createGame(levelText, carry = {}) {
     hitstop: 0, shake: 0, guitarT: 0, amp: 0,
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
+    facts: opts.facts ?? QUOTES,
   };
   // Niveles con jefe: empiezan con su cinemática de entrada.
   g.intro = level.boss ? { t: 0, x0: g.player.x, drop: INTRO.dropH, landed: false } : null;
@@ -76,7 +78,7 @@ export function defeat(g, e) {
   g.events.push('defeat');
   scoreHit(g, e.x + e.w / 2, e.y);
   if (e.kind === 'titular') {
-    const q = QUOTES[g.quoteIdx++ % QUOTES.length];
+    const q = g.facts[g.quoteIdx++ % g.facts.length];
     g.popups.push({ text: q.text, source: q.source, t: 3 });
   }
 }

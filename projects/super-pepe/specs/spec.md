@@ -168,9 +168,9 @@ Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source
 
 La barra de Ovación conecta con el final («la barra es el cariño del público»).
 
-### 3.0e v6 · Historia del Mundo 1, datos de época, trajes y Galería (⏳ propuesta, 2 nov 2026)
+### 3.0e v6 · Historia del Mundo 1, datos de época, trajes y Galería (✅ aprobada, 2 nov 2026)
 
-**Historia (capítulos aprobados por el usuario; datos ⏳ pendientes de su visto bueno).** En el Museo, la **Sala Carmesí** está vacía. Pepe revive 2016 para llenarla.
+**Historia y datos aprobados por el usuario.** Las piezas del Mundo 1 son **«pequeños Carmesís»** (monedas rojas con una rosa; evocan el disco sin copiar la portada). Implementado: `src/data/carmesi-story.js` (datos de los Titulares sin repetir, capítulos y tarjetas por nivel). En el Museo, la **Sala Carmesí** está vacía. Pepe revive 2016 para llenarla.
 | Nivel | Capítulo | Por qué está ahí (cartel de 2 s al empezar) | Base verificada |
 |---|---|---|---|
 | 1-1 Calle | **«Lunes 28»** | «28 de febrero de 2016. Termina el último concierto en la Arena Ciudad de México. A medianoche sale su primera canción en solitario. Las canciones que guardaba desde 2008 se le vuelan por la calle». Piezas = hojas de canciones | D1, D2, D6 |
@@ -213,7 +213,7 @@ No se usan: polémicas de la firma de autógrafos ni la acusación de plagio de 
 | Vampiro | Mundo **Noche** |
 | Rojo y amarillo (traje rojo, camisa amarilla y moño) | Mundo **Sarajevo** |
 | Bandana negra (chaleco y guitarra) | Mundo **Querido…** |
-| Emo (negro con lentes oscuros) | ⏳ ¿mundo o desbloqueable? |
+| Emo (negro con lentes oscuros) | Desbloqueable (según el usuario, es el que usó en el Foro GNP ⚠️; no se pone en pantalla hasta tener fuente) |
 | Gris con boina · chamarra universitaria · botarga morada | Desbloqueables |
 - **Riesgo aceptado por el usuario:** la botarga morada es Tinky Winky (Teletubbies, personaje registrado). Se mantiene; recomendación: sin nombre en pantalla y solo como desbloqueable.
 - **Guitarra:** la turquesa de la hoja recuerda a un modelo comercial; para el Solo se usa una de forma propia.

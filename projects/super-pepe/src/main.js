@@ -2,7 +2,7 @@ import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { followCamera } from './engine/camera.js';
 import { WORLD_1 } from './data/world1.js';
-import { FACTS } from './data/facts.js';
+import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
 import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
 import { createAudio } from './audio/audio.js';
 
@@ -12,18 +12,21 @@ const ctx = cv.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 const audio = createAudio();
 
-// ── Progresión del Mundo 1: 1-1 → 1-2 → 1-3 (jefe) → «¿Sabías que…?» → fin ──
+// ── Progresión del Mundo 1 (spec §3.0e): capítulo → nivel → resumen → «¿Sabías que…?» → siguiente capítulo ──
 let levelIdx = 0, carry = {}, levelStart = {};
 let game, art;
 function loadLevel(i, c = {}) {
   levelIdx = i; carry = c; levelStart = { ...c };
   const L = WORLD_1[i];
-  game = createGame(L.map, c);
+  game = createGame(L.map, c, { facts: ERA_FACTS_W1 });
   art = createArt(game.level, L.theme);
 }
 loadLevel(0);
 
 let screen = 'title', camX = 0, t = 0, paused = false, card = null, screenT = 0;
+const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
+const chapterCard = (i) => ({ kind: 'chapter', n: i + 1, ...CHAPTERS_W1[WORLD_1[i].id], then: () => {} });
+function startLevel(i, c) { loadLevel(i, c); showCard(chapterCard(i)); }
 const store = {
   get: () => { try { return Number(localStorage.getItem('jmv-record')) || 0; } catch { return 0; } },
   set: (v) => { try { localStorage.setItem('jmv-record', String(v)); } catch { /* sin almacenamiento */ } },
@@ -65,13 +68,14 @@ function finishLevel() {
   const L = WORLD_1[levelIdx];
   const next = WORLD_1[levelIdx + 1];
   const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx };
+  const fact = { kind: 'fact', facts: LEVEL_CARDS_W1[L.id].facts };
   if (next) {
-    card = { kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, then: () => loadLevel(levelIdx + 1, c) };
+    fact.then = () => startLevel(levelIdx + 1, c);
+    showCard({ kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, then: () => showCard(fact) });
   } else {
     if (game.score > store.get()) store.set(game.score);
-    card = { kind: 'fact', ...FACTS.carmesi, then: () => { screen = 'end'; } };
+    showCard({ ...fact, then: () => { screen = 'end'; screenT = 0; } });
   }
-  screen = 'card'; screenT = 0;
 }
 
 // ── Bucle de paso fijo ─────────────────────────────────
@@ -83,7 +87,7 @@ function frame(now) {
   const btn = { left: held.left || gp.left, right: held.right || gp.right, jump: held.jump || gp.jump, mic: held.mic || gp.mic, special: held.special || gp.special };
   while (acc >= DT) {
     acc -= DT; t += DT; screenT += DT;
-    if (screen === 'title' && startPressed) { audio.unlock(); loadLevel(0); screen = 'play'; }
+    if (screen === 'title' && startPressed) { audio.unlock(); startLevel(0); }
     else if (screen === 'play' && !paused) {
       stepGame(game, btn);
       audio.play(game.events);

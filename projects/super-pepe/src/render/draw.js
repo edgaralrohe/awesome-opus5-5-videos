@@ -1,5 +1,5 @@
 import { W, H, TILE, OVATION, BOSS, INTRO } from '../game/constants.js';
-import { GLYPHS, ADVANCE, textWidth } from './font.js';
+import { GLYPHS, ADVANCE, ACCENT, textWidth } from './font.js';
 import { micHand, micTip } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
 import { PEPE_META, PEPE_PNG } from '../data/pepe-atlas.js';
@@ -13,8 +13,6 @@ const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width
 const rect = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
 
 // ── Texto bitmap ───────────────────────────────────────────
-const AGUDO = [[3, -2], [2, -1]];
-const ACCENT = { 'Á': ['A', AGUDO], 'É': ['E', AGUDO], 'Í': ['I', AGUDO], 'Ó': ['O', AGUDO], 'Ú': ['U', AGUDO], 'Ñ': ['N', [[1, -1], [2, -2], [3, -1], [4, -2]]] };
 export function text(ctx, str, x, y, { color = '#fff', scale = 1, align = 'left', shadow = '#1b1226', bands = null } = {}) {
   const w = textWidth(str, scale);
   let cx = Math.round(align === 'center' ? x - w / 2 : align === 'right' ? x - w : x);
@@ -118,6 +116,18 @@ function renderTiles(L, T) {
 }
 
 // ── Objetos ───────────────────────────────────────────────
+// Pequeño Carmesí: moneda roja que gira, con una rosa (evoca el disco sin copiar la portada).
+export function drawCarmesi(ctx, x, y, t, r = 6) {
+  const sx = Math.max(1, Math.round(Math.abs(Math.cos(t * 4 + x)) * r));
+  rect(ctx, '#1b1226', x - sx - 1, y - r - 1, sx * 2 + 2, r * 2 + 2);
+  rect(ctx, '#a0101e', x - sx, y - r, sx * 2, r * 2);
+  rect(ctx, '#d8312b', x - sx, y - r, sx * 2, r * 2 - 2);
+  rect(ctx, '#ff8a7a', x - sx, y - r, Math.max(1, sx - 1), 2);
+  if (sx >= 4) {
+    rect(ctx, '#5c0a18', x - 2, y - 3, 4, 3); rect(ctx, '#ffd0c0', x - 1, y - 3, 1, 1);
+    rect(ctx, '#2a5a2a', x, y, 1, 3); rect(ctx, '#3e7a3a', x + 1, y + 1, 2, 1);
+  }
+}
 function drawDisc(ctx, x, y, t, gold = '#e8b33c', hi = '#fff2b0', r = 6) {
   const sx = Math.max(1, Math.round(Math.abs(Math.cos(t * 4 + x)) * r));
   rect(ctx, '#1b1226', x - sx - 1, y - r - 1, sx * 2 + 2, r * 2 + 2);
@@ -205,7 +215,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '') {
     rect(ctx, Math.floor(t * 3) % 2 ? '#ffcf7a' : '#e8a23c', x - 11, y - 40, 22, 40);
     text(ctx, 'TEATRO', x, y - 60, { color: '#ffcf7a', align: 'center' });
   }
-  for (const pc of g.pieces) if (!pc.taken) drawDisc(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
+  for (const pc of g.pieces) if (!pc.taken) drawCarmesi(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
   for (const it of g.items) if (!it.taken) drawItem(ctx, it, t);
 
   drawEnemies(ctx, g, art, t);
@@ -370,7 +380,7 @@ export function drawHud(ctx, g, levelName = '', t = 0) {
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
   for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
   text(ctx, String(g.score).padStart(7, '0'), 36, 5, { color: '#ffffff' });
-  rect(ctx, '#1b1226', 82, 4, 9, 9); rect(ctx, '#e8b33c', 83, 5, 7, 7); rect(ctx, '#1b1226', 86, 8, 1, 1);
+  drawCarmesi(ctx, 86, 9, 0, 4);
   text(ctx, `${g.piezas}/${g.pieces.length}`, 94, 5);
   text(ctx, clock(g.time), 124, 5, { color: '#b9c0d0' });
   text(ctx, levelName, W - 6, 5, { align: 'right', color: '#ffcf7a' });
@@ -440,12 +450,24 @@ export function drawCard(ctx, card, art, t) {
     text(ctx, `${card.id} SUPERADO`, W / 2, 82, { scale: 2, align: 'center', color: '#ffcf7a' });
     text(ctx, `TIEMPO ${clock(card.time)}`, W / 2, 108, { align: 'center' });
     text(ctx, `PUNTOS ${String(card.score).padStart(7, '0')}`, W / 2, 120, { align: 'center' });
-    text(ctx, `PIEZAS ${card.piezas}/${card.total}`, W / 2, 132, { align: 'center' });
+    text(ctx, `CARMESÍS ${card.piezas}/${card.total}`, W / 2, 132, { align: 'center' });
     text(ctx, `SIGUIENTE: ${card.next}`, W / 2, 156, { align: 'center', color: '#ff9a5a' });
   } else if (card.kind === 'fact') {
-    text(ctx, '¿SABÍAS QUE…?', W / 2, 30, { scale: 2, align: 'center', color: '#ffcf7a' });
-    card.lines.forEach((l, i) => text(ctx, l, W / 2, 62 + i * 11, { align: 'center' }));
-    text(ctx, `FUENTE: ${card.source}`, W / 2, 62 + card.lines.length * 11 + 8, { align: 'center', color: '#b9a8d6' });
+    text(ctx, '¿SABÍAS QUE…?', W / 2, 24, { scale: 2, align: 'center', color: '#ffcf7a' });
+    let y = 54;
+    for (const f of card.facts) {
+      for (const l of wrap(f.text, 46)) { text(ctx, l, W / 2, y, { align: 'center' }); y += 11; }
+      text(ctx, `FUENTE: ${f.source}`, W / 2, y + 2, { align: 'center', color: '#b9a8d6' });
+      y += 24;
+    }
+  } else if (card.kind === 'chapter') {
+    // Por qué Pepe está aquí (spec §3.0e).
+    rect(ctx, '#7a0e1e', 0, 22, W, 2); rect(ctx, '#7a0e1e', 0, H - 24, W, 2);
+    text(ctx, `CAPÍTULO ${card.n}`, W / 2, 34, { align: 'center', color: '#ff9a9a' });
+    text(ctx, card.title, W / 2, 48, { scale: 2, align: 'center', bands: CHROME });
+    card.lines.forEach((l, i) => text(ctx, l, W / 2, 80 + i * 12, { align: 'center', color: '#efe8d4' }));
+    if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA A PARA EMPEZAR', W / 2, 186, { align: 'center', color: '#ffcf7a' });
+    return;
   }
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA A PARA SEGUIR', W / 2, 190, { align: 'center' });
 }
