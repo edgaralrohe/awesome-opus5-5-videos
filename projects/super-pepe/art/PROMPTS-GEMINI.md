@@ -27,6 +27,98 @@ Objetivo: que **todo** (enemigos, jefes, objetos, fondos y bloques) salga con el
 
 ---
 
+## 0b. ⭐ PRIORIDAD v5 · Mundo 1 «Carmesí» (2 nov 2026)
+
+Sustituyen a los sprites provisionales recortados del concepto. Cada prompt es **autocontenido**: pégalo tal cual. **Adjunta siempre** `art/source/pepe-sheet.jpg` (estilo y tamaño) y, en A–C, `art/source/carmesi/concepto-jefe-enemigos.jpg` (diseño). Usa **una conversación nueva por prompt**: así Gemini no mezcla personajes.
+
+Al recibir cada hoja, el juego la recorta con:
+```
+python3 scripts/slice_sheet.py art/source/carmesi/w1-flashbot.png flashbot 76 4,3,3,2 bossWalk:4,bossCharge:2,bossFire:1,bossExposed:2,bossHurt:1,bossKo:2
+python3 scripts/slice_sheet.py art/source/carmesi/w1-rumor.png rumor 30 4,2,2 rumorFly:4,rumorDive:2,rumorKo:2
+python3 scripts/slice_sheet.py art/source/carmesi/w1-traidor.png traidor 34 4,3,2 traidorHover:4,traidorAim:1,traidorLunge:2,traidorKo:2
+python3 scripts/slice_sheet.py art/source/pepe-solo.png pepesolo 48 4,2 solo:4,soloEnd:2
+```
+(El número de poses por fila tiene que coincidir **exactamente**; si Gemini pone otras, pídele que lo repita).
+
+### A. `w1-flashbot.png` — Jefe Cámara Flash-Bot, de perfil
+```
+Usa la primera imagen adjunta (el jefe «Cámara Flash-Bot») como referencia de DISEÑO: cámara de fuelle antigua y oxidada, telón rojo de teatro, alambre de espino, engranajes dorados, dos bombillas de flash arriba, lente rojo grande y patas de araña metálicas. Usa la hoja de Pepe adjunta como referencia de ESTILO.
+
+ESTILO: pixel art 16 bits de arcade de los 90, contorno oscuro grueso, sombreado plano de 2-3 tonos por color, colores saturados.
+VISTA: PERFIL ESTRICTO, vista lateral pura como un jefe de un juego de plataformas 2D. NADA de perspectiva de tres cuartos. El lente apunta a la DERECHA.
+FORMATO: hoja de sprites sobre un fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre (que no se toquen). El robot tiene el mismo tamaño en todas las poses y todas se apoyan en la misma línea de suelo. Mide 1,6 veces la altura de Pepe.
+
+HOJA de exactamente 4 filas, de izquierda a derecha:
+Fila 1: CAMINAR ×4 (ciclo de paso de las patas de araña).
+Fila 2: CARGAR ×2 (el lente se ilumina cada vez más, de rojo a blanco) y DISPARAR ×1 (lente abierto con un destello corto pegado al lente; NO dibujes el rayo largo).
+Fila 3: EXPUESTO ×2 (lente agrietado, humo y chispas pegados al cuerpo) y DAÑO ×1 (sacudida, tornillos saltando).
+Fila 4: DERROTA ×2 (se desarma y suelta pétalos de rosa rojos que quedan cerca del cuerpo).
+```
+
+### B. `w1-rumor.png` — Rumor Volador
+```
+Usa la primera imagen adjunta (el «Rumor Volador») como referencia de DISEÑO: pájaro hecho de hojas de periódico dobladas en papiroflexia, con manchas rojas, ojos enfadados y pico naranja. Los titulares del periódico son garabatos ilegibles, NUNCA letras ni palabras legibles. Usa la hoja de Pepe adjunta como referencia de ESTILO.
+
+ESTILO: pixel art 16 bits de arcade de los 90, contorno oscuro grueso, sombreado plano de 2-3 tonos por color, colores saturados.
+VISTA: de perfil, mirando a la DERECHA.
+FORMATO: hoja de sprites sobre un fondo gris completamente liso #474747. Sin texto, sin letras, sin rótulos, sin marcos, sin cuadrícula y sin sombras. Cada pose separada de las demás con espacio libre. El mismo tamaño en todas las poses, que es el 60 % de la altura de Pepe.
+
+HOJA de exactamente 3 filas, de izquierda a derecha:
+Fila 1: VOLAR ×4 (ciclo completo de aleteo).
+Fila 2: PICADO ×2 (cabeza hacia abajo y alas plegadas, cayendo en diagonal hacia delante).
+Fila 3: DERROTA ×2 (se deshace en hojas de papel sueltas que forman un montón compacto).
+```
+
+### C. `w1-traidor.png` — Micrófono Traidor
+```
+Usa la primera imagen adjunta (el «Micrófono Traidor») como referencia de DISEÑO: micrófono de mano metálico de estilo vintage, con rejilla, envuelto en alambre de espino, un solo ojo rojo brillante, alas rojas y el cable rojo como cola. Sin logos ni marcas. Usa la hoja de Pepe adjunta como referencia de ESTILO.
+
+ESTILO: pixel art 16 bits de arcade de los 90, contorno oscuro grueso, sombreado plano de 2-3 tonos por color, colores saturados.
+VISTA: de perfil o de tres cuartos, mirando a la DERECHA.
+FORMATO: hoja de sprites sobre un fondo gris completamente liso #474747. Sin texto, sin rótulos, sin marcos, sin cuadrícula y sin sombras. Cada pose separada de las demás con espacio libre. El mismo tamaño en todas las poses, que es el 70 % de la altura de Pepe.
+
+HOJA de exactamente 3 filas, de izquierda a derecha:
+Fila 1: FLOTAR ×4 (aleteo suave).
+Fila 2: APUNTAR ×1 (inclinado hacia delante, con el ojo más brillante) y EMBESTIDA ×2 (lanzándose en diagonal hacia delante, con líneas de velocidad PEGADAS al cuerpo).
+Fila 3: DERROTA ×2 (alas caídas, ojo en espiral y unas chispas pegadas al cuerpo).
+```
+
+### D. `pepe-solo.png` — Pepe con la guitarra (para el Solo de guitarra)
+```
+Usa la hoja de Pepe adjunta como referencia EXACTA del personaje (barba, pañuelo rojo, camiseta blanca, vaqueros, mismas proporciones chibi y mismo tamaño) y del estilo.
+
+Pepe toca una guitarra eléctrica ROJA de diseño propio: cuerpo redondeado genérico, sin logo, sin marca y sin la forma reconocible de ningún modelo real.
+ESTILO: pixel art 16 bits de arcade de los 90, igual que la referencia.
+FORMATO: hoja de sprites sobre un fondo gris completamente liso #474747. Sin texto, sin rótulos, sin marcos y sin sombras en el suelo. Mirando a la DERECHA. Cada pose separada de las demás con espacio libre. Mismo tamaño en todas las poses.
+
+HOJA de exactamente 2 filas, de izquierda a derecha:
+Fila 1: SOLO ×4 (rasgueo enérgico, una pierna adelante, la cabeza echada hacia atrás, con 1-2 notas musicales pegadas a la guitarra).
+Fila 2: FINAL ×2 (salto con la guitarra en alto y aterrizaje en pose de rock).
+```
+
+### E. Prensa limpia (3 imágenes, sección §2)
+```
+Repite exactamente este personaje de la imagen adjunta, con el mismo diseño, solo en su propia hoja. Fondo gris completamente liso #474747, sin texto, sin rótulos, sin cuadros y sin sombras en el suelo. Mirando a la DERECHA. Cada pose separada de las demás.
+HOJA de 3 filas: Fila 1: ESPERA ×2 y CAMINAR ×4 · Fila 2: ATAQUE ×2 y DAÑO ×1 · Fila 3: DERROTA ×1.
+```
+Haz una imagen para cada personaje: `prensa-documento.png` (el periódico enfadado), `prensa-paparazzi.png` y `prensa-reportero.png`. En el Reportero, la credencial solo puede decir «PRESS», sin el nombre de ningún medio.
+
+### Si Gemini se equivoca, contesta con esto
+| Problema | Respuesta |
+|---|---|
+| Sale en tres cuartos | «Repítelo en vista lateral pura, de perfil, como un sprite de plataformas 2D. El frente mira a la derecha.» |
+| Añade texto o rótulos | «Repítelo exactamente igual pero sin ningún texto, letra, número ni rótulo.» |
+| Sombras en el suelo | «Quita todas las sombras del suelo; los pies tocan directamente el fondo gris.» |
+| Poses que se tocan | «Separa más cada pose: debe haber espacio gris libre alrededor de cada una.» |
+| Filas o número de poses distintos | «Exactamente N filas: fila 1 con X poses, fila 2 con Y… sin poses extra.» |
+| Fondo con degradado o textura | «Fondo gris completamente plano #474747, del mismo color en toda la imagen.» |
+| Tamaños distintos entre poses | «Mismo tamaño del personaje en todas las poses.» |
+
+### Logo de Colores Ruidosos
+**No lo generes con Gemini**, porque lo cambiaría. Pásame el **archivo original** (PNG con fondo transparente o SVG).
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```
