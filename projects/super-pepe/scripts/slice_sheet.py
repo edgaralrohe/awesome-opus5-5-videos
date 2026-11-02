@@ -61,8 +61,10 @@ def main():
     mask = dist > 30
 
     comps = [c for c in components(mask) if c[4] >= 40]
-    big = [c for c in comps if c[4] >= 4000]
-    small = [c for c in comps if c[4] < 4000]
+    # Figura = componente grande (≥ 4000 px y ≥ 20 % de la mayor); lo demás (destellos, papeles, gorras que salen volando) se une a la figura más cercana.
+    limit = max(4000, 0.2 * max(c[4] for c in comps))
+    big = [c for c in comps if c[4] >= limit]
+    small = [c for c in comps if c[4] < limit]
     groups = [{'boxes': [c], 'runs': list(c[5])} for c in big]
     for s in small:  # efectos (destellos, rayas, cable) al personaje más cercano
         cx, cy = (s[0] + s[2]) / 2, (s[1] + s[3]) / 2

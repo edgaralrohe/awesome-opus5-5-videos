@@ -2,6 +2,8 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { PEPE_META } from '../src/data/pepe-atlas.js';
 import { ENEMIES_META } from '../src/data/enemies-atlas.js';
+import { FLASHBOT_META } from '../src/data/flashbot-atlas.js';
+import { RUMOR_META } from '../src/data/rumor-atlas.js';
 import { createGame, stepGame } from '../src/game/game.js';
 
 const IDLE = { left: false, right: false, jump: false, mic: false };
@@ -22,7 +24,14 @@ describe('atlas de sprites (A1)', () => {
   });
 
   test('enemigos con todas sus animaciones', () => {
-    checkAtlas(ENEMIES_META, { titularWalk: 4, titularKo: 1, papWalk: 2, papAim: 1, papFlash: 1, papKo: 1, repWalk: 2, repDash: 1, repKo: 1 });
+    // v5: hoja de prensa de Gemini (espera + caminar, ataque, daño, derrota por personaje).
+    checkAtlas(ENEMIES_META, { titularWalk: 2, titularAtk: 1, titularHurt: 1, titularKo: 1, papWalk: 2, papAim: 1, papFlash: 1, papHurt: 1, papKo: 1, repWalk: 2, repDash: 1, repHurt: 1, repKo: 1 });
+  });
+
+  test('v5: jefe Flash-Bot con 12 poses y Rumor Volador con 6', () => {
+    checkAtlas(FLASHBOT_META, { bossWalk: 4, bossCharge: 2, bossFire: 1, bossExposed: 2, bossHurt: 1, bossKo: 2 });
+    for (const k of FLASHBOT_META.anims.bossWalk) assert.ok(Math.abs(FLASHBOT_META.frames[k].h - 76) <= 3, k);
+    checkAtlas(RUMOR_META, { rumorFly: 3, rumorDive: 1, rumorKo: 2 });
   });
 });
 

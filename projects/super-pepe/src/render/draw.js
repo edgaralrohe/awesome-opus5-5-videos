@@ -6,6 +6,7 @@ import { PEPE_META, PEPE_PNG } from '../data/pepe-atlas.js';
 import { ENEMIES_META, ENEMIES_PNG } from '../data/enemies-atlas.js';
 import { CARMESI_META, CARMESI_PNG } from '../data/carmesi-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
+import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
 import { buildTheme, hash } from './themes.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
@@ -54,8 +55,8 @@ let SHEETS = null;
 function sheets() {
   if (SHEETS) return SHEETS;
   const mk = (png, meta) => ({ img: loadImage(png), meta });
-  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), carmesi: mk(CARMESI_PNG, CARMESI_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META) };
-  SHEETS.ready = Promise.all(['pepe', 'foes', 'carmesi', 'boss'].map((k) => SHEETS[k].img.decode()));
+  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), carmesi: mk(CARMESI_PNG, CARMESI_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META) };
+  SHEETS.ready = Promise.all(['pepe', 'foes', 'carmesi', 'boss', 'rumor'].map((k) => SHEETS[k].img.decode()));
   return SHEETS;
 }
 
@@ -261,11 +262,13 @@ function drawEnemies(ctx, g, art, t) {
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';
-    const sheet = carm ? art.carmesi : art.foes;
-    const A = { titular: ['titularWalk', 'titularKo'], paparazzi: ['papWalk', 'papKo'], reportero: ['repWalk', 'repKo'], rumor: ['rumorFly', 'rumorKo'], traidor: ['traidorHover', 'traidorKo'] }[e.kind];
+    const sheet = e.kind === 'rumor' ? art.rumor : carm ? art.carmesi : art.foes;
+    const A = { titular: ['titularWalk', 'titularKo', 'titularHurt'], paparazzi: ['papWalk', 'papKo', 'papHurt'], reportero: ['repWalk', 'repKo', 'repHurt'], rumor: ['rumorFly', 'rumorKo', 'rumorKo'], traidor: ['traidorHover', 'traidorKo', 'traidorKo'] }[e.kind];
     if (!e.alive) {
-      ctx.save(); ctx.globalAlpha = 1 - e.deadT / 0.8;
-      sprite(ctx, sheet, sheet.meta.anims[A[1]][0], fx, fy + e.deadT * 30, flip);
+      // Primero el gesto de daño y luego la derrota, desvaneciéndose.
+      ctx.save(); ctx.globalAlpha = Math.min(1, 1.6 - e.deadT * 2);
+      const ko = sheet.meta.anims[e.deadT < 0.22 ? A[2] : A[1]];
+      sprite(ctx, sheet, ko[Math.min(ko.length - 1, Math.floor(e.deadT * 6))], fx, fy + (carm ? e.deadT * 30 : 0), flip);
       ctx.restore();
       continue;
     }
@@ -273,7 +276,7 @@ function drawEnemies(ctx, g, art, t) {
     if (e.kind === 'paparazzi' && e.state !== 'walk') key = e.state === 'flash' ? 'papFlash0' : 'papAim0';
     if (e.kind === 'reportero' && (e.state === 'dash' || e.state === 'windup')) key = 'repDash0';
     if (e.kind === 'reportero' && e.state === 'rest') key = 'repWalk0';
-    if (e.kind === 'rumor' && e.state === 'dive') key = 'rumorAtk0';
+    if (e.kind === 'rumor' && e.state === 'dive') key = 'rumorDive0';
     if (e.kind === 'traidor' && (e.state === 'lunge' || e.state === 'aim')) key = 'traidorAtk0';
     // Los voladores aletean (pequeño balanceo) y el Traidor tiembla al apuntar.
     const wob = carm ? (e.kind === 'traidor' && e.state === 'aim' ? Math.round(Math.sin(t * 60)) : Math.round(Math.sin(t * 10))) : 0;
@@ -298,8 +301,8 @@ function drawBoss(ctx, g, art, t) {
   if (!b.alive) {
     // Se deshace en pétalos.
     if (b.deadT < 1.6) {
-      ctx.save(); ctx.globalAlpha = Math.max(0, 1 - b.deadT / 0.9);
-      sprite(ctx, art.boss, 'bossHurt0', fx + Math.round(Math.sin(b.deadT * 40) * 2), fy + 4, flip);
+      ctx.save(); ctx.globalAlpha = Math.max(0, Math.min(1, 1.6 - b.deadT));
+      sprite(ctx, art.boss, b.deadT < 0.5 ? 'bossKo0' : 'bossKo1', fx + Math.round(Math.sin(b.deadT * 40) * (b.deadT < 0.5 ? 2 : 0)), fy + 1, flip);
       ctx.restore();
       for (let i = 0; i < 26; i++) {
         const a = hash(i, 5) * Math.PI * 2, r = b.deadT * (40 + hash(i, 6) * 70);
@@ -310,7 +313,13 @@ function drawBoss(ctx, g, art, t) {
   }
   const exposed = b.state === 'exposed';
   const hurtBlink = b.hurtT > 0 && Math.floor(t * 30) % 2;
-  if (!hurtBlink) sprite(ctx, art.boss, exposed ? 'bossHurt0' : 'bossIdle0', fx, fy + 2 + (b.state === 'walk' ? Math.round(Math.abs(Math.sin(t * 8))) : 0), flip);
+  const A = art.boss.meta.anims;
+  const key = b.hurtT > 0 ? 'bossHurt0'
+    : exposed ? A.bossExposed[Math.floor(t * 6) % 2]
+    : b.state === 'charge' ? A.bossCharge[b.t > BOSS.charge / 2 ? 1 : 0]
+    : b.state === 'beam' ? 'bossFire0'
+    : b.state === 'walk' || b.state === 'retreat' ? A.bossWalk[Math.floor(t * 10) % 4] : 'bossWalk0';
+  if (!(hurtBlink && b.hurtT < BOSS.hurtT / 2)) sprite(ctx, art.boss, key, fx, fy + 1, flip);
   const lensX = fx + b.facing * 20, lensY = fy - 34;
   if (b.state === 'charge') {
     // Aviso: el lente brilla cada vez más (sin parpadeo rápido).
@@ -403,9 +412,9 @@ export function drawTitle(ctx, t, art) {
   text(ctx, 'JOSÉ MADERO', W / 2, 104, { scale: 3, align: 'center', bands: CHROME });
   if (art) {
     sprite(ctx, art.pepe, loop(art.pepe, 'shout', t, 6), 40, 176);
-    sprite(ctx, art.boss, 'bossIdle0', 292, 206, true);
+    sprite(ctx, art.boss, loop(art.boss, 'bossWalk', t, 8), 292, 204, true);
     sprite(ctx, art.carmesi, 'traidorHover0', 292, 52 + Math.round(Math.sin(t * 4) * 3));
-    sprite(ctx, art.carmesi, 'rumorFly0', 30, 46 + Math.round(Math.sin(t * 5) * 3));
+    sprite(ctx, art.rumor, loop(art.rumor, 'rumorFly', t, 8), 30, 46 + Math.round(Math.sin(t * 5) * 3));
   }
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START / A', W / 2, 140, { align: 'center' });
   text(ctx, 'MUNDO 1 · CARMESÍ', W / 2, 160, { align: 'center', color: '#ffcf7a' });
