@@ -127,7 +127,7 @@ Seguir `specs/tasks.md`, fases 1.6 y 2.
 ## Datos verificados (con fuente) — José Madero
 | Dato | Fuente |
 |---|---|
-| *Carmesí*: 29 abr 2016; Disco de Oro en nov. 2016; Artista Revelación monitorLATINO 2016; canciones de 2008–2010; sencillos «Lunes 28», «Plural siendo singular», «Literatura rusa» | Wikipedia (Carmesí) |
+| *Carmesí*: 29 abr 2016; Disco de Oro en 2016 (mes ⚠️ oct/nov); Artista Revelación monitorLATINO 2016; canciones de 2008–2010. **Corrección (2 nov):** «Lunes 28» fue el **adelanto** (0:00 del 29 feb 2016, tras el último concierto de Panda en la Arena CDMX), **no un sencillo**; primer sencillo «Plural siendo singular» (vídeo 8 abr 2016). Lista completa de datos de la época con fuentes: spec §3.0e (D1–D16) | Wikipedia EN/ES, CineMedios, El Siglo de Torreón |
 | *Noche*: 2017; «Noche de brujas», primer sencillo (9 jun 2017), **no es de Halloween** (máscaras sociales); vídeo en B y N, homenaje al terror clásico | Wikipedia (Noche), Revista Kuadro, Milenio, Looking Back |
 | Gira *Noche*: figuras de Jason, Freddy y Pinhead en el escenario; «Fantasmas» en el setlist | ABC Noticias, El Alebrije, Soulwavez |
 | Es fan del terror y de Stephen King | Milenio, Looking Back |

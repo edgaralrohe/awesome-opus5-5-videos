@@ -168,6 +168,51 @@ Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source
 
 La barra de Ovación conecta con el final («la barra es el cariño del público»).
 
+### 3.0e v6 · Historia del Mundo 1, datos de época, trajes y Galería (⏳ propuesta, 2 nov 2026)
+
+**Historia (capítulos aprobados por el usuario; datos ⏳ pendientes de su visto bueno).** En el Museo, la **Sala Carmesí** está vacía. Pepe revive 2016 para llenarla.
+| Nivel | Capítulo | Por qué está ahí (cartel de 2 s al empezar) | Base verificada |
+|---|---|---|---|
+| 1-1 Calle | **«Lunes 28»** | «28 de febrero de 2016. Termina el último concierto en la Arena Ciudad de México. A medianoche sale su primera canción en solitario. Las canciones que guardaba desde 2008 se le vuelan por la calle». Piezas = hojas de canciones | D1, D2, D6 |
+| 1-2 Azoteas | **«Plural siendo singular»** | «Abril de 2016. Sale su primer sencillo y la prensa toma la calle. Para llegar al teatro, Pepe va por encima del ruido» | D4, D5 |
+| 1-3 Teatro | **«La presentación»** | «29 y 30 de septiembre de 2016: Teatro Metropólitan». La Prensa Rosa quiere la foto antes de que cante. Premio: Disco de Oro | D9, D7 |
+> Cierre redondo: el juego empieza en la Arena (2016) y termina en la Arena (concierto final).
+
+**Datos de la época (salen al vencer a un Titular, sin repetirse; uno distinto en cada tarjeta de nivel).** ✅ = 2 o más fuentes · ⚠️ = 1 fuente o fuentes que no coinciden (no se usan hasta confirmar).
+| ID | Dato | Fuentes | Estado |
+|---|---|---|---|
+| D1 | El 28 feb 2016 fue el último concierto de Panda antes de su pausa, en la Arena Ciudad de México; a las 0:00 del lunes 29 apareció «Lunes 28» en streaming | Wikipedia ES (Carmesí), CineMedios | ✅ |
+| D2 | «Lunes 28» fue el adelanto del proyecto, no un sencillo oficial; abre el disco | Wikipedia EN y ES | ✅ |
+| D3 | El 28 mar 2016 anunció *Carmesí* en sus redes; lo produjo él mismo | Wikipedia EN y ES, The Electroside | ✅ |
+| D4 | «Plural siendo singular» fue el primer sencillo; su vídeo se estrenó el 8 abr 2016 | Wikipedia EN, El Siglo de Torreón | ✅ |
+| D5 | *Carmesí* salió el 29 abr 2016 con 13 canciones | Wikipedia EN, El Siglo de Torreón, Excélsior | ✅ |
+| D6 | La mayoría de las canciones se escribieron entre 2008 y 2010 y nunca se usaron en Panda | Wikipedia ES, Zeta Tijuana | ✅ |
+| D7 | Fue Disco de Oro en 2016 (más de 30.000 copias) | Wikipedia ES, Jackson Live, blog El arte me llama | ✅ (mes ⚠️: oct. o nov.) |
+| D8 | monitorLATINO lo nombró Artista Revelación México 2016 por la rotación en radio de sus dos primeros sencillos | Wikipedia EN | ✅ (ya verificado antes) |
+| D9 | Presentó *Carmesí* en el Teatro Metropólitan el 29 y 30 sep 2016, con un show anunciado de unas 2 horas y 23 canciones | Excélsior, El Universal, Reconoce MX, Revista Kuadro | ✅ |
+| D10 | Edición Deluxe (oct. 2016): 5 canciones extra, entre ellas versiones de Vicentico («Sólo un momento») y Los Auténticos Decadentes («El pájaro vio el cielo y se voló»), y un DVD de la grabación | Zeta Tijuana, Apple Music, Amazon MX, Wikipedia EN | ✅ |
+| D11 | El Tour Carmesí llegó a Buenos Aires y Lima en diciembre de 2016 | Concert Archives, Wikipedia ES | ✅ |
+| D12 | Cita: «No por ser artista tengo que ser un súper hombre» (sep. 2016) | El Universal, Noroeste, Vanguardia | ✅ |
+| D13 | Segundo sencillo «La noche de la mesa triste» (19 ago 2016) y tercero «Literatura rusa» (30 ene 2017) | Wikipedia EN; Looking Back cita «Sinmigo» | ⚠️ no coinciden |
+| D14 | El vídeo de «Plural siendo singular» se grabó en el Parque Nacional Cumbres del Ajusco | Wikipedia EN | ⚠️ 1 fuente |
+| D15 | Estuvo entre los 10 discos más vendidos de México en mayo de 2016 | Wikipedia (según AMPROFON) | ⚠️ 1 fuente |
+| D16 | Rechazó presentarlo en el Auditorio Nacional | La Prensa (OEM) | ⚠️ 1 fuente |
+No se usan: polémicas de la firma de autógrafos ni la acusación de plagio de la portada (son de prensa negativa y no aportan al homenaje).
+
+**Trajes (decidido).** Uno por mundo y el resto desbloqueables en la **Galería del Museo**:
+| Traje | Uso |
+|---|---|
+| Clásico (camiseta blanca y bandana roja) | Por defecto (Carmesí) |
+| Vampiro | Mundo **Noche** |
+| Rojo y amarillo (traje rojo, camisa amarilla y moño) | Mundo **Sarajevo** |
+| Bandana negra (chaleco y guitarra) | Mundo **Querido…** |
+| Emo (negro con lentes oscuros) | ⏳ ¿mundo o desbloqueable? |
+| Gris con boina · chamarra universitaria · botarga morada | Desbloqueables |
+- **Riesgo aceptado por el usuario:** la botarga morada es Tinky Winky (Teletubbies, personaje registrado). Se mantiene; recomendación: sin nombre en pantalla y solo como desbloqueable.
+- **Guitarra:** la turquesa de la hoja recuerda a un modelo comercial; para el Solo se usa una de forma propia.
+- Las hojas de trajes traen 4 poses (reposo, correr, saltar, lanzar micro). Faltan aterrizaje, daño, KO, victoria y grito → prompt aparte.
+- **Galería:** cada traje se desbloquea con un reto (p. ej. las 6 piezas de un nivel, vencer al jefe sin daño, terminar el mundo en menos de X min) y se ve en una vitrina con su nombre y el reto.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
