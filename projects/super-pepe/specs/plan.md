@@ -44,3 +44,11 @@ projects/super-pepe/
 | Audio bloqueado en iOS hasta tocar | Desbloquear WebAudio con el primer «START» |
 | Rendimiento en móviles modestos | Tiles prerenderizados por pantalla; nada de `getImageData` en el bucle |
 | Sensación de salto (lo más importante) | Afinar con constantes en `physics.js` y repeticiones; prototipo jugable en la fase 1 |
+
+## v5 · Mundo 1 «Carmesí»
+- **Módulos nuevos:** `src/game/enemies.js` (IA de todos los enemigos), `src/game/boss.js` (Flash-Bot como máquina de estados), `src/data/world1.js` (tres niveles con su tema). `game.js` queda como orquestador: jugador, micrófono, colisiones, puntuación, Ovación y power-ups.
+- **Nuevos caracteres de nivel:** `V` Rumor Volador, `M` Micrófono Traidor, `B` jefe, `A` Amplificador, `+` Carta de fan.
+- **Parón de impacto en la lógica** (`g.hitstop`), no en el render: así es determinista y testeable.
+- **«En pantalla»** para el Solo de guitarra = a menos de media pantalla (160 px + margen) de Pepe en horizontal, sin depender de la cámara del render.
+- **Fondos por código** por tema (`calle`, `azoteas`, `teatro`) en `src/render/themes.js`, con 2 capas de parallax y bloques propios; la paleta sale de los conceptos rescatados.
+- **Sprites provisionales:** Rumor y Micrófono Traidor se recortan del concepto de Gemini con `slice_sheet.py`; el Flash-Bot, también (vista de tres cuartos, provisional hasta tener la hoja lateral).

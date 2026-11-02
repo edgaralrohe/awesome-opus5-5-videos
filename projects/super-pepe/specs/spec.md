@@ -1,8 +1,9 @@
-# Spec — «MÉXICO VS. JOSÉ MADERO» (v2)
+# Spec — «MÉXICO VS. JOSÉ MADERO» (v5)
 
 > Spec-Driven Development (Dominicode). Juego de plataformas y acción **16 bits estilo Neo Geo** (referencia: *Spin Master*, Data East, 1993), jugable en la web de Colores Ruidosos, que recorre la carrera solista de José Madero. Cada disco es un mundo con su propia jugabilidad y un jefe. El hub es **el Museo**. El final es un concierto que sirve de **preludio a su show en la Arena Ciudad de México**.
 >
 > **v2:** título tomado de la playera oficial; estética 16 bits; micrófono como arma; un giro de jugabilidad por mundo; enemigos de prensa; jefe final «VS» en concierto.
+> **v5 (2 nov 2026):** Mundo 1 «Carmesí» definido a partir de los conceptos rescatados de Gemini (§3.0d): jefe **Cámara Flash-Bot**, enemigos **Rumor Volador** y **Micrófono Traidor**, tres niveles, juego **más rápido** (combos, puntuación, cronómetro) y **power-ups** con el **Solo de guitarra**. Los Titulares gritan titulares genéricos, no insultos. Logo de Colores Ruidosos: el real.
 > Estado: **borrador para definir con el equipo**. Las celdas marcadas con ⚠️ esperan verificación o decisión.
 
 ---
@@ -19,7 +20,7 @@ Un homenaje jugable, hecho por fans, en el que cada disco de José Madero es un 
 **Éxito:** partidas completas compartidas en redes, visitas recurrentes a la web y comentarios del tipo «mi jefe favorito es…».
 
 ### 1.1 Historia
-José Madero tiene que **recordar quién es** antes de su concierto en la **Arena Ciudad de México**. La prensa lo ha perseguido durante años con titulares («¡mamón!», «¡altanero!»), y entre tanto ruido su carrera se ha quedado desordenada en **el Museo**: cada sala es un disco y cada disco, un mundo. Recuperando las piezas de cada etapa, Pepe reconstruye su historia. Con ella llega a la Arena, donde le espera el combate final: **MÉXICO VS. JOSÉ MADERO**, un concierto en el que no se derrota a nadie: hay que **ganarse al público**.
+José Madero tiene que **recordar quién es** antes de su concierto en la **Arena Ciudad de México**. La prensa lo ha perseguido durante años con titulares sensacionalistas («¡EXCLUSIVA!», «¡POLÉMICA!»), y entre tanto ruido su carrera se ha quedado desordenada en **el Museo**: cada sala es un disco y cada disco, un mundo. Recuperando las piezas de cada etapa, Pepe reconstruye su historia. Con ella llega a la Arena, donde le espera el combate final: **MÉXICO VS. JOSÉ MADERO**, un concierto en el que no se derrota a nadie: hay que **ganarse al público**.
 
 > El arco se apoya en algo que él ha contado: que al principio de su carrera fue arrogante y que lo dejó atrás («En algún momento fui un pendejo, pero dejé atrás eso hace mucho tiempo», La Razón, 2024; «no fuera tan arrogante», Publimetro, 2025). No se usan sus declaraciones sobre salud emocional o vida privada.
 
@@ -129,6 +130,43 @@ Propuesta (⚠️ el usuario confirma qué discos): los discos más tranquilos d
 **Lugar en el juego:** cierre del mundo *Sarajevo*, después del jefe y fuera del combate. También accesible desde el Museo («Sala de las luciérnagas»).
 **Cambio derivado:** la luciérnaga **deja de ser un power-up o aliada** en el resto del juego. En los niveles oscuros, la luz pasa a ser un **farol**.
 
+### 3.0d v5 · Mundo 1 «Carmesí» (✅ decidido el 2 nov 2026)
+Referencias visuales: conceptos de Gemini rescatados por el usuario (`art/source/carmesi/`). Se usan como **guía de estilo**; los recursos del juego se rehacen sin texto ni sombras (personajes) o se dibujan por código (fondos).
+
+**Estructura (3 niveles, 2–3 min cada uno):**
+| Nivel | Escenario | Qué enseña | Final |
+|---|---|---|---|
+| 1-1 «Calle Carmesí» | Calle nocturna con balcones, telones rojos, papel picado y faroles; al fondo, la fachada del **Teatro Carmesí** | Correr, saltar, micrófono, primer gancho | Puerta del teatro |
+| 1-2 «Azoteas» | Azoteas al atardecer: cables, tinacos, escaleras, cerros a lo lejos | Cadenas de ganchos, Rumor Volador, Micrófono Traidor | Claraboya del teatro |
+| 1-3 «El Teatro» | Escenario con palcos, telón y **candelabro** (gancho) | Combate contra el jefe | Disco de Oro |
+
+**Enemigos de Carmesí:** prensa recurrente (Titular, Paparazzi, Reportero) + **Rumor Volador** + **Micrófono Traidor** + **Espinas** (los pinchos `^` se dibujan como zarzas). *Lunes 28* y *Libro ruso* quedan para una revisión posterior (necesitan arte).
+
+**Jefe: Cámara Flash-Bot («La Prensa Rosa»).** Cámara de fuelle antigua sobre patas de araña, con telón rojo y espinas (sustituye a la Rosa Carmesí). Máquina de fases:
+1. **Camina** por el escenario hacia Pepe.
+2. **Carga** (aviso de 0,8 s: el lente brilla).
+3. **Rayo cegador** horizontal a ras de suelo (se salta) o, en la fase 2, a la altura de la cabeza (se esquiva quedándose en el suelo). Rayo suave, sin destellos de pantalla completa.
+4. **Expuesto** (2 s): el lente se agrieta y echa humo; solo entonces el micrófono le hace daño.
+- 6 golpes. Con 3 o menos entra en **fase 2**: camina más rápido y alterna rayo bajo y alto.
+- Al vencerlo se deshace en pétalos y deja el **Disco de Oro** (*Carmesí* fue Disco de Oro en nov. 2016, Wikipedia).
+
+**Ritmo («dinámico y rápido»):**
+- Más velocidad (130 → 165 px/s) y más aceleración; al soltar el gancho se **conserva el impulso** para encadenar ganchos.
+- Enemigos de **un golpe** con **parón de impacto** (4 fotogramas) y temblor de cámara leve.
+- **Combo:** vencer enemigos con menos de 2 s entre uno y otro multiplica los puntos (100 × combo).
+- **Marcador** de 7 dígitos y **cronómetro** en el HUD; tiempo final por nivel.
+- La frase verificada de Madero aparece al vencer a un **Titular** (no con cada enemigo), en un cartel más pequeño.
+
+**Power-ups (v5):**
+| Objeto | Carácter | Efecto |
+|---|---|---|
+| **Solo de guitarra** (especial) | — | Se carga la barra de **Ovación** (vencer enemigos, más con combo). Llena + botón especial (C / ★ / botón Y del mando): onda que **vence a todos los enemigos en pantalla**; al jefe le quita 1 golpe. 1 s de invulnerabilidad. Guitarra de diseño propio, sin marcas |
+| **Amplificador** | `A` | El micrófono alcanza el doble durante 10 s |
+| **Carta de fan** | `+` | Recupera 1 corazón (máx. 3) |
+| **Farol** | — | Mundos oscuros (Noche, Sarajevo). No se usa en Carmesí |
+
+La barra de Ovación conecta con el final («la barra es el cariño del público»).
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -150,9 +188,11 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 
 | Mundo | Enemigo | Referencia | Comportamiento |
 |---|---|---|---|
-| Carmesí | **Lunes 28** | Sencillo «Lunes 28» | Hoja de calendario que vuela en zigzag |
-| Carmesí | **Libro ruso** | Sencillo «Literatura rusa» | Libro que se abre y lanza letras |
-| Carmesí | **Espina** | Rosa de la portada | Tallo estático; daña al tocarlo |
+| Carmesí | **Rumor Volador** (v5) | Prensa sensacionalista (genérica) | Periódico doblado como pájaro: planea en onda y **cae en picado** cuando Pepe pasa debajo; vuelve a subir |
+| Carmesí | **Micrófono Traidor** (v5) | Prensa (genérica) | Micrófono con alas y espinas: flota, apunta y **se lanza** hacia donde estaba Pepe; descansa y vuelve |
+| Carmesí | **Lunes 28** ⏸ | Sencillo «Lunes 28» | Hoja de calendario que vuela en zigzag |
+| Carmesí | **Libro ruso** ⏸ | Sencillo «Literatura rusa» | Libro que se abre y lanza letras |
+| Carmesí | **Espina** | Rosa de la portada | Zarzas en el suelo (`^`); dañan al tocarlas |
 | Noche | **Invitado enmascarado** | «Noche de brujas» (fiesta de disfraces) | Al pisarlo pierde la máscara y cambia de comportamiento |
 | Noche | **Fantasma** | «Fantasmas» (setlist de la gira *Noche*) | Atraviesa paredes; solo es visible con flash |
 | Noche | **Murciélago** | Terror clásico | Picado en curva |
@@ -167,7 +207,7 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Querido… | **Carta voladora** | Disco epistolar | Sobre que planea; al abrirlo suelta una pieza |
 | Querido… | **Juglar** | Aire medieval y cuerdas | Lanza notas en arco |
 | Querido… | **Pierrot de perlas** | Portada | Llora lágrimas que caen como proyectiles |
-| **Todos** (recurrentes) | **Titular** | Persecución mediática (genérica) | Cartel con insulto («¡MAMÓN!», «¡ALTANERO!») que te persigue; al vencerlo muestra una frase verificada de Madero |
+| **Todos** (recurrentes) | **Titular** | Persecución mediática (genérica) | Cartel con titular genérico («¡EXCLUSIVA!», «¡POLÉMICA!», «¡ÚLTIMA HORA!») que patrulla; al vencerlo muestra una frase verificada de Madero |
 | **Todos** | **Paparazzi** | Ídem | Flash suave (< 3 Hz, desactivable) que te frena; se le vence por detrás |
 | **Todos** | **Micrófono de reportero** | Ídem | Se interpone en tu camino; lo neutralizas con tu propio micrófono |
 
@@ -177,7 +217,7 @@ Criterios de la revisión: (1) cada jefe sale de un concepto verificado; (2) en 
 
 | Mundo | Tipo | Jefe / momento final | Cómo se resuelve | Cambio respecto a v3 |
 |---|---|---|---|---|
-| Carmesí | Acción | **La Rosa Carmesí** | 3 fases: pétalos → espinas → se deshace como en la portada | Igual |
+| Carmesí | Acción | ✅ **Cámara Flash-Bot** (v5) | Camina → carga → rayo (bajo / alto) → lente expuesto; 6 golpes, 2 fases; se deshace en pétalos → Disco de Oro (§3.0d) | Sustituye a la Rosa Carmesí |
 | Noche | Acción | **El Enmascarado del Lago** | Aparece y desaparece entre cabañas; apagón (solo ojos); persecución. Al vencerlo **se quita la máscara** y debajo hay alguien normal (la idea de «Noche de brujas»: las máscaras sociales) | Final con mensaje |
 | Alba | **Paseo** | **La Nostalgia** (momento final) | No se pelea: rebobina el camino y solo se supera **siguiendo adelante**; al final amanece | De jefe a momento final |
 | Psalmos | Acción suave *o* paseo ⚠️ | **La Sombra** | Si es acción: la luz de las vidrieras la debilita. Si es paseo: la sombra **acompaña** a Pepe y se funde con él al salir de la esquina (nadie se queda solo en la esquina) | Abierto según confirméis |
@@ -206,6 +246,8 @@ Criterios de la revisión: (1) cada jefe sale de un concepto verificado; (2) en 
 | Opcional | **La Bestia** | «Érase una Bestia», su primer estadio (24 ene 2026) | Jefe secreto con patrones de los 8 jefes | Partitura dorada |
 
 ### 3.4 Power-ups y objetos
+
+> **v5:** la tabla vigente es la de §3.0d (Solo de guitarra con barra de Ovación, Amplificador, Carta de fan, Farol). Esta tabla queda como banco de ideas para otros mundos.
 
 | Objeto | Referencia | Efecto |
 |---|---|---|
@@ -281,6 +323,7 @@ Además de estos hitos, las frases que aparecen al vencer un **Titular** salen s
 | Legal | Título propio; «Homenaje no oficial»; sin música grabada, portadas ni personajes registrados |
 
 ## Decisiones abiertas (para definir juntos)
+- **v5:** ✅ Mundo 1 definido (§3.0d) · ✅ el logo de Colores Ruidosos de los conceptos es el real (⚠️ falta el archivo original para usarlo en el juego)
 - **v4:** ✅ paseos = *Alba* y *Aurora* · ⏳ el usuario revisa los jefes (§3.3 v4) · momento final de *Aurora* por definir · · ¿pedimos al equipo de Madero el **permiso para los fragmentos de letras** y, a la familia (a través de su equipo), el **consentimiento para la dedicatoria** del memorial?
 0. **Fecha y enlace del concierto en la Arena CDMX** (no aparece en ninguna fuente pública consultada) y confirmar **JMV = José Madero Vizcaíno**.
 1. **Título**: ✅ propuesta «MÉXICO VS. JOSÉ MADERO» (de la playera). Evitar «Bros» y el óvalo de Nintendo.
