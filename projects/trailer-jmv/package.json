@@ -1,0 +1,12 @@
+{
+  "name": "trailer-jmv",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tráiler 9:16 de México vs. José Madero (estilo 16-bit Pixel RPG)",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\"",
+    "capture": "node tools/capture.mjs",
+    "build": "sh build.sh"
+  }
+}

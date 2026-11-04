@@ -1,0 +1,16 @@
+CRÉDITOS — Tráiler «México vs. José Madero» (Colores Ruidosos)
+
+Imagen
+- Escenas de juego: grabadas del juego «México vs. José Madero» (Colores Ruidosos), con su arte propio y los fondos
+  generados por el equipo (ver juegos/mexico-vs-jose-madero/CONTEXTO.md en el repo de la web).
+- Pepe (atlas de poses y retrato): hoja oficial de personaje de Colores Ruidosos, la misma que usa el juego.
+- Interfaz, fuente de píxeles, arena y tarjetas: dibujadas por código en este proyecto (src/px.js, src/main.js).
+
+Sonido
+- Música y efectos: chiptune original sintetizado por código (tools/score.py). Sin música ni letras de José Madero.
+
+Datos en pantalla: ver FACTS.md (2 fuentes o más por dato).
+
+Herramientas: render con los scripts de la librería de estilos (headless Chromium + ffmpeg); sin recursos de terceros.
+
+Homenaje no oficial hecho por fans. José Madero y su equipo no participan ni lo respaldan.
