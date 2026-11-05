@@ -9,7 +9,8 @@ export const SECS = [
   { id: 'carmesi', t: 26, bars: 2, silence: 29.75 },
   { id: 'noche', t: 30, bars: 4 },
   { id: 'recuerdo', t: 38, bars: 1 },
-  { id: 'cierre', t: 40, bars: 2 },
+  { id: 'futuro', t: 40, bars: 2 },
+  { id: 'cierre', t: 44, bars: 2 },
 ];
 export const DUR = SECS.at(-1).t + SECS.at(-1).bars * BAR;
 
@@ -33,8 +34,9 @@ export const SHOTS = [
   { clip: 'enmascarado', t0: 34, t1: 36, from: 40 },  // presentación del jefe
   { clip: 'enmascarado-fin', t0: 36, t1: 38, from: 1100 },
   { clip: 'recuerdo', t0: 38, t1: 40, from: 0 },     // RECUERDO RECUPERADO (tools/capture-recuerdo.mjs)
+  { clip: 'museo', t0: 40, t1: 44, from: 8 },         // las puertas de los otros 6 discos, con candado
 ];
-export const CUTS = SHOTS.map((s) => ({ id: `${s.clip}@${s.t0}`, t: s.t0 })).concat([{ id: 'cierre', t: 40 }]);
+export const CUTS = SHOTS.map((s) => ({ id: `${s.clip}@${s.t0}`, t: s.t0 })).concat([{ id: 'cierre', t: 44 }]);
 
 // Paso de paleta del giro (plan D4): rojo → gris en 4 pasos sobre la victoria de Carmesí.
 export const PALETTE_STEPS = [29.0, 29.25, 29.5, 29.75];
@@ -60,18 +62,21 @@ export const TEXTS_TL = [
   { id: 't4b', t0: 22, t1: 26, text: 'DATOS REALES CON FUENTE' },
   { id: 'm1', t0: 26, t1: 30, text: 'MUNDO 1 · CARMESÍ · 2016' },
   { id: 'm1b', t0: 26, t1: 30, text: 'CONTRA LA PRENSA ROSA' },
-  { id: 'm2', t0: 30, t1: 38, text: 'MUNDO 2 · NOCHE · 2017' },
+  { id: 'm2', t0: 30, t1: 40, text: 'MUNDO 2 · NOCHE · 2017' },
   { id: 'm2a', t0: 30, t1: 34, text: 'MONSTRUOS CLÁSICOS' },
   { id: 'm2b', t0: 30, t1: 34, text: 'Y SE VA LA LUZ' },
-  { id: 'arena', t0: 38, t1: 44, text: 'RUMBO A LA ARENA CDMX' },
-  { id: 'fecha', t0: 38, t1: 44, text: '21 Y 22 MAY 2027' },
-  { id: 'fuente', t0: 38, t1: 44, text: 'FUENTES: LOS40 · GRUPO ANIMAL' },
-  { id: 'logo', t0: 40, t1: 44, text: 'MÉXICO VS. JOSÉ MADERO' },
-  { id: 'cta', t0: 40.5, t1: 44, text: 'JUEGA GRATIS · VIERNES 6 NOV' },
-  { id: 'dev', t0: 40.5, t1: 44, text: 'EN CELULAR Y COMPU' },
-  { id: 'web', t0: 40.5, t1: 44, text: 'COLORESRUIDOSOS.GITHUB.IO' },
-  { id: 'seccion', t0: 40.5, t1: 44, text: 'SECCIÓN GAMES' },
-  { id: 'homenaje', t0: 40, t1: 44, text: 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS' },
+  { id: 'r0', t0: 40, t1: 44, text: 'CADA DISCO, UN MUNDO' },
+  { id: 'r1', t0: 40, t1: 44, text: 'EL VIERNES: MUNDOS 1 Y 2' },
+  { id: 'r2', t0: 40, t1: 44, text: 'UN DISCO CADA 2 SEMANAS' },
+  { id: 'arena', t0: 44, t1: 48, text: 'RUMBO A LA ARENA CDMX' },
+  { id: 'fecha', t0: 44, t1: 48, text: '21 Y 22 MAY 2027' },
+  { id: 'fuente', t0: 44, t1: 48, text: 'FUENTES: LOS40 · GRUPO ANIMAL' },
+  { id: 'logo', t0: 44, t1: 48, text: 'MÉXICO VS. JOSÉ MADERO' },
+  { id: 'cta', t0: 44.5, t1: 48, text: 'JUEGA GRATIS · VIERNES 6 NOV' },
+  { id: 'dev', t0: 44.5, t1: 48, text: 'EN CELULAR Y COMPU' },
+  { id: 'web', t0: 44.5, t1: 48, text: 'COLORESRUIDOSOS.GITHUB.IO' },
+  { id: 'seccion', t0: 44.5, t1: 48, text: 'SECCIÓN GAMES' },
+  { id: 'homenaje', t0: 44, t1: 48, text: 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS' },
 ];
 
 export const FACTS = [
@@ -94,5 +99,5 @@ export const EV = [
   { t: 26, type: 'mosaic' }, { t: 28 + 22 / 24, type: 'fanfare' },
   ...PALETTE_STEPS.map((t) => ({ t, type: 'bitdrop' })),
   { t: 30, type: 'wind' }, { t: 34, type: 'mosaic' }, { t: 36 + 23 / 24, type: 'fanfare' },
-  { t: 38, type: 'levelup' }, { t: 38, type: 'crowd' }, { t: 40, type: 'mosaic' }, { t: 40.5, type: 'start' },
+  { t: 38, type: 'levelup' }, { t: 40, type: 'mosaic' }, { t: 40, type: 'select' }, { t: 44, type: 'mosaic' }, { t: 44, type: 'crowd' }, { t: 44.5, type: 'start' },
 ];

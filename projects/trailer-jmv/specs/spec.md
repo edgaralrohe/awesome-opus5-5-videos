@@ -3,7 +3,7 @@
 > Metodología SDD (Dominicode). Estilo de la librería Lemo-Opuscar: **16-bit Pixel RPG** (`styles/pixel-rpg/STYLE.md`), adaptado a vertical.
 
 ## 1. Visión
-Un reel de 44 s que anuncia que el juego **México vs. José Madero** (homenaje no oficial de Colores Ruidosos) se puede jugar gratis desde el **viernes 6 de noviembre de 2026** en la web de CR, sección **Games**. Trae los dos primeros discos solistas de José Madero, *Carmesí* (2016) y *Noche* (2017), rumbo a sus conciertos en la Arena Ciudad de México (21 y 22 de mayo de 2027).
+Un reel de 48 s que anuncia que el juego **México vs. José Madero** (homenaje no oficial de Colores Ruidosos) se puede jugar gratis desde el **viernes 6 de noviembre de 2026** en la web de CR, sección **Games**. Trae los dos primeros discos solistas de José Madero, *Carmesí* (2016) y *Noche* (2017), rumbo a sus conciertos en la Arena Ciudad de México (21 y 22 de mayo de 2027).
 
 **Promesa honesta:** todo lo que se ve del juego es **juego real**, grabado del código del juego con bots. Nada de escenas que el juego no tenga: el VS en la Arena aún no existe, así que la Arena sale como **destino**, no como nivel.
 
@@ -14,7 +14,7 @@ Un reel de 44 s que anuncia que el juego **México vs. José Madero** (homenaje 
 - **Seguidores de @coloresruidosos**, que ya conocen la trivia de la web.
 
 ## 3. Funcionalidades (guion v2, 5 nov 2026)
-> **Cambio del usuario:** la v1 contaba la historia pero no explicaba de qué trata el juego. La v2 va en 3 actos: la premisa, cómo se juega y los dos mundos. Dura 44 s.
+> **Cambio del usuario:** la v1 contaba la historia pero no explicaba de qué trata el juego. La v2 va en 3 actos: la premisa, cómo se juega y los dos mundos, más lo que viene. Dura 48 s.
 
 - **R1 Premisa (0–10 s):** viñetas **reales** del prólogo del juego. p3 lleva «ALGO SE LE PERDIÓ»; p4, «PEPE NO RECUERDA QUIÉN ES»; y p5 con el pasillo real del Museo, «CADA DISCO GUARDA UNA PARTE DE ÉL». El título del juego va arriba. **No** salen p1 (nombra el estadio) ni p2 (el cartel de la Arena con la cara de Madero, un riesgo aceptado solo dentro del juego).
 - **R2 Cómo se juega (10–26 s):** ventana «CÓMO SE JUEGA» y 4 consejos numerados, de 4 s cada uno, sobre juego real:
@@ -26,7 +26,8 @@ Un reel de 44 s que anuncia que el juego **México vs. José Madero** (homenaje 
   - «MUNDO 1 · CARMESÍ · 2016 / CONTRA LA PRENSA ROSA», con la presentación real del jefe Flash-Bot y su derrota;
   - la paleta se apaga a gris;
   - «MUNDO 2 · NOCHE · 2017 / MONSTRUOS CLÁSICOS / Y SE VA LA LUZ», con la Entrada, el Salón a oscuras y la presentación y derrota del Enmascarado.
-- **R4 Recuerdo y cierre (38–44 s):**
+- **R3b Lo que viene (40–44 s), petición del usuario del 5 nov:** el pasillo real del Museo con las puertas bloqueadas, «CADA DISCO, UN MUNDO», «EL VIERNES: MUNDOS 1 Y 2» y «UN DISCO CADA 2 SEMANAS» (plan de lanzamiento de CR).
+- **R4 Recuerdo y cierre (38–40 y 44–48 s):**
   - la pantalla real «RECUERDO RECUPERADO» y «RUMBO A LA ARENA CDMX · 21 Y 22 MAY 2027», con su fuente;
   - tarjeta final (≥ 4 s): logotipo, «JUEGA GRATIS · VIERNES 6 NOV», «EN CELULAR Y COMPU», «COLORESRUIDOSOS.GITHUB.IO», «SECCIÓN GAMES» y «HOMENAJE NO OFICIAL · @COLORESRUIDOSOS».
 - **Sin voz:** el texto va en pantalla, para verse sin sonido. La Arena es **destino**, no nivel.

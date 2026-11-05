@@ -10,6 +10,7 @@ Regla del proyecto: un dato se considera verificado con 2 fuentes o más. Lo que
 
 ## Datos propios (de Colores Ruidosos, no necesitan fuente externa)
 - El juego se puede jugar gratis desde el viernes 6 nov 2026 en coloresruidosos.github.io, sección Games (`data/games.json` del repo de la web, F25).
+- Plan de lanzamiento (lo decidió CR el 5 nov 2026): el viernes salen los mundos 1 y 2, y cada 2 semanas se agrega un disco.
 - Trae 2 de los 8 mundos previstos (*Carmesí* y *Noche*); el contador del juego es «IDENTIDAD n/8».
 
 ## Ficción del juego (se presenta como historia, no como dato)

@@ -130,7 +130,7 @@ function sceneWorld(t, era) {
 
 // Bloque «RUMBO A LA ARENA», en el mismo sitio en el recuerdo y en el cierre.
 function arenaBlock(t) {
-  const x = 14 + slide(t, 38, 340);
+  const x = 14 + slide(t, 44, 340);
   win(g, x, BY, 332, 58, SKINS.menu);
   say('arena', 'RUMBO A LA ARENA CDMX', x + 166, BY + 11, { k: 2, align: 'center', color: C.white });
   say('fecha', '21 Y 22 MAY 2027', x + 166, BY + 33, { k: 2, align: 'center', color: C.gold });
@@ -138,8 +138,15 @@ function arenaBlock(t) {
 }
 function sceneRecuerdo(t) {
   bgNoche();
+  topWin(t, 'm2', SKINS.noche);
   gameScreen(t, 20, GY);
-  arenaBlock(t);
+}
+// Lo que viene: el pasillo real con las puertas bloqueadas y el plan de lanzamiento.
+function sceneFuturo(t) {
+  bgMenu();
+  topWin(t, 'r0', SKINS.menu);
+  gameScreen(t, 20, GY);
+  bottomWin(t, ['r1', 'r2'], SKINS.carmesi);
 }
 
 function sceneCierre(t) {
@@ -149,12 +156,12 @@ function sceneCierre(t) {
   text(g, 'MÉXICO', 180, 110, { k: 4, align: 'center', rows: [C.gold, C.gold, '#ffe9a8', C.yellow, C.gold, C.goldDark, C.goldDark], outline: C.ink });
   text(g, 'VS.', 180, 146, { k: 2, align: 'center', color: C.white, outline: C.ink });
   text(g, 'JOSÉ MADERO', 180, 166, { k: 4, align: 'center', rows: [C.white, C.white, '#e8e8ee', C.silver, C.silver, '#6f7890', '#6f7890'], outline: C.ink });
-  if (t >= 40.5) {
-    const x = 14 + slide(t, 40.5, 340);
+  if (t >= 44.5) {
+    const x = 14 + slide(t, 44.5, 340);
     win(g, x, 206, 332, 58, SKINS.carmesi);
     say('cta', 'JUEGA GRATIS · VIERNES 6 NOV', x + 166, 217, { k: 2, align: 'center', color: C.gold });
     say('dev', 'EN CELULAR Y COMPU', x + 166, 239, { k: 2, align: 'center', color: C.white });
-    const x2 = 14 + slide(t, 40.5, -340);
+    const x2 = 14 + slide(t, 44.5, -340);
     win(g, x2, 280, 332, 58, SKINS.menu);
     say('web', 'COLORESRUIDOSOS.GITHUB.IO', x2 + 166, 291, { k: 2, align: 'center', color: C.white });
     say('seccion', 'SECCIÓN GAMES', x2 + 166, 313, { k: 2, align: 'center', color: C.gold });
@@ -164,7 +171,7 @@ function sceneCierre(t) {
 }
 
 // ---------- transiciones ----------
-const BIG = [10, 26, 30, 38, 40], MID = [14, 18, 22], SMALL = [3, 6, 8, 12, 16, 20, 28, 32, 34, 36];
+const BIG = [10, 26, 30, 38, 40, 44], MID = [14, 18, 22], SMALL = [3, 6, 8, 12, 16, 20, 28, 32, 34, 36];
 const MOSAICS = [...BIG.map((c) => [c, 8]), ...MID.map((c) => [c, 5]), ...SMALL.map((c) => [c, 3])];
 function mosaicAt(t) {
   let n = 1;
@@ -186,6 +193,7 @@ function render(t) {
   else if (s.id === 'carmesi') sceneWorld(t, 'carmesi');
   else if (s.id === 'noche') sceneWorld(t, 'noche');
   else if (s.id === 'recuerdo') sceneRecuerdo(t);
+  else if (s.id === 'futuro') sceneFuturo(t);
   else sceneCierre(t);
   // Giro: la paleta se apaga por pasos; el sello JMV (color protegido) se vuelve a pintar encima.
   const lv = paletteLevel(t);

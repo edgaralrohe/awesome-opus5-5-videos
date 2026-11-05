@@ -131,10 +131,13 @@ for t in (30, 32, 34, 36):
     put(music, (np.sin(2 * np.pi * midi(50) * tt) + 0.5 * np.sin(2 * np.pi * midi(50) * 2.76 * tt)) * np.exp(-tt * 2.2), t, 0.12)
 # Recuerdo (38–40): arpegio ascendente en re mayor.
 arp(38, 1, MAJOR, wave='p25', gain=0.07, up=True); bass(38, 1, MAJOR, eighths=False)
-# Cierre (40–44): el motivo en mayor y acorde final.
-lead(40, 1, motif_major=True, wave='p50', gain=0.09); bass(40, 1, MAJOR); arp(40, 1, MAJOR, gain=0.05); drums(40, 1)
-for m in (62, 66, 69, 74): note(music, m, 42, 1.8, 'p25', 0.07, r=1.0)
-note(music, 50, 42, 1.8, 'tri', 0.18, r=1.0); kick(42, 0.3)
+# Lo que viene (40–44): el motivo en mayor, a medio tiempo, con esperanza.
+lead(40, 2, motif_major=True, wave='p25', gain=0.08, half=True); bass(40, 2, MAJOR, eighths=False); arp(40, 2, MAJOR, gain=0.05); drums(40, 2, half=True)
+for k in range(8): snare(43.0 + k * BEAT / 4, 0.08 + k * 0.02)          # redoble al cierre
+# Cierre (44–48): el motivo en mayor y acorde final.
+lead(44, 1, motif_major=True, wave='p50', gain=0.09); bass(44, 1, MAJOR); arp(44, 1, MAJOR, gain=0.05); drums(44, 1)
+for m in (62, 66, 69, 74): note(music, m, 46, 1.8, 'p25', 0.07, r=1.0)
+note(music, 50, 46, 1.8, 'tri', 0.18, r=1.0); kick(46, 0.3)
 
 # --- eco de 16 bits: dos tomas, realimentación 0,4 con paso bajo; estéreo cruzado ---
 def echo(x):

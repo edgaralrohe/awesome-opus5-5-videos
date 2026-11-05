@@ -1,4 +1,4 @@
-# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 44 s)
+# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 48 s)
 
 > **v2 (5 nov 2026), a petición del usuario:** la v1 (abajo, como archivo) no explicaba de qué trata el juego. Estructura elegida, de 3 actos: **la premisa, cómo se juega y los dos mundos con sus jefes**, y el cierre.
 
@@ -24,8 +24,9 @@
 | 28–30 | Golpe final y ¡JEFE VENCIDO!; la paleta se apaga en 4 pasos; casi silencio | |
 | 30–34 | Entrada (monstruos) y Salón a oscuras con farol | «MUNDO 2 · NOCHE · 2017» / «MONSTRUOS CLÁSICOS / Y SE VA LA LUZ» |
 | 34–38 | Presentación y derrota del Enmascarado | |
-| 38–40 | «RECUERDO RECUPERADO» (pantalla real) | «RUMBO A LA ARENA CDMX · 21 Y 22 MAY 2027» y su fuente |
-| 40–44 | Tarjeta final | Logotipo · JUEGA GRATIS · VIERNES 6 NOV · EN CELULAR Y COMPU · COLORESRUIDOSOS.GITHUB.IO · SECCIÓN GAMES · homenaje |
+| 38–40 | «RECUERDO RECUPERADO» (pantalla real) | «MUNDO 2 · NOCHE · 2017» (sigue) |
+| 40–44 | Museo: Pepe pasa frente a las puertas bloqueadas de los otros 6 discos | «CADA DISCO, UN MUNDO» · «EL VIERNES: MUNDOS 1 Y 2» / «UN DISCO CADA 2 SEMANAS» |
+| 44–48 | Tarjeta final | RUMBO A LA ARENA CDMX · 21 Y 22 MAY 2027 · Logotipo · JUEGA GRATIS · VIERNES 6 NOV · EN CELULAR Y COMPU · COLORESRUIDOSOS.GITHUB.IO · SECCIÓN GAMES · homenaje |
 
 ## Música (de la v1, reacomodada)
 | Tramo | Música |

@@ -1,6 +1,6 @@
 # Tráiler «México vs. José Madero» · reel 9:16
 
-44 s (guion v2: premisa, cómo se juega y dos mundos), 1080×1920, 24 fps, −14 LUFS. Estilo **16-bit Pixel RPG** (lienzo de 360×640 ×3). Todo lo que se ve del juego es juego real, grabado con bots.
+48 s (guion v2: premisa, cómo se juega, dos mundos y lo que viene), 1080×1920, 24 fps, −14 LUFS. Estilo **16-bit Pixel RPG** (lienzo de 360×640 ×3). Todo lo que se ve del juego es juego real, grabado con bots.
 
 | Paso | Comando |
 |---|---|

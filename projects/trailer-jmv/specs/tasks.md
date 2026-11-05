@@ -28,4 +28,5 @@
 - ✅ Render, revisión y máster: 44 s, `readcheck` con 31 textos en verde, 0 negros, −14,2 LUFS, pico de −0,8 dBFS tras el AAC
 
 - ✅ Encontrado al grabar: el juego no mostraba «RECUERDO RECUPERADO» (el kind lo pisaba la ficción). Arreglado en el juego, v9.3, con su test
+- ✅ Tramo «lo que viene» (40–44 s): «EL VIERNES: MUNDOS 1 Y 2» · «UN DISCO CADA 2 SEMANAS» sobre las puertas bloqueadas del Museo; 48 s, readcheck con 34 textos, 0 negros, −14,2 LUFS
 - ⏳ Verla completa con sonido (el usuario)

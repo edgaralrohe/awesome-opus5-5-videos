@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BPM, BEAT, DUR, SECS, CUTS, TEXTS_TL, SHOTS, readTime } from '../src/timeline.js';
 
-test('120 bpm, 44 s, 22 compases', () => {
-  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 44);
+test('120 bpm, 48 s, 24 compases', () => {
+  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 48);
   assert.equal(SECS.at(-1).t + SECS.at(-1).bars * 4 * BEAT, DUR);
 });
 
@@ -36,7 +36,8 @@ test('guion v2: premisa, 4 consejos de «CÓMO SE JUEGA», dos mundos y cierre',
   const tx = TEXTS_TL.map((x) => x.text);
   for (let i = 1; i <= 4; i++) assert.ok(tx.includes(`CÓMO SE JUEGA · ${i}/4`));
   for (const s of ['PEPE NO RECUERDA QUIÉN ES', 'EL MICRÓFONO GOLPEA', 'LA PRENSA TE PERSIGUE', '¡SOLO DE GUITARRA!', 'DATOS REALES CON FUENTE']) assert.ok(tx.includes(s), s);
-  assert.ok(DUR >= 40 && DUR <= 45);
+  assert.ok(DUR >= 40 && DUR <= 48);
+  for (const s of ['EL VIERNES: MUNDOS 1 Y 2', 'UN DISCO CADA 2 SEMANAS']) assert.ok(tx.includes(s), s);
 });
 
 test('las tomas cubren todo hasta el cierre, sin huecos, y el prólogo empieza en p3 (sin p1 ni p2)', () => {
