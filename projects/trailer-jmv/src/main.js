@@ -77,172 +77,102 @@ function sprite(f, x, y, k = 2) { const m = meta[f]; g.drawImage(pepe, m.x, m.y,
 // Ventana que entra deslizándose ~0,3 s desde un lado (px enteros).
 const slide = (t, t0, from) => Math.round(from * (1 - eo(seg(t, t0, t0 + 0.3))));
 
-// ---------- escenas ----------
-function sceneGancho(t) {
+// ---------- escenas (guion v2) ----------
+const GY = 132;   // pantalla de juego 1:1
+const BY = 372;   // ventana de abajo
+
+// Ventana de arriba con el sello JMV (color protegido) y un texto de la línea de tiempo.
+function topWin(t, id, skin) {
+  const q = tlText(id);
+  if (!q || t < q.t0 || t >= q.t1) return;
+  const dy = slide(t, q.t0, -60);
+  win(g, 14, 80 + dy, 332, 34, skin);
+  badge(g, 24, 91 + dy);
+  say(id, q.text, 196, 92 + dy, { k: 2, align: 'center', color: C.white });
+}
+// Ventana de abajo con 1 o 2 líneas (la segunda en dorado).
+function bottomWin(t, ids, skin, from = 340) {
+  const qs = ids.map(tlText).filter((q) => q && t >= q.t0 && t < q.t1);
+  if (!qs.length) return;
+  const x = 14 + slide(t, qs[0].t0, from);
+  win(g, x, BY, 332, qs.length > 1 ? 58 : 36, skin);
+  qs.forEach((q, i) => say(q.id, q.text, x + 166, BY + 11 + i * 22, { k: 2, align: 'center', color: i ? C.gold : C.white }));
+}
+
+function scenePremisa(t) {
   bgCarmesi();
+  const q = tlText('titulo');
   const dy = slide(t, 0, -60);
   win(g, 14, 80 + dy, 332, 34, SKINS.carmesi);
   badge(g, 24, 91 + dy);
-  say('titulo', 'MÉXICO VS. JOSÉ MADERO', 196, 92 + dy, { k: 2, rows: [C.gold, C.gold, '#ffe9a8', C.white, C.white, C.silver, C.silver] , align: 'center'});
-  gameScreen(t, 20, 132);
-  if (t >= 0.3) {
-    const by = 370 + slide(t, 0.3, 80);
-    win(g, 14, by, 332, 78, SKINS.menu);
-    portrait(24, by + 7, 2);
-    const q = tlText('dialogo');
-    const n = Math.min(q.text.length, Math.floor((t - q.t0) * 38) + 1);
-    say('dialogo', q.text, 100, by + 30, { k: 3, typed: n });
-    if (n >= q.text.length && Math.floor(t * 4) % 2 === 0) text(g, '▶', 326, by + 62, { k: 1, color: C.white });
-  }
+  say('titulo', q.text, 196, 92 + dy, { k: 2, align: 'center', rows: [C.gold, C.gold, '#ffe9a8', C.white, C.white, C.silver, C.silver] });
+  gameScreen(t, 20, GY);
+  bottomWin(t, ['cap1'], SKINS.menu, 0);
+  bottomWin(t, ['cap2'], SKINS.menu, 0);
+  bottomWin(t, ['cap3a', 'cap3b'], SKINS.menu, 0);
 }
 
-const SLOTS = [
-  { id: 's1', label: 'CARMESÍ · 2016', color: C.crimson, open: true },
-  { id: 's2', label: 'NOCHE · 2017', color: '#e8e8ee', open: true },
-  { id: 's3', label: '???' }, { id: 's3b', label: '???' }, { id: 's3c', label: '???' }, { id: 's3d', label: '???' }, { id: 's3e', label: '???' },
-  { id: 's8', label: 'ARENA CDMX', color: C.gold, goal: true },
-];
-const slotY = (i) => 128 + i * 46;
-function drawSlots(t, { hand = null, sel = -1, ids = true } = {}) {
-  SLOTS.forEach((s, i) => {
-    const y = slotY(i), on = i === sel && Math.floor(t * 8) % 2 === 0;
-    win(g, 40, y, 296, 40, on ? { ...SKINS.menu, fill0: '#2c3f9c', fill1: '#3a52c0' } : SKINS.menu);
-    text(g, String(i + 1), 52, y + 13, { k: 2, color: s.open || s.goal ? C.white : C.grey });
-    if (s.open || s.goal) { rect(g, 74, y + 10, 20, 20, C.ink); rect(g, 75, y + 11, 18, 18, s.color); if (s.goal) icon(g, 'disc', 76, y + 12, C.ink, 2, null); }
-    else icon(g, 'lock', 78, y + 13, C.grey, 2);
-    const lid = s.id.startsWith('s3') ? 's3' : s.id;
-    if (ids) say(s.id === lid ? lid : s.id, s.label, 104, y + 13, { k: 2, color: s.open ? C.white : s.goal ? C.gold : C.grey });
-    else text(g, s.label, 104, y + 13, { k: 2, color: s.open ? C.white : s.goal ? C.gold : C.grey });
-  });
-  if (hand != null) icon(g, 'hand', 14, Math.round(hand) + 13 + (Math.floor(t * 4) % 2), C.white, 2);
-}
-function sceneMenu(t) {
+function sceneJuego(t) {
   bgMenu();
-  win(g, 14, 80, 332, 40, SKINS.menu);
-  say('menu', 'ELIGE UN RECUERDO', 180, 93, { k: 2, align: 'center', color: C.white });
-  // La mano baja ranura a ranura y vuelve a la 1 (duda en la 3: se detiene, STYLE §5).
-  const path = [[4.3, 0], [4.5, 0], [5.0, 1], [5.5, 2], [6.0, 7], [6.5, 1], [6.75, 0]];
-  let hy = slotY(0);
-  for (let k = 0; k < path.length - 1; k++) { const [a, i] = path[k], [b, j] = path[k + 1]; if (t >= a) hy = slotY(i) + (slotY(j) - slotY(i)) * eo(seg(t, a, Math.min(b, a + 0.18))); }
-  if (t >= 6.75) hy = slotY(0);
-  drawSlots(t, { hand: t >= 4.3 ? hy : null, sel: t >= 7 ? 0 : -1 });
-}
-
-function itemWin(t, id, y, ic, col) {
-  const q = tlText(id);
-  if (!q || t < q.t0 || t >= q.t1) return;
-  const x = 30 + slide(t, q.t0, 340);
-  win(g, x, y, 300, 40, t < 16 ? SKINS.carmesi : SKINS.noche);
-  icon(g, ic, x + 14, y + 12, col, 2);
-  say(id, q.text, x + 46, y + 13, { k: 2, color: C.gold });
+  const n = Math.min(4, Math.floor((t - 10) / 4) + 1);
+  topWin(t, `como${n}`, SKINS.menu);
+  gameScreen(t, 20, GY);
+  bottomWin(t, [`t${n}a`, `t${n}b`], SKINS.menu);
 }
 
 function sceneWorld(t, era) {
-  const sk = SKINS[era];
-  if (era === 'carmesi') bgCarmesi(); else bgNoche(t);
-  const id = era === 'carmesi' ? 'mundo1' : 'mundo2';
-  const q = tlText(id);
-  if (t >= q.t0 && t < q.t1) {
-    const dy = slide(t, q.t0, -60);
-    win(g, 14, 80 + dy, 332, 34, sk);
-    badge(g, 24, 91 + dy);
-    say(id, q.text, 196, 92 + dy, { k: 2, align: 'center', color: C.white });
-  }
-  const sh = shake(t);
-  gameScreen(t, 20 + sh, 132);
-  itemWin(t, era === 'carmesi' ? 'item1' : 'item2', 372, era === 'carmesi' ? 'disc' : 'mask', era === 'carmesi' ? C.gold : C.white);
+  if (era === 'carmesi') bgCarmesi(); else bgNoche();
+  topWin(t, era === 'carmesi' ? 'm1' : 'm2', SKINS[era]);
+  gameScreen(t, 20 + shake(t), GY);
+  if (era === 'carmesi') bottomWin(t, ['m1b'], SKINS.carmesi);
+  else bottomWin(t, ['m2a', 'm2b'], SKINS.noche);
 }
 
-function sceneIdentidad(t) {
-  ditherV(g, 0, 0, FW, FH, '#05081c', '#16205a');
-  // Panorámica vertical de píxel entero: de los pies a la cabeza.
-  const cam = Math.round(60 * (1 - eo(seg(t, 22, 22.7))));
-  for (let x = 0; x < FW; x += 24) checker(g, x, 380 - cam, 12, 4, '#1b2a6b', '#2b3a80');
-  const f = t < 23 ? 'idle' + (Math.floor(t * 5) % 4) : 'win' + (Math.floor(t * 8) % 4);
-  sprite(f, 180, 370 - cam, 3);
-  const q = tlText('identidad');
-  win(g, 30, 108, 300, 40, SKINS.menu);
-  say('identidad', q.text, 180, 121, { k: 2, align: 'center', color: C.white });
-  const filled = t < 22.5 ? 0 : t < 22.75 ? 1 : 2;
-  for (let i = 0; i < 8; i++) {
-    const x = 40 + i * 36, y = 400;
-    rect(g, x, y, 30, 22, C.ink);
-    rect(g, x + 1, y + 1, 28, 20, i < filled ? (i === 0 ? C.crimson : '#e8e8ee') : '#1b2140');
-    if (i >= filled) text(g, '?', x + 13, y + 7, { k: 1, color: C.grey, shadow: null });
-  }
-  if (t >= 23 && t < 23.6 && Math.floor(t * 6) % 2 === 0) text(g, '+1 NIVEL', 180, 162, { k: 2, align: 'center', color: C.gold });
-  const o = tlText('otros');
-  if (t >= o.t0) {
-    const by = 430 + slide(t, o.t0, 80);
-    win(g, 14, by, 332, 78, SKINS.menu);
-    portrait(24, by + 7, 2);
-    const n = Math.min(o.text.length, Math.floor((t - o.t0) * 38) + 1);
-    say('otros', o.text, 100, by + 30, { k: 2, typed: n });
-  }
+// Bloque «RUMBO A LA ARENA», en el mismo sitio en el recuerdo y en el cierre.
+function arenaBlock(t) {
+  const x = 14 + slide(t, 38, 340);
+  win(g, x, BY, 332, 58, SKINS.menu);
+  say('arena', 'RUMBO A LA ARENA CDMX', x + 166, BY + 11, { k: 2, align: 'center', color: C.white });
+  say('fecha', '21 Y 22 MAY 2027', x + 166, BY + 33, { k: 2, align: 'center', color: C.gold });
+  say('fuente', 'FUENTES: LOS40 · GRUPO ANIMAL', 180, BY + 66, { k: 1, align: 'center', color: C.silver });
 }
-
-function arena(t, y0) {
-  // Arena dibujada por código, sin logos: techo, gradas de público y escenario con haces de luz al 50 %.
-  ditherV(g, 0, y0, FW, 210, '#04040c', '#141a46');
-  rect(g, 0, y0 + 40, FW, 4, '#2b3a80');
-  for (let row = 0; row < 7; row++) {
-    const y = y0 + 60 + row * 18, col = row % 2 ? '#26285a' : '#323a7a';
-    for (let x = -((row * 7) % 12); x < FW; x += 8) {
-      const bob = (Math.floor(t * 4 + x * 0.13 + row) % 2);
-      rect(g, x, y - bob, 6, 6, col); rect(g, x + 1, y - 2 - bob, 4, 3, col);
-      if ((x * 31 + row * 17) % 23 === 0 && Math.floor(t * 3 + x) % 2) rect(g, x + 2, y - 6 - bob, 2, 2, C.gold);
-    }
-  }
-  const sx = 180;
-  for (const [dx, c] of [[-90, '#ffe9a8'], [0, C.white], [90, '#ffe9a8']]) {
-    const sway = Math.round(Math.sin(t * 1.3 + dx) * 14);
-    for (let y = y0 + 44; y < y0 + 190; y++) { const w = Math.round((y - y0 - 44) * 0.18) + 2; g.fillStyle = c; for (let x = sx + dx + sway * (y - y0) / 190 - w; x < sx + dx + sway * (y - y0) / 190 + w; x++) if (((x | 0) + y) % 2 === 0) g.fillRect(x | 0, y, 1, 1); }
-  }
-  rect(g, 60, y0 + 186, 240, 24, C.ink); rect(g, 62, y0 + 186, 236, 4, C.crimson);
-}
-function sceneArena(t) {
-  bgMenu();
-  win(g, 14, 80, 332, 34, SKINS.menu);
-  say('proxima', 'PRÓXIMA PARADA', 180, 92, { k: 2, align: 'center', color: C.white });
-  rect(g, 17, 125, 326, 216, C.ink); rect(g, 18, 126, 324, 214, C.white); rect(g, 19, 127, 322, 212, C.ink);
-  g.save(); g.beginPath(); g.rect(20, 128, 320, 210); g.clip(); arena(t, 128); g.restore();
-  say('arena', 'ARENA CIUDAD DE MÉXICO', 180, 360, { k: 2, align: 'center', color: C.white });
-  say('fecha', '21 Y 22 MAY 2027', 180, 388, { k: 3, align: 'center', rows: [C.gold, C.gold, C.yellow, C.yellow, C.goldDark, C.goldDark, C.goldDark], outline: C.ink });
-  say('fuente', 'FUENTES: LOS40 · GRUPO ANIMAL', 180, 430, { k: 1, align: 'center', color: C.silver });
+function sceneRecuerdo(t) {
+  bgNoche();
+  gameScreen(t, 20, GY);
+  arenaBlock(t);
 }
 
 function sceneCierre(t) {
   ditherV(g, 0, 0, FW, FH, '#0a0206', '#3a0f1c');
-  const b = badge(g, 0, -99, 2); badge(g, 180 - (b.w >> 1), 92, 2);
-  // Logotipo a lo grande (el título del juego); para readcheck cuenta como un solo texto con la caja del bloque.
-  texts.push({ id: 'logo', text: 'MÉXICO VS. JOSÉ MADERO', x0: 40 * SCALE, y0: 118 * SCALE, x1: 320 * SCALE, y1: 212 * SCALE });
-  text(g, 'MÉXICO', 180, 124, { k: 4, align: 'center', rows: [C.gold, C.gold, '#ffe9a8', C.yellow, C.gold, C.goldDark, C.goldDark], outline: C.ink });
-  text(g, 'VS.', 180, 162, { k: 2, align: 'center', color: C.white, outline: C.ink });
-  text(g, 'JOSÉ MADERO', 180, 184, { k: 4, align: 'center', rows: [C.white, C.white, '#e8e8ee', C.silver, C.silver, '#6f7890', '#6f7890'], outline: C.ink });
-  sprite('idle' + (Math.floor(t * 5) % 4), 180, 318, 2);
-  if (t >= 30.5) { const x = 14 + slide(t, 30.5, 340); win(g, x, 330, 332, 34, SKINS.carmesi); say('cta', 'JUEGA GRATIS · VIERNES 6 NOV', x + 166, 342, { k: 2, align: 'center', color: C.gold }); }
-  if (t >= 31) {
-    const x = 14 + slide(t, 31, -340);
-    win(g, x, 372, 332, 52, SKINS.menu);
-    say('web', 'COLORESRUIDOSOS.GITHUB.IO', x + 166, 381, { k: 2, align: 'center', color: C.white });
-    say('seccion', 'SECCIÓN GAMES', x + 166, 401, { k: 2, align: 'center', color: C.gold });
-    say('homenaje', 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', 180, 486, { k: 1, align: 'center', color: C.silver });
+  const b = badge(g, 0, -99, 2); badge(g, 180 - (b.w >> 1), 82, 2);
+  texts.push({ id: 'logo', text: 'MÉXICO VS. JOSÉ MADERO', x0: 40 * SCALE, y0: 106 * SCALE, x1: 320 * SCALE, y1: 192 * SCALE });
+  text(g, 'MÉXICO', 180, 110, { k: 4, align: 'center', rows: [C.gold, C.gold, '#ffe9a8', C.yellow, C.gold, C.goldDark, C.goldDark], outline: C.ink });
+  text(g, 'VS.', 180, 146, { k: 2, align: 'center', color: C.white, outline: C.ink });
+  text(g, 'JOSÉ MADERO', 180, 166, { k: 4, align: 'center', rows: [C.white, C.white, '#e8e8ee', C.silver, C.silver, '#6f7890', '#6f7890'], outline: C.ink });
+  if (t >= 40.5) {
+    const x = 14 + slide(t, 40.5, 340);
+    win(g, x, 206, 332, 58, SKINS.carmesi);
+    say('cta', 'JUEGA GRATIS · VIERNES 6 NOV', x + 166, 217, { k: 2, align: 'center', color: C.gold });
+    say('dev', 'EN CELULAR Y COMPU', x + 166, 239, { k: 2, align: 'center', color: C.white });
+    const x2 = 14 + slide(t, 40.5, -340);
+    win(g, x2, 280, 332, 58, SKINS.menu);
+    say('web', 'COLORESRUIDOSOS.GITHUB.IO', x2 + 166, 291, { k: 2, align: 'center', color: C.white });
+    say('seccion', 'SECCIÓN GAMES', x2 + 166, 313, { k: 2, align: 'center', color: C.gold });
   }
-  if (t >= 32) {
-    say('start', 'PRESS START', 186, 446, { k: 2, align: 'center', color: C.white });
-    if (Math.floor(t * 2) % 2 === 0) text(g, '▶', 108, 446, { k: 2, color: C.crimson });
-  }
+  arenaBlock(t);
+  say('homenaje', 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', 180, 486, { k: 1, align: 'center', color: C.silver });
 }
 
 // ---------- transiciones ----------
-const MOSAICS = [[4, 8], [8, 8], [10, 3], [12, 3], [16, 6], [18, 3], [20, 3], [22, 6], [26, 8], [30, 6]];
+const BIG = [10, 26, 30, 38, 40], MID = [14, 18, 22], SMALL = [3, 6, 8, 12, 16, 20, 28, 32, 34, 36];
+const MOSAICS = [...BIG.map((c) => [c, 8]), ...MID.map((c) => [c, 5]), ...SMALL.map((c) => [c, 3])];
 function mosaicAt(t) {
   let n = 1;
   for (const [c, peak] of MOSAICS) { const d = Math.abs(t - c); const w = peak > 4 ? 0.25 : 0.1; if (d < w) n = Math.max(n, Math.round(1 + (peak - 1) * (1 - d / w))); }
   return n;
 }
 function paletteLevel(t) {
-  if (t < 14 || t >= 16) return 0;
+  if (t < PALETTE_STEPS[0] || t >= 30) return 0;
   return PALETTE_STEPS.filter((s) => t >= s).length;
 }
 
@@ -251,12 +181,11 @@ function render(t) {
   texts = [];
   rect(g, 0, 0, FW, FH, C.black);
   const s = secAt(t);
-  if (s.id === 'gancho') sceneGancho(t);
-  else if (s.id === 'menu') sceneMenu(t);
-  else if (s.id === 'carmesi' || s.id === 'paleta') sceneWorld(t, 'carmesi');
+  if (s.id === 'premisa') scenePremisa(t);
+  else if (s.id === 'juego') sceneJuego(t);
+  else if (s.id === 'carmesi') sceneWorld(t, 'carmesi');
   else if (s.id === 'noche') sceneWorld(t, 'noche');
-  else if (s.id === 'identidad') sceneIdentidad(t);
-  else if (s.id === 'arena') sceneArena(t);
+  else if (s.id === 'recuerdo') sceneRecuerdo(t);
   else sceneCierre(t);
   // Giro: la paleta se apaga por pasos; el sello JMV (color protegido) se vuelve a pintar encima.
   const lv = paletteLevel(t);

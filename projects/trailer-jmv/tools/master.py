@@ -1,4 +1,4 @@
-# Máster a −14 LUFS con limitador de anticipación (techo −1,5 dBFS de pico verdadero aprox., 4× sobremuestreo).
+# Máster a −14 LUFS con limitador de anticipación (techo −2,5 dBFS de pico verdadero aprox., 4× sobremuestreo).
 # Uso: python tools/master.py out/mix.wav out/master.wav
 import sys, subprocess, re
 import numpy as np, soundfile as sf
@@ -6,7 +6,10 @@ from scipy.signal import resample_poly
 from scipy.ndimage import maximum_filter1d, uniform_filter1d
 
 x, sr = sf.read(sys.argv[1]); x = x.astype(np.float64)
-CEIL = 10 ** (-1.5 / 20)
+# Paso bajo a 15 kHz: los armónicos altos de las ondas cuadradas hacen que el AAC se pase del techo (Gibbs).
+from scipy.signal import butter, sosfiltfilt
+x = sosfiltfilt(butter(8, 15000, fs=sr, output='sos'), x, axis=0)
+CEIL = 10 ** (-2.5 / 20)   # −2,5 dB: deja margen al sobreimpulso del AAC
 
 def limit(y):
     up = resample_poly(y, 4, 1, axis=0)

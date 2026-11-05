@@ -1,4 +1,49 @@
-# TREATMENT — «México vs. José Madero», tráiler (reel 9:16, 36 s)
+# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 44 s)
+
+> **v2 (5 nov 2026), a petición del usuario:** la v1 (abajo, como archivo) no explicaba de qué trata el juego. Estructura elegida, de 3 actos: **la premisa, cómo se juega y los dos mundos con sus jefes**, y el cierre.
+
+## Por qué así
+- Quien ve un reel de un juego quiere saber tres cosas: **de qué va**, **qué se hace** y **cuánto hay**.
+- La premisa se cuenta con las viñetas reales del prólogo.
+- Las mecánicas, con consejos RPG («CÓMO SE JUEGA 1/4…») sobre juego real.
+- El contenido: 2 mundos, cada uno con su estética y su jefe.
+- El sistema de partidas guardadas de la v1 se sustituye por el **pasillo real del Museo**: las 8 puertas que el jugador ve de verdad.
+
+## Guion por segundos (120 bpm; compás = 2 s)
+| t | Imagen (juego real) | Texto |
+|---|---|---|
+| 0–3 | Prólogo p3: flashes y titulares | Título arriba · «ALGO SE LE PERDIÓ» |
+| 3–6 | Prólogo p4: Pepe en el pasillo con «?» | «PEPE NO RECUERDA QUIÉN ES» |
+| 6–8 | Prólogo p5: las 8 puertas | «CADA DISCO GUARDA UNA PARTE DE ÉL» |
+| 8–10 | Museo: Pepe camina frente a las puertas (CARMESÍ y NOCHE abiertas, el resto con candado) | (sigue) |
+| 10–14 | Calle (golpes de micro) y Azoteas (gancho) | CÓMO SE JUEGA · 1/4 «EL MICRÓFONO GOLPEA / Y SE ENGANCHA» |
+| 14–18 | Azoteas (¡FOTO!) y Calle (¡EXCLUSIVA!) | 2/4 «LA PRENSA TE PERSIGUE / TITULARES Y PAPARAZZI» |
+| 18–22 | Azoteas y Salón: Ovación llena y Solo | 3/4 «LLENA LA OVACIÓN / ¡SOLO DE GUITARRA!» |
+| 22–26 | Pantalla «¿Sabías que…?» tras el jefe | 4/4 «¿SABÍAS QUE…? / DATOS REALES CON FUENTE» |
+| 26–28 | Presentación del jefe Flash-Bot | «MUNDO 1 · CARMESÍ · 2016» / «CONTRA LA PRENSA ROSA» |
+| 28–30 | Golpe final y ¡JEFE VENCIDO!; la paleta se apaga en 4 pasos; casi silencio | |
+| 30–34 | Entrada (monstruos) y Salón a oscuras con farol | «MUNDO 2 · NOCHE · 2017» / «MONSTRUOS CLÁSICOS / Y SE VA LA LUZ» |
+| 34–38 | Presentación y derrota del Enmascarado | |
+| 38–40 | «RECUERDO RECUPERADO» (pantalla real) | «RUMBO A LA ARENA CDMX · 21 Y 22 MAY 2027» y su fuente |
+| 40–44 | Tarjeta final | Logotipo · JUEGA GRATIS · VIERNES 6 NOV · EN CELULAR Y COMPU · COLORESRUIDOSOS.GITHUB.IO · SECCIÓN GAMES · homenaje |
+
+## Música (de la v1, reacomodada)
+| Tramo | Música |
+|---|---|
+| Premisa | Bajo y arpegio en re menor, sin batería: misterio |
+| Cómo se juega | Entra toda la banda en el compás 6 (10 s): energía |
+| *Carmesí* | Igual, con acentos en el jefe; pierde una capa por paso de paleta y queda en silencio de 29,75 a 30 |
+| *Noche* | Campanada grave y el motivo a medio tiempo |
+| Recuerdo | Fanfarria en re mayor |
+| Cierre | El motivo en mayor, acorde final y silencio |
+
+## Lo que no sale
+- Las viñetas p1 y p2 del prólogo.
+- Logotipos de terceros, la cara de Madero y su música.
+
+---
+
+# (Archivo) TREATMENT v1 — 36 s
 
 Estilo: **16-bit Pixel RPG** (lienzo nativo de 360×640 ×3; ver `specs/plan.md` D1). Sin voz: el texto va en cuadros de diálogo y ventanas.
 
