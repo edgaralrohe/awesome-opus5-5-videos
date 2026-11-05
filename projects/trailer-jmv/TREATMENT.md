@@ -1,4 +1,4 @@
-# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 48 s)
+# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 50 s)
 
 > **v2 (5 nov 2026), a petición del usuario:** la v1 (abajo, como archivo) no explicaba de qué trata el juego. Estructura elegida, de 3 actos: **la premisa, cómo se juega y los dos mundos con sus jefes**, y el cierre.
 
@@ -9,24 +9,21 @@
 - El contenido: 2 mundos, cada uno con su estética y su jefe.
 - El sistema de partidas guardadas de la v1 se sustituye por el **pasillo real del Museo**: las 8 puertas que el jugador ve de verdad.
 
-## Guion por segundos (120 bpm; compás = 2 s)
+## Guion por segundos (120 bpm; compás = 2 s). Revisión del 5 nov: abre con la Arena
 | t | Imagen (juego real) | Texto |
 |---|---|---|
-| 0–3 | Prólogo p3: flashes y titulares | Título arriba · «ALGO SE LE PERDIÓ» |
-| 3–6 | Prólogo p4: Pepe en el pasillo con «?» | «PEPE NO RECUERDA QUIÉN ES» |
-| 6–8 | Prólogo p5: las 8 puertas | «CADA DISCO GUARDA UNA PARTE DE ÉL» |
-| 8–10 | Museo: Pepe camina frente a las puertas (CARMESÍ y NOCHE abiertas, el resto con candado) | (sigue) |
-| 10–14 | Calle (golpes de micro) y Azoteas (gancho) | CÓMO SE JUEGA · 1/4 «EL MICRÓFONO GOLPEA / Y SE ENGANCHA» |
-| 14–18 | Azoteas (¡FOTO!) y Calle (¡EXCLUSIVA!) | 2/4 «LA PRENSA TE PERSIGUE / TITULARES Y PAPARAZZI» |
-| 18–22 | Azoteas y Salón: Ovación llena y Solo | 3/4 «LLENA LA OVACIÓN / ¡SOLO DE GUITARRA!» |
-| 22–26 | Pantalla «¿Sabías que…?» tras el jefe | 4/4 «¿SABÍAS QUE…? / DATOS REALES CON FUENTE» |
-| 26–28 | Presentación del jefe Flash-Bot | «MUNDO 1 · CARMESÍ · 2016» / «CONTRA LA PRENSA ROSA» |
-| 28–30 | Golpe final y ¡JEFE VENCIDO!; la paleta se apaga en 4 pasos; casi silencio | |
-| 30–34 | Entrada (monstruos) y Salón a oscuras con farol | «MUNDO 2 · NOCHE · 2017» / «MONSTRUOS CLÁSICOS / Y SE VA LA LUZ» |
-| 34–38 | Presentación y derrota del Enmascarado | |
-| 38–40 | «RECUERDO RECUPERADO» (pantalla real) | «MUNDO 2 · NOCHE · 2017» (sigue) |
-| 40–44 | Museo: Pepe pasa frente a las puertas bloqueadas de los otros 6 discos | «CADA DISCO, UN MUNDO» · «EL VIERNES: MUNDOS 1 Y 2» / «UN DISCO CADA 2 SEMANAS» |
-| 44–48 | Tarjeta final | RUMBO A LA ARENA CDMX · 21 Y 22 MAY 2027 · Logotipo · JUEGA GRATIS · VIERNES 6 NOV · EN CELULAR Y COMPU · COLORESRUIDOSOS.GITHUB.IO · SECCIÓN GAMES · homenaje |
+| 0–4 | Prólogo p2: la Arena por fuera con el cartel del concierto | Título arriba · «RUMBO A LA ARENA CDMX / 21 Y 22 MAY 2027» y su fuente |
+| 4–7 | Prólogo p3: flashes y titulares | «ALGO SE LE PERDIÓ» |
+| 7–10 | Prólogo p4: Pepe en el pasillo con «?» | «PEPE NO RECUERDA QUIÉN ES» |
+| 10–14 | Prólogo p5 (las 8 puertas) y el pasillo del Museo | «CADA DISCO GUARDA / UNA PARTE DE ÉL» |
+| 14–30 | Cómo se juega, del 1/4 al 4/4 (como antes) | |
+| 30–34 | Carmesí: presentación y derrota del Flash-Bot; la paleta se apaga a gris | «MUNDO 1 · CARMESÍ · 2016» / «CONTRA LA PRENSA ROSA» |
+| 34–40 | Noche: la Entrada, el Salón a oscuras y la derrota del Enmascarado (sin la presentación, para que quepa) | «MUNDO 2 · NOCHE · 2017» / «MONSTRUOS CLÁSICOS / Y SE VA LA LUZ» |
+| 40–42 | «RECUERDO RECUPERADO» | |
+| 42–46 | Museo: las puertas bloqueadas | «CADA DISCO, UN MUNDO» · «EL VIERNES: MUNDOS 1 Y 2 / UN DISCO CADA 2 SEMANAS» |
+| 46–50 | Tarjeta final | Logotipo, JUEGA GRATIS · VIERNES 6 NOV, EN CELULAR Y COMPU, web y Games, y de nuevo RUMBO A LA ARENA, que cierra el círculo |
+
+Abre y cierra con la Arena: el reel parte del concierto y vuelve a él.
 
 ## Música (de la v1, reacomodada)
 | Tramo | Música |
@@ -39,7 +36,7 @@
 | Cierre | El motivo en mayor, acorde final y silencio |
 
 ## Lo que no sale
-- Las viñetas p1 y p2 del prólogo.
+- La viñeta p1 del prólogo. La p2 sí sale, por decisión del usuario (riesgo aceptado: ver spec R1).
 - Logotipos de terceros, la cara de Madero y su música.
 
 ---

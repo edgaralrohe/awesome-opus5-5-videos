@@ -30,3 +30,10 @@
 - ✅ Encontrado al grabar: el juego no mostraba «RECUERDO RECUPERADO» (el kind lo pisaba la ficción). Arreglado en el juego, v9.3, con su test
 - ✅ Tramo «lo que viene» (40–44 s): «EL VIERNES: MUNDOS 1 Y 2» · «UN DISCO CADA 2 SEMANAS» sobre las puertas bloqueadas del Museo; 48 s, readcheck con 34 textos, 0 negros, −14,2 LUFS
 - ⏳ Verla completa con sonido (el usuario)
+
+## Fase 6 — Abrir con la Arena (petición del usuario del 5 nov)
+- ✅ Spec y tratamiento: p2 abre el reel (riesgo aceptado anotado); 50 s
+- ✅ 🔴→🟢 Tests: 25 compases, la primera toma es p2 y sin p1
+- ✅ Línea de tiempo, escenas y música recolocadas
+- ✅ Render, readcheck (37 textos en verde), 0 negros, 50 s, −14,3 LUFS y pico de −2,3 dBFS
+

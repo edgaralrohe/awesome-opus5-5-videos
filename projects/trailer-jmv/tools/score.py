@@ -113,31 +113,31 @@ def drums(t0, bars, half=False, stop=None, hats=True):
 
 S = {s['id']: s for s in tl['SECS']}
 st = tl['PALETTE_STEPS']
-# Premisa (0–10): misterio — bajo a negras y arpegio, sin batería; el motivo entra suave en el compás 4.
-bass(0, 5, MINOR, eighths=False); arp(0, 5, MINOR, gain=0.05)
-lead(6, 4, wave='p12', gain=0.06, half=True)
-for k in range(8): snare(9.0 + k * BEAT / 4, 0.06 + k * 0.02)          # redoble hacia «cómo se juega»
-# Cómo se juega (10–26): toda la banda.
-lead(10, 8); bass(10, 8, MINOR); arp(10, 8, MINOR); drums(10, 8)
-note(music, 74, 10, BAR * 8, 'p50', 0.02, 0.4)                          # pedal agudo
-# Carmesí (26–30): banda; una capa menos por paso de paleta y silencio total en S.carmesi.silence.
-lead(26, 2, stop=st[0]); arp(26, 2, MINOR, stop=st[1]); drums(26, 2, stop=st[2]); bass(26, 2, MINOR, stop=S['carmesi']['silence'])
-# Noche (30–38): el motivo a medio tiempo y más oscuro; campanada grave en cada toma.
-lead(30, 4, wave='p50', gain=0.08, oct=-12, vib=0.012, half=True)
-bass(30, 4, MINOR, eighths=False, gain=0.14)
-drums(30, 4, half=True)
-for t in (30, 32, 34, 36):
+# Premisa (0–14): la Arena (público) y misterio — bajo a negras y arpegio; el motivo entra suave en el compás 5.
+bass(0, 7, MINOR, eighths=False); arp(0, 7, MINOR, gain=0.05)
+lead(8, 6, wave='p12', gain=0.06, half=True)
+for k in range(8): snare(13.0 + k * BEAT / 4, 0.06 + k * 0.02)          # redoble hacia «cómo se juega»
+# Cómo se juega (14–30): toda la banda.
+lead(14, 8); bass(14, 8, MINOR); arp(14, 8, MINOR); drums(14, 8)
+note(music, 74, 14, BAR * 8, 'p50', 0.02, 0.4)                          # pedal agudo
+# Carmesí (30–34): banda; una capa menos por paso de paleta y silencio total en S.carmesi.silence.
+lead(30, 2, stop=st[0]); arp(30, 2, MINOR, stop=st[1]); drums(30, 2, stop=st[2]); bass(30, 2, MINOR, stop=S['carmesi']['silence'])
+# Noche (34–40): el motivo a medio tiempo y más oscuro; campanada grave en cada toma.
+lead(34, 3, wave='p50', gain=0.08, oct=-12, vib=0.012, half=True)
+bass(34, 3, MINOR, eighths=False, gain=0.14)
+drums(34, 3, half=True)
+for t in (34, 36, 38):
     n = int(1.6 * SR); tt = np.arange(n) / SR
     put(music, (np.sin(2 * np.pi * midi(50) * tt) + 0.5 * np.sin(2 * np.pi * midi(50) * 2.76 * tt)) * np.exp(-tt * 2.2), t, 0.12)
-# Recuerdo (38–40): arpegio ascendente en re mayor.
-arp(38, 1, MAJOR, wave='p25', gain=0.07, up=True); bass(38, 1, MAJOR, eighths=False)
-# Lo que viene (40–44): el motivo en mayor, a medio tiempo, con esperanza.
-lead(40, 2, motif_major=True, wave='p25', gain=0.08, half=True); bass(40, 2, MAJOR, eighths=False); arp(40, 2, MAJOR, gain=0.05); drums(40, 2, half=True)
-for k in range(8): snare(43.0 + k * BEAT / 4, 0.08 + k * 0.02)          # redoble al cierre
-# Cierre (44–48): el motivo en mayor y acorde final.
-lead(44, 1, motif_major=True, wave='p50', gain=0.09); bass(44, 1, MAJOR); arp(44, 1, MAJOR, gain=0.05); drums(44, 1)
-for m in (62, 66, 69, 74): note(music, m, 46, 1.8, 'p25', 0.07, r=1.0)
-note(music, 50, 46, 1.8, 'tri', 0.18, r=1.0); kick(46, 0.3)
+# Recuerdo (40–42): arpegio ascendente en re mayor.
+arp(40, 1, MAJOR, wave='p25', gain=0.07, up=True); bass(40, 1, MAJOR, eighths=False)
+# Lo que viene (42–46): el motivo en mayor, a medio tiempo.
+lead(42, 2, motif_major=True, wave='p25', gain=0.08, half=True); bass(42, 2, MAJOR, eighths=False); arp(42, 2, MAJOR, gain=0.05); drums(42, 2, half=True)
+for k in range(8): snare(45.0 + k * BEAT / 4, 0.08 + k * 0.02)
+# Cierre (46–50): el motivo en mayor y acorde final.
+lead(46, 1, motif_major=True, wave='p50', gain=0.09); bass(46, 1, MAJOR); arp(46, 1, MAJOR, gain=0.05); drums(46, 1)
+for m in (62, 66, 69, 74): note(music, m, 48, 1.8, 'p25', 0.07, r=1.0)
+note(music, 50, 48, 1.8, 'tri', 0.18, r=1.0); kick(48, 0.3)
 
 # --- eco de 16 bits: dos tomas, realimentación 0,4 con paso bajo; estéreo cruzado ---
 def echo(x):
@@ -157,7 +157,7 @@ music = echo(music)
 # Silencio de verdad (también el eco): 15,5–16,0 y desde las 33,9.
 def mute(a, b, buf):
     i, j = int(a * SR), min(N, int(b * SR)); buf[i:j] = 0
-mute(S['carmesi']['silence'], 30.0, music); mute(DUR - 0.1, DUR, music)
+mute(S['carmesi']['silence'], S['noche']['t'], music); mute(DUR - 0.1, DUR, music)
 
 # --- foley desde los eventos ---
 def blip(t, p=2):
@@ -195,14 +195,14 @@ for e in tl['EV']:
     elif ty == 'select': select(t)
     elif ty == 'mosaic': swoosh(t)
     elif ty == 'bitdrop': bitdrop(t, nb); nb += 1
-    elif ty == 'fanfare': fanfare(t, major=t < 30)
+    elif ty == 'fanfare': fanfare(t, major=t < S['noche']['t'])
     elif ty == 'levelup': fanfare(t, True); fanfare(t + 0.4, True)
     elif ty == 'tick': tick(t)
     elif ty == 'start': select(t)
-    elif ty == 'wind': wind(t, 8.0)
+    elif ty == 'wind': wind(t, 6.0)
     elif ty == 'crowd': crowd(t)
 for t in tl.get('HITS', []): hit(t)
-mute(S['carmesi']['silence'], 30.0, fx); mute(DUR - 0.1, DUR, fx)
+mute(S['carmesi']['silence'], S['noche']['t'], fx); mute(DUR - 0.1, DUR, fx)
 
 mix = music * 0.9 + fx
 mix /= max(1e-9, np.abs(mix).max()) / 0.7

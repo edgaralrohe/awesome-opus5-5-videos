@@ -17,5 +17,5 @@ cd "$LIB"
 node core/render/video.mjs "$HERE" --fps 24 --size 1080x1920 --workers 4 --out "$HERE/out/video.mp4"
 cd "$HERE"
 sh tools/master.sh out/video.mp4 out/mix.wav trailer-jmv.mp4
-ffmpeg -y -loglevel error -ss 46 -i trailer-jmv.mp4 -frames:v 1 -q:v 2 poster.jpg
+ffmpeg -y -loglevel error -ss 48 -i trailer-jmv.mp4 -frames:v 1 -q:v 2 poster.jpg
 echo "listo: $HERE/trailer-jmv.mp4"

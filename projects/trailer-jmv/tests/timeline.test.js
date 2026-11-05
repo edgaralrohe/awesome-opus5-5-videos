@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BPM, BEAT, DUR, SECS, CUTS, TEXTS_TL, SHOTS, readTime } from '../src/timeline.js';
 
-test('120 bpm, 48 s, 24 compases', () => {
-  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 48);
+test('120 bpm, 50 s, 25 compases', () => {
+  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 50);
   assert.equal(SECS.at(-1).t + SECS.at(-1).bars * 4 * BEAT, DUR);
 });
 
@@ -36,13 +36,14 @@ test('guion v2: premisa, 4 consejos de «CÓMO SE JUEGA», dos mundos y cierre',
   const tx = TEXTS_TL.map((x) => x.text);
   for (let i = 1; i <= 4; i++) assert.ok(tx.includes(`CÓMO SE JUEGA · ${i}/4`));
   for (const s of ['PEPE NO RECUERDA QUIÉN ES', 'EL MICRÓFONO GOLPEA', 'LA PRENSA TE PERSIGUE', '¡SOLO DE GUITARRA!', 'DATOS REALES CON FUENTE']) assert.ok(tx.includes(s), s);
-  assert.ok(DUR >= 40 && DUR <= 48);
+  assert.ok(DUR >= 40 && DUR <= 50);
   for (const s of ['EL VIERNES: MUNDOS 1 Y 2', 'UN DISCO CADA 2 SEMANAS']) assert.ok(tx.includes(s), s);
 });
 
-test('las tomas cubren todo hasta el cierre, sin huecos, y el prólogo empieza en p3 (sin p1 ni p2)', () => {
+test('las tomas cubren todo hasta el cierre, sin huecos; abre con p2 (la Arena) y sin p1', () => {
   let t = 0;
   for (const s of SHOTS) { assert.equal(s.t0, t, `${s.clip}@${s.t0}`); t = s.t1; }
   assert.equal(t, SECS.find((s) => s.id === 'cierre').t);
-  for (const s of SHOTS.filter((s) => s.clip === 'prologo')) assert.ok(s.from >= 144, 'p1 y p2 del prólogo no salen');
+  assert.equal(SHOTS[0].clip, 'prologo'); assert.ok(SHOTS[0].from >= 72 && SHOTS[0].from < 144, 'la primera toma es p2');
+  for (const s of SHOTS.filter((s) => s.clip === 'prologo')) { assert.ok(s.from >= 72, 'p1 no sale'); const end = s.from + Math.ceil(((s.freeze ?? s.t1) - s.t0) * 24) - 1; /* último fotograma que se dibuja */ assert.ok(Math.floor(end / 72) === Math.floor(s.from / 72), `${s.from}: la toma no se pasa a la viñeta siguiente`); }
 });
