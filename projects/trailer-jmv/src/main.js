@@ -48,7 +48,11 @@ function gameScreen(t, x, y) {
   const i = s.from + Math.floor((tt - s.t0) * 24 + 1e-6);
   const im = frames[key(s.clip, i)] || frames[key(s.clip, i - 1)];
   rect(g, x - 3, y - 3, 326, 230, C.ink); rect(g, x - 2, y - 2, 324, 228, C.white); rect(g, x - 1, y - 1, 322, 226, C.ink);
-  if (im) g.drawImage(im, x, y);
+  if (!im) return;
+  if (s.crop) {   // solo el dibujo de la viñeta, centrado en el marco
+    rect(g, x, y, 320, 224, '#0a0610');
+    g.drawImage(im, 0, 0, 320, s.crop, x, y + ((224 - s.crop) >> 1), 320, s.crop);
+  } else g.drawImage(im, x, y);
 }
 
 // Sacudida 3-2-1 px en 8 fotogramas (STYLE §5) a partir de los golpes marcados.
@@ -95,8 +99,8 @@ function bottomWin(t, ids, skin, from = 340) {
   const qs = ids.map(tlText).filter((q) => q && t >= q.t0 && t < q.t1);
   if (!qs.length) return;
   const x = 14 + slide(t, qs[0].t0, from);
-  win(g, x, BY, 332, qs.length > 1 ? 58 : 36, skin);
-  qs.forEach((q, i) => say(q.id, q.text, x + 166, BY + 11 + i * 22, { k: 2, align: 'center', color: i ? C.gold : C.white }));
+  win(g, x, BY, 332, 14 + qs.length * 22, skin);
+  qs.forEach((q, i) => say(q.id, q.text, x + 166, BY + 11 + i * 22, { k: 2, align: 'center', color: i && i === qs.length - 1 ? C.gold : C.white }));
 }
 
 function scenePremisa(t) {
@@ -109,9 +113,9 @@ function scenePremisa(t) {
   gameScreen(t, 20, GY);
   bottomWin(t, ['cap0a', 'cap0b'], SKINS.menu, 0);
   if (visible('fuente0', t)) say('fuente0', 'FUENTES: LOS40 · GRUPO ANIMAL', 180, BY + 66, { k: 1, align: 'center', color: C.silver });
-  bottomWin(t, ['cap1'], SKINS.menu, 0);
-  bottomWin(t, ['cap2'], SKINS.menu, 0);
-  bottomWin(t, ['cap3a', 'cap3b'], SKINS.menu, 0);
+  bottomWin(t, ['cap1a', 'cap1b'], SKINS.menu, 0);
+  bottomWin(t, ['cap2a', 'cap2b'], SKINS.menu, 0);
+  bottomWin(t, ['cap3a', 'cap3b', 'cap3c'], SKINS.menu, 0);
 }
 
 function sceneJuego(t) {

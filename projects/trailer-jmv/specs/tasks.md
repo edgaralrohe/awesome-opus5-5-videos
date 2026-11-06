@@ -37,3 +37,10 @@
 - ✅ Línea de tiempo, escenas y música recolocadas
 - ✅ Render, readcheck (37 textos en verde), 0 negros, 50 s, −14,3 LUFS y pico de −2,3 dBFS
 
+## Fase 7 — Premisa coherente (6 nov, petición del usuario)
+- ✅ Spec y tratamiento: solo el dibujo de las viñetas y narración en cadena con la Arena como plazo
+- ✅ 🔴→🟢 Tests: sin «ESA NOCHE», la Arena abre y es el plazo, viñetas recortadas a 151 px
+- ✅ Recorte en `gameScreen` y textos nuevos
+- ✅ Render y revisión: readcheck con 40 textos en verde, 0 negros, 50 s, −14,3 LUFS
+
+- ⏳ Verla completa con sonido (el usuario)

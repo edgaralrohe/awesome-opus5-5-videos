@@ -16,11 +16,15 @@ Un reel de 50 s que anuncia que el juego **México vs. José Madero** (homenaje 
 ## 3. Funcionalidades (guion v2, 5 nov 2026)
 > **Cambio del usuario:** la v1 contaba la historia pero no explicaba de qué trata el juego. La v2 va en 3 actos: la premisa, cómo se juega y los dos mundos, más lo que viene. Dura 50 s.
 
-- **R1 Premisa (0–14 s):** viñetas **reales** del prólogo del juego, con el título arriba.
-  - **Abre con p2, la Arena por fuera con el cartel del concierto** (decisión del usuario del 5 nov 2026), con «RUMBO A LA ARENA CDMX / 21 Y 22 MAY 2027» y su fuente.
-  - Siguen p3, «ALGO SE LE PERDIÓ»; p4, «PEPE NO RECUERDA QUIÉN ES»; y p5 con el pasillo del Museo, «CADA DISCO GUARDA UNA PARTE DE ÉL».
-  - No sale p1, que nombra el estadio.
-  - ⚠️ **Riesgo aceptado por el usuario, ahora también fuera del juego:** el cartel de p2 lleva la cara realista de José Madero, «MADERO», «Querido José Tour» y el logotipo de la Arena CDMX. Hay que revisarlo con el equipo de Madero antes de una publicación oficial.
+- **R1 Premisa (0–14 s), contada en cadena (revisión del 6 nov 2026, a petición del usuario: «tiene que ser coherente»):**
+  - De las viñetas del prólogo se muestra **solo el dibujo** (filas 0–150): su texto propio dependía de la viñeta p1 («esa noche» = la del estadio) y, sin p1, no tenía sentido.
+  - La narración es solo la del tráiler, y cada frase lleva a la siguiente:
+    1. **p2, la Arena:** «SU PRÓXIMO CONCIERTO:» / «ARENA CDMX · 21 Y 22 MAY 2027» y su fuente.
+    2. **p3, flashes:** «PERO ALGO SE LE PERDIÓ» / «ENTRE FLASHES Y TITULARES».
+    3. **p4, el museo:** «DESPIERTA EN UN MUSEO» / «SIN SABER QUIÉN ES».
+    4. **p5 y el pasillo:** «CADA DISCO GUARDA» / «UNA PARTE DE ÉL.» / «RECUPÉRALAS ANTES DE LA ARENA».
+  - La Arena es el **plazo** de la historia (como en p5 del juego: «antes del concierto»), y el cierre «RUMBO A LA ARENA» lo remata.
+  - No sale p1. ⚠️ El cartel de p2 (la cara de Madero y el logo de la Arena) es un riesgo aceptado por el usuario: hay que revisarlo con su equipo antes de una publicación oficial.
 - **R2 Cómo se juega (14–30 s):** ventana «CÓMO SE JUEGA» y 4 consejos numerados, de 4 s cada uno, sobre juego real:
   1. «EL MICRÓFONO GOLPEA / Y SE ENGANCHA»;
   2. «LA PRENSA TE PERSIGUE / TITULARES Y PAPARAZZI»;

@@ -16,10 +16,11 @@ export const DUR = SECS.at(-1).t + SECS.at(-1).bars * BAR;
 
 // Tomas del juego real (out/clips/<id>, 24 fps): fotograma de arranque.
 export const SHOTS = [
-  { clip: 'prologo', t0: 0, t1: 4, from: 72, freeze: 2.95 }, // p2: la Arena por fuera (se sostiene antes de pasar a p3)
-  { clip: 'prologo', t0: 4, t1: 7, from: 144 },       // p3: flashes y titulares
-  { clip: 'prologo', t0: 7, t1: 10, from: 216 },      // p4: no recuerda quién es
-  { clip: 'prologo', t0: 10, t1: 12, from: 288 },     // p5: las 8 puertas
+  // Prólogo: solo el dibujo (crop = filas 0–150); su texto propio dependía de la viñeta p1, que no sale.
+  { clip: 'prologo', t0: 0, t1: 4, from: 72, freeze: 2.95, crop: 151 }, // p2: la Arena por fuera
+  { clip: 'prologo', t0: 4, t1: 7, from: 144, crop: 151 },  // p3: flashes y titulares
+  { clip: 'prologo', t0: 7, t1: 10, from: 216, crop: 151 }, // p4: despierta en el museo
+  { clip: 'prologo', t0: 10, t1: 12, from: 288, crop: 151 }, // p5: las 8 puertas
   { clip: 'museo', t0: 12, t1: 14, from: 0 },         // el pasillo real
   { clip: 'calle', t0: 14, t1: 16, from: 60 },        // golpes de micrófono
   { clip: 'azoteas', t0: 16, t1: 18, from: 196 },     // gancho
@@ -44,13 +45,17 @@ export const PALETTE_STEPS = [33.0, 33.25, 33.5, 33.75];
 // Todo texto en pantalla (sin máquina de escribir en el v2: cada texto entra completo).
 export const TEXTS_TL = [
   { id: 'titulo', t0: 0, t1: 14, text: 'MÉXICO VS. JOSÉ MADERO' },
-  { id: 'cap0a', t0: 0, t1: 4, text: 'RUMBO A LA ARENA CDMX' },
-  { id: 'cap0b', t0: 0, t1: 4, text: '21 Y 22 MAY 2027' },
+  // Premisa en cadena: concierto → pérdida → museo → misión con plazo.
+  { id: 'cap0a', t0: 0, t1: 4, text: 'SU PRÓXIMO CONCIERTO:' },
+  { id: 'cap0b', t0: 0, t1: 4, text: 'ARENA CDMX · 21 Y 22 MAY 2027' },
   { id: 'fuente0', t0: 0, t1: 4, text: 'FUENTES: LOS40 · GRUPO ANIMAL' },
-  { id: 'cap1', t0: 4, t1: 7, text: 'ALGO SE LE PERDIÓ' },
-  { id: 'cap2', t0: 7, t1: 10, text: 'PEPE NO RECUERDA QUIÉN ES' },
+  { id: 'cap1a', t0: 4, t1: 7, text: 'PERO ALGO SE LE PERDIÓ' },
+  { id: 'cap1b', t0: 4, t1: 7, text: 'ENTRE FLASHES Y TITULARES' },
+  { id: 'cap2a', t0: 7, t1: 10, text: 'DESPIERTA EN UN MUSEO' },
+  { id: 'cap2b', t0: 7, t1: 10, text: 'SIN SABER QUIÉN ES' },
   { id: 'cap3a', t0: 10, t1: 14, text: 'CADA DISCO GUARDA' },
-  { id: 'cap3b', t0: 10, t1: 14, text: 'UNA PARTE DE ÉL' },
+  { id: 'cap3b', t0: 10, t1: 14, text: 'UNA PARTE DE ÉL.' },
+  { id: 'cap3c', t0: 10, t1: 14, text: 'RECUPÉRALAS ANTES DE LA ARENA' },
   { id: 'como1', t0: 14, t1: 18, text: 'CÓMO SE JUEGA · 1/4' },
   { id: 't1a', t0: 14, t1: 18, text: 'EL MICRÓFONO GOLPEA' },
   { id: 't1b', t0: 14, t1: 18, text: 'Y SE ENGANCHA' },
