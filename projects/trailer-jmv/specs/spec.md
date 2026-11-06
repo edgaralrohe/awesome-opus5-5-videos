@@ -3,7 +3,7 @@
 > Metodología SDD (Dominicode). Estilo de la librería Lemo-Opuscar: **16-bit Pixel RPG** (`styles/pixel-rpg/STYLE.md`), adaptado a vertical.
 
 ## 1. Visión
-Un reel de 50 s que anuncia que el juego **México vs. José Madero** (homenaje no oficial de Colores Ruidosos) se puede jugar gratis desde el **viernes 6 de noviembre de 2026** en la web de CR, sección **Games**. Trae los dos primeros discos solistas de José Madero, *Carmesí* (2016) y *Noche* (2017), rumbo a sus conciertos en la Arena Ciudad de México (21 y 22 de mayo de 2027).
+Un reel de 48 s que anuncia que el juego **México vs. José Madero** (homenaje no oficial de Colores Ruidosos) se puede jugar gratis desde el **viernes 6 de noviembre de 2026** en la web de CR, sección **Games**. Trae los dos primeros discos solistas de José Madero, *Carmesí* (2016) y *Noche* (2017), rumbo a sus conciertos en la Arena Ciudad de México (21 y 22 de mayo de 2027).
 
 **Promesa honesta:** todo lo que se ve del juego es **juego real**, grabado del código del juego con bots. Nada de escenas que el juego no tenga: el VS en la Arena aún no existe, así que la Arena sale como **destino**, no como nivel.
 
@@ -14,17 +14,16 @@ Un reel de 50 s que anuncia que el juego **México vs. José Madero** (homenaje 
 - **Seguidores de @coloresruidosos**, que ya conocen la trivia de la web.
 
 ## 3. Funcionalidades (guion v2, 5 nov 2026)
-> **Cambio del usuario:** la v1 contaba la historia pero no explicaba de qué trata el juego. La v2 va en 3 actos: la premisa, cómo se juega y los dos mundos, más lo que viene. Dura 50 s.
+> **Cambio del usuario:** la v1 contaba la historia pero no explicaba de qué trata el juego. La v2 va en 3 actos: la premisa, cómo se juega y los dos mundos, más lo que viene. Dura 48 s.
 
-- **R1 Premisa (0–14 s), contada en cadena (revisión del 6 nov 2026, a petición del usuario: «tiene que ser coherente»):**
+- **R1 Premisa (0–12 s), contada en cadena (revisión del 6 nov 2026, a petición del usuario: «tiene que ser coherente»):**
   - De las viñetas del prólogo se muestra **solo el dibujo** (filas 0–150): su texto propio dependía de la viñeta p1 («esa noche» = la del estadio) y, sin p1, no tenía sentido.
   - La narración es solo la del tráiler, y cada frase lleva a la siguiente:
-    1. **p2, la Arena:** «SU PRÓXIMO CONCIERTO:» / «ARENA CDMX · 21 Y 22 MAY 2027» y su fuente.
-    2. **p3, flashes:** «PERO ALGO SE LE PERDIÓ» / «ENTRE FLASHES Y TITULARES».
-    3. **p4, el museo:** «DESPIERTA EN UN MUSEO» / «SIN SABER QUIÉN ES».
-    4. **p5 y el pasillo:** «CADA DISCO GUARDA» / «UNA PARTE DE ÉL.» / «RECUPÉRALAS ANTES DE LA ARENA».
+    1. **p2, la Arena (0–4 s):** «SU PRÓXIMO CONCIERTO:» / «ARENA CDMX · 21 Y 22 MAY 2027» y su fuente.
+    2. **p4, el museo (4–8 s):** «PERO DESPIERTA EN UN MUSEO» / «SIN SABER QUIÉN ES».
+    3. **p5 y el pasillo (8–12 s):** «CADA DISCO GUARDA» / «UNA PARTE DE ÉL.» / «RECUPÉRALAS ANTES DE LA ARENA».
   - La Arena es el **plazo** de la historia (como en p5 del juego: «antes del concierto»), y el cierre «RUMBO A LA ARENA» lo remata.
-  - No sale p1. ⚠️ El cartel de p2 (la cara de Madero y el logo de la Arena) es un riesgo aceptado por el usuario: hay que revisarlo con su equipo antes de una publicación oficial.
+  - No salen p1 ni p3 (flashes y titulares, quitada por el usuario el 6 nov). ⚠️ El cartel de p2 (la cara de Madero y el logo de la Arena) es un riesgo aceptado por el usuario: hay que revisarlo con su equipo antes de una publicación oficial.
 - **R2 Cómo se juega (14–30 s):** ventana «CÓMO SE JUEGA» y 4 consejos numerados, de 4 s cada uno, sobre juego real:
   1. «EL MICRÓFONO GOLPEA / Y SE ENGANCHA»;
   2. «LA PRENSA TE PERSIGUE / TITULARES Y PAPARAZZI»;

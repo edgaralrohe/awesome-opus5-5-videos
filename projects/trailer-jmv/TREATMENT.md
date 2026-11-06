@@ -1,4 +1,4 @@
-# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 50 s)
+# TREATMENT v2 — «México vs. José Madero», tráiler (reel 9:16, 48 s)
 
 > **v2 (5 nov 2026), a petición del usuario:** la v1 (abajo, como archivo) no explicaba de qué trata el juego. Estructura elegida, de 3 actos: **la premisa, cómo se juega y los dos mundos con sus jefes**, y el cierre.
 
@@ -13,9 +13,8 @@
 | t | Imagen (juego real) | Texto |
 |---|---|---|
 | 0–4 | Dibujo de p2: la Arena por fuera con el cartel del concierto | Título arriba · «SU PRÓXIMO CONCIERTO: / ARENA CDMX · 21 Y 22 MAY 2027» y su fuente |
-| 4–7 | Dibujo de p3: flashes y titulares | «PERO ALGO SE LE PERDIÓ / ENTRE FLASHES Y TITULARES» |
-| 7–10 | Dibujo de p4: Pepe en el pasillo con «?» | «DESPIERTA EN UN MUSEO / SIN SABER QUIÉN ES» |
-| 10–14 | Dibujo de p5 (las 8 puertas) y el pasillo del Museo | «CADA DISCO GUARDA / UNA PARTE DE ÉL. / RECUPÉRALAS ANTES DE LA ARENA» |
+| 4–8 | Dibujo de p4: Pepe en el pasillo con «?» | «PERO DESPIERTA EN UN MUSEO / SIN SABER QUIÉN ES» |
+| 8–12 | Dibujo de p5 (las 8 puertas) y el pasillo del Museo | «CADA DISCO GUARDA / UNA PARTE DE ÉL. / RECUPÉRALAS ANTES DE LA ARENA» |
 | 14–30 | Cómo se juega, del 1/4 al 4/4 (como antes) | |
 | 30–34 | Carmesí: presentación y derrota del Flash-Bot; la paleta se apaga a gris | «MUNDO 1 · CARMESÍ · 2016» / «CONTRA LA PRENSA ROSA» |
 | 34–40 | Noche: la Entrada, el Salón a oscuras y la derrota del Enmascarado (sin la presentación, para que quepa) | «MUNDO 2 · NOCHE · 2017» / «MONSTRUOS CLÁSICOS / Y SE VA LA LUZ» |
@@ -23,7 +22,7 @@
 | 42–46 | Museo: las puertas bloqueadas | «CADA DISCO, UN MUNDO» · «EL VIERNES: MUNDOS 1 Y 2 / UN DISCO CADA 2 SEMANAS» |
 | 46–50 | Tarjeta final | Logotipo, JUEGA GRATIS · VIERNES 6 NOV, EN CELULAR Y COMPU, web y Games, y de nuevo RUMBO A LA ARENA, que cierra el círculo |
 
-Abre y cierra con la Arena, y la Arena es el plazo de la historia: el concierto se acerca → pero algo se perdió → Pepe no sabe quién es → cada disco es una parte de él → hay que recuperarlas antes de la Arena. De las viñetas del prólogo solo se ve el dibujo: su texto («esa noche…») venía de la viñeta 1, que no sale.
+Abre y cierra con la Arena, y la Arena es el plazo de la historia: el concierto se acerca → pero Pepe despierta en un museo sin saber quién es → cada disco es una parte de él → hay que recuperarlas antes de la Arena. De las viñetas del prólogo solo se ve el dibujo: su texto («esa noche…») venía de la viñeta 1, que no sale.
 
 ## Música (de la v1, reacomodada)
 | Tramo | Música |
@@ -131,3 +130,5 @@ El sonido hace de transición: J-cut del viento de *Noche* a las 15,8, antes de 
 - **Cuadro de diálogo** en el cuarto inferior de la zona segura, con un retrato de Pepe de 32×32 sacado del arte oficial de CR que usa el juego.
 - **Ventana de sistema** fina arriba, dentro de la zona segura.
 - Cada texto se mantiene ≥ letras ÷ 15 + 1,5 s; `readcheck` lo verifica.
+
+> Revisión del 6 nov: fuera la viñeta de flashes y titulares (p3). Todo lo que va después de la premisa empieza 2 s antes (cómo se juega en 12–28, Carmesí en 28–32, Noche en 32–38, recuerdo en 38–40, lo que viene en 40–44 y cierre en 44–48).

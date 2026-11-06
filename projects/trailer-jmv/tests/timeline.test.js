@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BPM, BEAT, DUR, SECS, CUTS, TEXTS_TL, SHOTS, readTime } from '../src/timeline.js';
 
-test('120 bpm, 50 s, 25 compases', () => {
-  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 50);
+test('120 bpm, 48 s, 24 compases', () => {
+  assert.equal(BPM, 120); assert.equal(BEAT, 0.5); assert.equal(DUR, 48);
   assert.equal(SECS.at(-1).t + SECS.at(-1).bars * 4 * BEAT, DUR);
 });
 
@@ -48,12 +48,13 @@ test('las tomas cubren todo hasta el cierre, sin huecos; abre con p2 (la Arena) 
   for (const s of SHOTS.filter((s) => s.clip === 'prologo')) { assert.ok(s.from >= 72, 'p1 no sale'); const end = s.from + Math.ceil(((s.freeze ?? s.t1) - s.t0) * 24) - 1; /* último fotograma que se dibuja */ assert.ok(Math.floor(end / 72) === Math.floor(s.from / 72), `${s.from}: la toma no se pasa a la viñeta siguiente`); }
 });
 
-test('la premisa se cuenta en cadena: la Arena abre, es el plazo y nada dice «esa noche»', () => {
-  const pre = TEXTS_TL.filter((x) => x.t1 <= 14 && x.id !== 'titulo');
+test('la premisa se cuenta en cadena: la Arena abre, es el plazo, sin «esa noche» ni flashes y titulares', () => {
+  const pre = TEXTS_TL.filter((x) => x.t1 <= 12 && x.id !== 'titulo');
   const first = pre.filter((x) => x.t0 === 0).map((x) => x.text).join(' ');
   assert.match(first, /PRÓXIMO CONCIERTO/); assert.match(first, /ARENA/);
   assert.ok(pre.some((x) => /RECUPÉRALAS ANTES DE LA ARENA/.test(x.text)), 'la misión tiene plazo: la Arena');
-  for (const x of TEXTS_TL) assert.doesNotMatch(x.text, /ESA NOCHE/);
+  for (const x of pre) assert.doesNotMatch(x.text, /ESA NOCHE|FLASHES|TITULARES/);
+  assert.ok(!SHOTS.some((s) => s.clip === 'prologo' && s.from >= 144 && s.from < 216), 'sin la viñeta de flashes y titulares (p3)');
   // Las viñetas del prólogo se muestran sin su texto propio (que dependía de p1).
   for (const s of SHOTS.filter((s) => s.clip === 'prologo')) assert.equal(s.crop, 151, `prólogo @${s.t0} recortado`);
 });

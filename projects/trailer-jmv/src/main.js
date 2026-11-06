@@ -113,14 +113,13 @@ function scenePremisa(t) {
   gameScreen(t, 20, GY);
   bottomWin(t, ['cap0a', 'cap0b'], SKINS.menu, 0);
   if (visible('fuente0', t)) say('fuente0', 'FUENTES: LOS40 · GRUPO ANIMAL', 180, BY + 66, { k: 1, align: 'center', color: C.silver });
-  bottomWin(t, ['cap1a', 'cap1b'], SKINS.menu, 0);
   bottomWin(t, ['cap2a', 'cap2b'], SKINS.menu, 0);
   bottomWin(t, ['cap3a', 'cap3b', 'cap3c'], SKINS.menu, 0);
 }
 
 function sceneJuego(t) {
   bgMenu();
-  const n = Math.min(4, Math.floor((t - 14) / 4) + 1);
+  const n = Math.min(4, Math.floor((t - 12) / 4) + 1);
   topWin(t, `como${n}`, SKINS.menu);
   gameScreen(t, 20, GY);
   bottomWin(t, [`t${n}a`, `t${n}b`], SKINS.menu);
@@ -136,7 +135,7 @@ function sceneWorld(t, era) {
 
 // Bloque «RUMBO A LA ARENA», en el mismo sitio en el recuerdo y en el cierre.
 function arenaBlock(t) {
-  const x = 14 + slide(t, 46, 340);
+  const x = 14 + slide(t, 44, 340);
   win(g, x, BY, 332, 58, SKINS.menu);
   say('arena', 'RUMBO A LA ARENA CDMX', x + 166, BY + 11, { k: 2, align: 'center', color: C.white });
   say('fecha', '21 Y 22 MAY 2027', x + 166, BY + 33, { k: 2, align: 'center', color: C.gold });
@@ -162,12 +161,12 @@ function sceneCierre(t) {
   text(g, 'MÉXICO', 180, 110, { k: 4, align: 'center', rows: [C.gold, C.gold, '#ffe9a8', C.yellow, C.gold, C.goldDark, C.goldDark], outline: C.ink });
   text(g, 'VS.', 180, 146, { k: 2, align: 'center', color: C.white, outline: C.ink });
   text(g, 'JOSÉ MADERO', 180, 166, { k: 4, align: 'center', rows: [C.white, C.white, '#e8e8ee', C.silver, C.silver, '#6f7890', '#6f7890'], outline: C.ink });
-  if (t >= 46.5) {
-    const x = 14 + slide(t, 46.5, 340);
+  if (t >= 44.5) {
+    const x = 14 + slide(t, 44.5, 340);
     win(g, x, 206, 332, 58, SKINS.carmesi);
     say('cta', 'JUEGA GRATIS · VIERNES 6 NOV', x + 166, 217, { k: 2, align: 'center', color: C.gold });
     say('dev', 'EN CELULAR Y COMPU', x + 166, 239, { k: 2, align: 'center', color: C.white });
-    const x2 = 14 + slide(t, 46.5, -340);
+    const x2 = 14 + slide(t, 44.5, -340);
     win(g, x2, 280, 332, 58, SKINS.menu);
     say('web', 'COLORESRUIDOSOS.GITHUB.IO', x2 + 166, 291, { k: 2, align: 'center', color: C.white });
     say('seccion', 'SECCIÓN GAMES', x2 + 166, 313, { k: 2, align: 'center', color: C.gold });
@@ -177,7 +176,7 @@ function sceneCierre(t) {
 }
 
 // ---------- transiciones ----------
-const BIG = [14, 30, 34, 40, 42, 46], MID = [18, 22, 26], SMALL = [4, 7, 10, 12, 16, 20, 24, 32, 36, 38];
+const BIG = [12, 28, 32, 38, 40, 44], MID = [16, 20, 24], SMALL = [4, 8, 10, 14, 18, 22, 30, 34, 36];
 const MOSAICS = [...BIG.map((c) => [c, 8]), ...MID.map((c) => [c, 5]), ...SMALL.map((c) => [c, 3])];
 function mosaicAt(t) {
   let n = 1;
@@ -185,7 +184,7 @@ function mosaicAt(t) {
   return n;
 }
 function paletteLevel(t) {
-  if (t < PALETTE_STEPS[0] || t >= 34) return 0;
+  if (t < PALETTE_STEPS[0] || t >= 32) return 0;
   return PALETTE_STEPS.filter((s) => t >= s).length;
 }
 

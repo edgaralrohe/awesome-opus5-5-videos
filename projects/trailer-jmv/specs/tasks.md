@@ -44,3 +44,9 @@
 - ✅ Render y revisión: readcheck con 40 textos en verde, 0 negros, 50 s, −14,3 LUFS
 
 - ⏳ Verla completa con sonido (el usuario)
+
+## Fase 8 — Sin flashes y titulares (6 nov, petición del usuario)
+- ✅ Spec y tests en rojo
+- ✅ Línea de tiempo, escenas y música 2 s antes; render: 48 s, readcheck con 38 textos en verde, 0 negros, −14,1 LUFS
+- ⏳ Verla completa con sonido (el usuario)
+
