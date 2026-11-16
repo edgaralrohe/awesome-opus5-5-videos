@@ -1,0 +1,15 @@
+{
+  "name": "checkpass-pro-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/unit.test.mjs",
+    "test:render": "node --test tests/render.test.mjs",
+    "test:output": "node --test tests/output.test.mjs",
+    "render": "node scripts/render.mjs"
+  },
+  "dependencies": {
+    "@fontsource/playfair-display": "5.3.0",
+    "@fontsource/plus-jakarta-sans": "5.3.0"
+  }
+}
